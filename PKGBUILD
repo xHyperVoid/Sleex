@@ -9,7 +9,7 @@ depends=(
 	"illogical-impulse-backlight"
 	"illogical-impulse-basic"
 	"illogical-impulse-bibata-modern-classic-bin"
-	"illogical-impulse-font-themes"
+	"illogical-impulse-fonts-themes"
 	"illogical-impulse-gnome"
 	"illogical-impulse-gtk"
 	"illogical-impulse-microtex-git"
