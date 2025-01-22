@@ -1,7 +1,7 @@
-pkgname="Sleex"
-pkgver="0.1"
+pkgname="sleex"
+pkgver="0.2"
 pkgrel="1"
-pkgdesc="Shell of AxOS hypr edition"
+pkgdesc="Third desktop environment for AxOS"
 arch=("x86_64")
 depend=(
 	illogical-impulse-ags
@@ -23,5 +23,7 @@ depend=(
 
 
 package() {
+	mkdir -p "$pkgdir/usr/"
+	cp -r "$srcdir/bin" "$pkgdir/usr/"
+	cp -r "$srcdir/share" "$pkgdir/usr/"
 }
-

@@ -1,4 +1,3 @@
 #!/bin/sh
 Hyprland
-sleep 1
 ags -c /usr/share/sleex/config.js
