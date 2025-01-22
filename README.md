@@ -11,9 +11,9 @@ Sleex is the third desktop environement of AxOS. It is based on Hyprland with AG
 
 ## Screenshots
 
-![Screenshot 1](screenshots/screenshot1.png)
-![Screenshot 2](screenshots/screenshot2.png)
-![Screenshot 3](screenshots/screenshot3.png)
+![Screenshot 1](https://github.com/AxOS-project/Sleex/blob/main/screenshots/sleex1.png?raw=true)
+![Screenshot 2](https://github.com/AxOS-project/Sleex/blob/main/screenshots/sleex2.png?raw=true)
+![Screenshot 3](https://github.com/AxOS-project/Sleex/blob/main/screenshots/sleex3.png?raw=true)
 
 ## Installation
 
