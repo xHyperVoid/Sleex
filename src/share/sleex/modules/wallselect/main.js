@@ -8,8 +8,7 @@ import GLib from 'gi://GLib';
 const { Box, Label, EventBox, Scrollable, Button } = Widget;
 
 // Constants
-const HOME_DIR = GLib.get_home_dir();
-const CONFIG_DIR = `${HOME_DIR}/.config/ags`;
+const CONFIG_DIR = `/usr/share/sleex`;
 const WALLPAPER_DIR = CONFIG_DIR + '/wallpapers';
 const THUMBNAIL_DIR = WALLPAPER_DIR + '/thumbnails';
 

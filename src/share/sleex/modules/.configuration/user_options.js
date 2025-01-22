@@ -3,8 +3,7 @@ import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import userOverrides from "../../user_options.js";
 
 // Default options.
-// Add overrides in ~/.config/ags/user_options.js
-const defaultConfigPath = `${GLib.get_current_dir()}/.config/ags/modules/.configuration/default_config.json`;
+const defaultConfigPath = `/usr/share/sleex/modules/.configuration/default_config.json`;
 let configOptions = {};
 
 
