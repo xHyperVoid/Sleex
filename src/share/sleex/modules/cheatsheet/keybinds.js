@@ -5,8 +5,9 @@ import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import { IconTabContainer } from "../.commonwidgets/tabcontainer.js";
 const { Box, Label } = Widget;
 
+const CONFIG_DIR = GLib.get_user_config_dir();
 const HYPRLAND_KEYBIND_CONFIG_FILE = userOptions.cheatsheet.keybinds.configPath ?
-    userOptions.cheatsheet.keybinds.configPath : `/usr/share/sleex-hyprconf/hyprland/keybinds.conf`;
+    userOptions.cheatsheet.keybinds.configPath : `${CONFIG_DIR}/hypr/hyprland/keybinds.conf`;
 const KEYBIND_SECTIONS_PER_PAGE = 3;
 const getKeybindList = () => {
     let data = Utils.exec(`${App.configDir}/scripts/hyprland/get_keybinds.py --path ${HYPRLAND_KEYBIND_CONFIG_FILE}`);
