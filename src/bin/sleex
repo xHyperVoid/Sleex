@@ -1,3 +1,3 @@
 #!/bin/sh
 Hyprland
-ags -c /usr/share/sleex/config.js
+# ags -c /usr/share/sleex/config.js
