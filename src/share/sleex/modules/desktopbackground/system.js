@@ -115,17 +115,10 @@ const distroAndVersion = Box({
     ]
 })
 
-const getBarPosition = () => {
-    const BARPOS_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/bar_position.txt`;
-    const actualPos = exec(`bash -c "cat ${BARPOS_FILE_LOCATION}"`);
-    const currentVpack = actualPos == 'top' ? 'end' : 'start';
-    return currentVpack;
-}
-
 
 export default () => Box({
     hpack: 'end',
-    vpack: getBarPosition(),
+    vpack: 'end',
     children: [
         EventBox({
             child: Box({
