@@ -1,7 +1,10 @@
 "use strict";
 // Import
+const { GLib } = imports.gi;
 import Gdk from 'gi://Gdk';
 import App from 'resource:///com/github/Aylur/ags/app.js'
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+const { execAsync } = Utils;
 // Stuff
 import userOptions from './modules/.configuration/user_options.js'; // Not unused, careful
 import { firstRunWelcome, startBatteryWarningService } from './services/messages.js';
@@ -19,6 +22,7 @@ import { COMPILED_STYLE_DIR } from './init.js';
 import Wallselect from './modules/wallselect/main.js';
 
 
+
 const range = (length, start = 1) => Array.from({ length }, (_, i) => i + start);
 function forMonitors(widget) {
     const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
@@ -30,7 +34,7 @@ function forMonitorsAsync(widget) {
 }
 
 const FirstRunScript = () => {
-    if (!GLib.file_test(`${Glib.get_user_state_dir()}/ags/user/firstrun.txt`, GLib.FileTest.EXISTS)) {
+    if (!GLib.file_test(`${GLib.get_user_state_dir()}/ags/user/firstrun.txt`, GLib.FileTest.EXISTS)) {
         const firstRunScript = `${App.configDir}/scripts/firstRun.sh`;
         if (GLib.file_test(firstRunScript, GLib.FileTest.EXISTS)) {
             execAsync([firstRunScript]).catch(print);
