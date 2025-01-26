@@ -25,8 +25,14 @@ const date = Variable("", {
   ],
 });
 
+const showTimeDate = () => {
+    const TIMEDATE_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_timedate.txt`;
+    const actual_show_timedate = Utils.exec(`bash -c "cat ${TIMEDATE_FILE_LOCATION}"`);
+    actual_show_timedate == null ? actual_show_timedate = userOptions.appearance.showTimeDate : actual_show_timedate;
+    return actual_show_timedate == 'true' ? true : false;
+}
 const BarClock = () => {
-  if (!userOptions.appearance.showTimeDate) return null;
+  if (!showTimeDate()) return null;
   else return Widget.Box({
     vpack: "center",
     className: "spacing-h-4 bar-clock-box",
@@ -207,6 +213,11 @@ const switchToRelativeWorkspace = async (self, num) => {
   }
 };
 
+const ShowWeather = () => {
+  const WEATHER_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_weather.txt`;
+  const actual_show_weather = Utils.exec(`bash -c "cat ${WEATHER_FILE_LOCATION}"`);
+  return actual_show_weather == 'true' ? true : false;
+}
 
 export default () =>
   Widget.EventBox({
@@ -216,7 +227,7 @@ export default () =>
     child: Widget.Box({
       children: [
         BarGroup({ child: BarClock() }),
-        userOptions.appearance.showWeather ? WeatherModule() : null,
+        ShowWeather() ? WeatherModule() : null,
       ],
     }),
   });

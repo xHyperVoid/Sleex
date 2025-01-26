@@ -147,6 +147,13 @@ const switchToRelativeWorkspace = async (self, num) => {
   }
 };
 
+const showBarRessources = () => {
+  const SHOWMON_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_monitor.txt`;
+  const actual_show_monitor = exec(`bash -c "cat ${SHOWMON_FILE_LOCATION}"`);
+  actual_show_monitor == null ? actual_show_monitor = userOptions.appearance.showMonitor : actual_show_monitor;
+  return actual_show_monitor == 'true' ? true : false;
+};
+
 export default () => {
   const SystemResourcesOrCustomModule = () => {
     if (GLib.file_test(CUSTOM_MODULE_CONTENT_SCRIPT, GLib.FileTest.EXISTS)) {
@@ -230,7 +237,7 @@ export default () => {
         }),
       });
   };
-  if (!userOptions.appearance.showMonitor) return null;
+  if (!showBarRessources()) return null;
   else return EventBox({
     onScrollUp: (self) => switchToRelativeWorkspace(self, -1),
     onScrollDown: (self) => switchToRelativeWorkspace(self, +1),

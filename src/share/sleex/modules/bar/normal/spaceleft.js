@@ -1,7 +1,10 @@
+const { GLib } = imports.gi;
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Brightness from '../../../services/brightness.js';
 import Indicator from '../../../services/indicator.js';
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
+const { exec } = Utils;
 
 const WindowTitle = async () => {
     try {
@@ -38,10 +41,16 @@ const WindowTitle = async () => {
     }
 }
 
+const ShowWindowTitle = () => {
+    const WINTITLE_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_wintitle.txt`;
+    const actual_show_wintitle = exec(`bash -c "cat ${WINTITLE_FILE_LOCATION}"`);
+    actual_show_wintitle == null ? actual_show_wintitle = userOptions.appearance.showWinTitle : actual_show_wintitle;
+    return actual_show_wintitle == 'true' ? true : false;
+}
 
 export default async (monitor = 0) => {
     let optionalWindowTitleInstance = await WindowTitle();
-    if (!userOptions.appearance.showWinTitle) optionalWindowTitleInstance = null;
+    if (!ShowWindowTitle()) optionalWindowTitleInstance = null;
 
     
     return Widget.EventBox({

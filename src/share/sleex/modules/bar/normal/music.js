@@ -1,8 +1,9 @@
+const { GLib } = imports.gi;
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
-const { Box, EventBox, Label, Overlay } = Widget;
-const { execAsync } = Utils;
+const { Box, Button, EventBox, Label, Overlay } = Widget;
+const { execAsync, exec } = Utils;
 import { AnimatedCircProg } from "../../.commonwidgets/cairo_circularprogress.js";
 import { showMusicControls } from '../../../variables.js';
 
@@ -110,7 +111,16 @@ export default () => {
         ]
     });
 
-    if (userOptions.appearance.showMusic) return EventBox({
+    const ShowMusicControls = () => {
+        const MUSIC_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_music.txt`;
+        const actual_show_music = exec(`bash -c "cat ${MUSIC_FILE_LOCATION}"`);
+        actual_show_music == null ? actual_show_music = userOptions.appearance.showMusic : actual_show_music;
+        return actual_show_music == 'true' ? true : false;
+    }
+
+
+
+    if (ShowMusicControls()) return EventBox({
         onScrollUp: () => adjustVolume('up'),
         onScrollDown: () => adjustVolume('down'),
         child: Box({

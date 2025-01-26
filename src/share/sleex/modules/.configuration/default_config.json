@@ -29,7 +29,7 @@
     "showWorkspace": true,
     "showSysTray": true,
     "showWeather": false,
-    "showMusic": true,
+    "showMusic": false,
     "showSysIcons": true
   },
   "apps": {
