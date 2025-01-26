@@ -29,7 +29,17 @@ function forMonitorsAsync(widget) {
     return range(n, 0).forEach((n) => widget(n).catch(print))
 }
 
+const FirstRunScript = () => {
+    if (!GLib.file_test(`${Glib.get_user_state_dir()}/ags/user/firstrun.txt`, GLib.FileTest.EXISTS)) {
+        const firstRunScript = `${App.configDir}/scripts/firstRun.sh`;
+        if (GLib.file_test(firstRunScript, GLib.FileTest.EXISTS)) {
+            execAsync([firstRunScript]).catch(print);
+        }
+    }
+}
+
 // Start stuff
+FirstRunScript();
 handleStyles(true);
 startAutoDarkModeService().catch(print);
 firstRunWelcome().catch(print);
