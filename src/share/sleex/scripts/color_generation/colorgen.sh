@@ -18,7 +18,7 @@ colormodefile="$STATE_DIR/user/colormode.txt"
 lightdark="dark"
 transparency="opaque"
 materialscheme="vibrant"
-terminalscheme="$XDG_CONFIG_HOME/ags/scripts/templates/terminal/scheme-base.json"
+terminalscheme="$CONFIG_DIR/scripts/templates/terminal/scheme-base.json"
 
 if [ ! -f $colormodefile ]; then
     echo "dark" > $colormodefile
@@ -34,7 +34,7 @@ else
     transparency=$(sed -n '2p' $colormodefile)
     materialscheme=$(sed -n '3p' $colormodefile)
     if [ "$materialscheme" = "monochrome" ]; then
-      terminalscheme="$XDG_CONFIG_HOME/ags/scripts/templates/terminal/scheme-monochrome.json"
+      terminalscheme="$CONFIG_DIR/scripts/templates/terminal/scheme-monochrome.json"
     fi
 fi
 backend="material" # color generator backend
