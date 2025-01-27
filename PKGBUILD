@@ -1,6 +1,6 @@
 pkgname="sleex"
 pkgver="0.8"
-pkgrel="1"
+pkgrel="2"
 pkgdesc="Third desktop environment for AxOS"
 arch=("x86_64")
 depends=(
@@ -20,6 +20,9 @@ depends=(
 	"illogical-impulse-screencapture"
 	"illogical-impulse-widgets"
 	"axskel-hypr"
+)
+optdepends=(
+	"illogical-impulse-optional: Optional packages"
 )
 
 
