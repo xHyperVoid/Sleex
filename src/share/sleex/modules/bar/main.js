@@ -102,7 +102,7 @@ export const Bar = async (monitor = 0) => {
         visible: true,
         child: Widget.Stack({
             homogeneous: false,
-            transition: getBarPosition() == 'top' ? 'slide_down_up' : 'slide_up_down',
+            transition: getBarPosition() == 'top' ? 'slide_down' : 'slide_up',
             transitionDuration: userOptions.animations.durationLarge,
             children: {
                 'normal': normalBarContent,
