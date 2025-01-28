@@ -2,8 +2,8 @@
 set -e
 set -u
 
-THUMBNAIL_DIR="/usr/share/sleex/wallpapers/thumbnails"
-WALLPAPER_DIR="/usr/share/sleex/wallpapers"
+THUMBNAIL_DIR="$HOME/.sleex/wallpapers/thumbnails"
+WALLPAPER_DIR="$HOME/.sleex/wallpapers"
 
 mkdir -p "$THUMBNAIL_DIR"
 

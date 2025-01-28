@@ -1,19 +1,26 @@
 // Stolen from Pharmaracist (i love that name btw) 
-
+const { GLib } = imports.gi;
 import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import App from "resource:///com/github/Aylur/ags/app.js";
 import userOptions from "../.configuration/user_options.js";
-import GLib from 'gi://GLib';
 const { Box, Label, EventBox, Scrollable, Button } = Widget;
+import { fileExists } from '../.miscutils/files.js';
+
 
 // Constants
 const CONFIG_DIR = `/usr/share/sleex`;
-const WALLPAPER_DIR = CONFIG_DIR + '/wallpapers';
-const THUMBNAIL_DIR = WALLPAPER_DIR + '/thumbnails';
+const USER_WALL_DIR = GLib.get_home_dir() + '/.sleex/wallpapers';
+const USER_THUMBNAIL_DIR = USER_WALL_DIR + '/thumbnails';
 
-// Cached Variables
-let cachedContent = null;
+const createWallDir = () => {
+    console.log(`creating ${USER_WALL_DIR}`)
+    Utils.execAsync(['mkdir', '-p', USER_WALL_DIR]);
+    Utils.execAsync(['mkdir', '-p', USER_THUMBNAIL_DIR]);
+    Utils.execAsync(['cp', '-r', `${CONFIG_DIR}/wallpapers/`, `${GLib.get_home_dir()}/.sleex`]).catch(print);
+}
+
+if (!fileExists(USER_WALL_DIR)) createWallDir();
 
 // Wallpaper Button
 const WallpaperButton = (path) => 
@@ -33,7 +40,7 @@ const WallpaperButton = (path) =>
 // Get Wallpaper Paths
 const getWallpaperPaths = () => {
     let wallpaperPathsPromise = Utils.execAsync(
-        `find ${THUMBNAIL_DIR} -type f`
+        `find ${USER_THUMBNAIL_DIR} -type f`
     );
     console.log(wallpaperPathsPromise);
     return wallpaperPathsPromise;
@@ -131,7 +138,7 @@ const openWallDirButton = () => Widget.Button({
         ],
     }),
     tooltipText: 'Open wallpaper directory',
-    onClicked: () => Utils.execAsync(['xdg-open', WALLPAPER_DIR]),
+    onClicked: () => Utils.execAsync(['xdg-open', USER_WALL_DIR]),
 });
 
 
