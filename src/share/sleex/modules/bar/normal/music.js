@@ -6,6 +6,7 @@ const { Box, Button, EventBox, Label, Overlay } = Widget;
 const { execAsync, exec } = Utils;
 import { AnimatedCircProg } from "../../.commonwidgets/cairo_circularprogress.js";
 import { showMusicControls } from '../../../variables.js';
+import { RoundedCorner } from "../../.commonwidgets/cairo_roundedcorner.js";
 
 function trimTrackTitle(title) {
     if (!title) return '';
@@ -36,7 +37,7 @@ const BarGroup = ({ child }) => Box({
     className: 'bar-group-margin bar-sides',
     children: [
         Box({
-            className: 'bar-group bar-group-standalone bar-group-pad-system',
+            className: 'bar-group bar-group-standalone bar-group-pad-system bar-group-left',
             children: [child],
         }),
     ]
@@ -124,8 +125,8 @@ export default () => {
         onScrollUp: () => adjustVolume('up'),
         onScrollDown: () => adjustVolume('down'),
         child: Box({
-            className: 'spacing-h-4',
             children: [
+                BarCornerTopleft(),
                 EventBox({
                     child: BarGroup({ child: musicStuff }),
                     onPrimaryClick: () => showMusicControls.setValue(!showMusicControls.value),
@@ -135,9 +136,28 @@ export default () => {
                         if (event.get_button()[1] === 8) // Side button
                             execAsync('playerctl previous').catch(print)
                     }),
-                })
+                }),
+                BarCornerBottomleft(),
             ]
         })
     });
     else return null;
 }
+
+
+const BarCornerBottomleft = () => Widget.Box({
+    child: RoundedCorner('bottomleft', { className: 'corner', }),
+    // setup: (self) => {
+    //     if (!showMusicControls()) {
+    //         self.visible = false;
+    //     }
+    // }
+});
+const BarCornerTopleft = () => Widget.Box({
+    child: RoundedCorner('topleft', { className: 'corner', }),
+    // setup: (self) => {
+    //     if (!showMusicControls()) {
+    //         self.visible = false;
+    //     }
+    // }
+});

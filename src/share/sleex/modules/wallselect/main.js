@@ -1,3 +1,4 @@
+
 // Stolen from Pharmaracist (i love that name btw) 
 const { GLib } = imports.gi;
 import Widget from "resource:///com/github/Aylur/ags/widget.js";
@@ -13,6 +14,8 @@ const CONFIG_DIR = `/usr/share/sleex`;
 const USER_WALL_DIR = GLib.get_home_dir() + '/.sleex/wallpapers';
 const USER_THUMBNAIL_DIR = USER_WALL_DIR + '/thumbnails';
 
+//if (!fileExists(USER_WALL_DIR)) createWallDir();
+
 const createWallDir = () => {
     console.log(`creating ${USER_WALL_DIR}`)
     Utils.execAsync(['mkdir', '-p', USER_WALL_DIR]);
@@ -21,6 +24,9 @@ const createWallDir = () => {
 }
 
 if (!fileExists(USER_WALL_DIR)) createWallDir();
+
+// Cached Variables
+let cachedContent = null;
 
 // Wallpaper Button
 const WallpaperButton = (path) => 

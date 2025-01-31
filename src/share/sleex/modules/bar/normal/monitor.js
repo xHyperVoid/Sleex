@@ -5,6 +5,7 @@ const { Box, Button, EventBox, Label, Overlay, Revealer } = Widget;
 const { execAsync, exec } = Utils;
 import { AnimatedCircProg } from "../../.commonwidgets/cairo_circularprogress.js";
 import { MaterialIcon } from "../../.commonwidgets/materialicon.js";
+import { RoundedCorner } from "../../.commonwidgets/cairo_roundedcorner.js";
 
 const CUSTOM_MODULE_CONTENT_INTERVAL_FILE = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-interval.txt`;
 const CUSTOM_MODULE_CONTENT_SCRIPT = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-poll.sh`;
@@ -19,7 +20,7 @@ const BarGroup = ({ child }) =>
     className: "bar-group-margin bar-sides",
     children: [
       Box({
-        className: "bar-group bar-group-standalone bar-group-pad-system",
+        className: "bar-group bar-group-standalone bar-group-pad-system bar-group-left",
         children: [child],
       }),
     ],
@@ -242,7 +243,14 @@ export default () => {
     onScrollUp: (self) => switchToRelativeWorkspace(self, -1),
     onScrollDown: (self) => switchToRelativeWorkspace(self, +1),
     child: Box({
-      children: [SystemResourcesOrCustomModule()],
+      children: [BarCornerTopleft(), SystemResourcesOrCustomModule(), BarCornerBottomleft()],
     }),
   });
 };
+
+const BarCornerBottomleft = () => Widget.Box({
+    child: RoundedCorner('bottomleft', { className: 'corner', }),
+});
+const BarCornerTopleft = () => Widget.Box({
+    child: RoundedCorner('topleft', { className: 'corner', }),
+});

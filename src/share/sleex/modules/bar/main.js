@@ -7,7 +7,9 @@ import Indicators from "./normal/spaceright.js";
 import Monitor from "./normal/monitor.js";
 import System from "./normal/system.js";
 import Music from "./normal/music.js";
+import Weather from './normal/weather.js';
 import { currentShellMode } from '../../variables.js';
+import { RoundedCorner } from "../.commonwidgets/cairo_roundedcorner.js";
 
 const ShowWorkspaces = () => {
     const WORKSPACE_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_workspaces.txt`;
@@ -44,20 +46,20 @@ const FocusOptionalWorkspaces = async () => {
 };
 
 export const Bar = async (monitor = 0) => {
-    const SideModule = (children) => Widget.Box({
-        className: 'bar-side',
-        children: children,
-    });
+    
     const normalBarContent = Widget.CenterBox({
         // className: 'bar-bg',
         startWidget: (await WindowTitle(monitor)),
         centerWidget: Widget.Box({
             className: 'bar-center', // Center bar
             children: [
-                SideModule([Monitor()]),
-                SideModule([Music()]),
-                SideModule([await NormalOptionalWorkspaces()]),
-                SideModule([System()]),
+                Monitor(),
+                Music(),
+                BarCornerTopleft(),
+                await NormalOptionalWorkspaces(),
+                BarCornerTopright(),
+                System(),
+                Weather(),
             ]
         }),
         endWidget: Indicators(monitor),
@@ -68,12 +70,10 @@ export const Bar = async (monitor = 0) => {
         centerWidget: Widget.Box({
             className: 'spacing-h-4',
             children: [
-                SideModule([]),
                 Widget.Box({
                     homogeneous: true,
                     children: [await FocusOptionalWorkspaces()],
                 }),
-                SideModule([]),
             ]
         }),
         endWidget: Widget.Box({}),
@@ -115,3 +115,20 @@ export const Bar = async (monitor = 0) => {
         }),
     });
 }
+
+const BarCornerTopleft = () => Widget.Box({
+    child: RoundedCorner('topleft', { className: 'corner', }),
+    setup: (self) => {
+        if (!ShowWorkspaces()) {
+            self.child = Widget.Box({});
+        }
+    }
+});
+const BarCornerTopright = () => Widget.Box({
+    child: RoundedCorner('topright', { className: 'corner', }),
+    setup: (self) => {
+        if (!ShowWorkspaces()) {
+            self.child = Widget.Box({});
+        }
+    }
+});
