@@ -89,7 +89,7 @@ export const ModuleNightLight = async (props = {}) => {
         onClicked: (self) => {
             self.attribute.enabled = !self.attribute.enabled;
             self.toggleClassName('sidebar-button-active', self.attribute.enabled);
-            if (self.attribute.enabled) Utils.execAsync('gammastep -O 4500K').catch(print)
+            if (self.attribute.enabled) Utils.execAsync('gammastep -O 4500K ').catch(print)
             else Utils.execAsync('pkill gammastep')
                 .then(() => {
                     // disable the button until fully terminated to avoid race

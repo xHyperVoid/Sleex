@@ -9,6 +9,7 @@ import apiWidgets from './apiwidgets.js';
 import { chatEntry } from './apiwidgets.js';
 import { TabContainer } from '../.commonwidgets/tabcontainer.js';
 import { checkKeybind } from '../.widgetutils/keybind.js';
+import githubWidget from './updates.js';
 
 const SIDEBARTABS = {
     'tools': {
@@ -22,6 +23,12 @@ const SIDEBARTABS = {
         content: apiWidgets,
         materialIcon: 'api',
         friendlyName: 'APIs',
+    },
+    'updates': {
+        name: 'updates',
+        content: githubWidget,
+        materialIcon: 'update',
+        friendlyName: 'Updates',
     },
 
 }

@@ -47,7 +47,7 @@ FirstRunScript();
 handleStyles(true);
 startAutoDarkModeService().catch(print);
 firstRunWelcome().catch(print);
-startBatteryWarningService().catch(print)
+startBatteryWarningService().catch(print);
 
 const Windows = () => [
     forMonitors(DesktopBackground),

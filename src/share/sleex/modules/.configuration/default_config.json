@@ -43,16 +43,8 @@
   "battery": {
     "low": 20,
     "critical": 10,
-    "warnLevels": [
-      20,
-      15,
-      5
-    ],
-    "warnTitles": [
-      "Low battery",
-      "Very low battery",
-      "Critical Battery"
-    ],
+    "warnLevels": [20, 15, 5],
+    "warnTitles": ["Low battery", "Very low battery", "Critical Battery"],
     "warnMessages": [
       "Plug in the charger",
       "You there?",
@@ -88,15 +80,9 @@
       "extraGptModels": {}
     },
     "pages": {
-      "order": [
-        "apis",
-        "tools"
-      ],
+      "order": ["apis", "tools", "updates"],
       "apis": {
-        "order": [
-          "gpt",
-          "gemini"
-        ]
+        "order": ["gpt", "gemini"]
       }
     }
   },
@@ -110,9 +96,7 @@
       "webSearch": true
     },
     "engineBaseUrl": "https://www.google.com/search?q=",
-    "excludedSites": [
-      "quora.com"
-    ]
+    "excludedSites": ["quora.com"]
   },
   "time": {
     "format": "%H:%M",
@@ -129,9 +113,7 @@
     "shown": 10
   },
   "icons": {
-    "searchPaths": [
-      ""
-    ],
+    "searchPaths": [""],
     "symbolicIconTheme": {
       "dark": "Adwaita",
       "light": "Adwaita"
@@ -184,8 +166,6 @@
     }
   },
   "bar": {
-    "modes": [
-      "normal"
-    ]
+    "modes": ["normal"]
   }
 }

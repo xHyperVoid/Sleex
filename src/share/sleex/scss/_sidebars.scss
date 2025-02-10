@@ -949,3 +949,15 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
     background-color: $primaryContainer;
     color: $onPrimaryContainer;
 }
+
+.sidebar-updates-commits-viewport {
+    @include element_decel;
+    padding: 0.682rem 0rem;
+}
+
+.sidebar-commit-box {
+    @include small-rounding;
+    margin: 0.341rem;
+    padding: 0.682rem;
+    background-color: $layer1;
+}

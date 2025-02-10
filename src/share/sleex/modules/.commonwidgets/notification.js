@@ -105,11 +105,6 @@ export default ({
         }, wholeThing);
     }
     const widget = EventBox({
-        onHover: (self) => {
-            self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
-            if (!wholeThing.attribute.hovered)
-                wholeThing.attribute.hovered = true;
-        },
         onHoverLost: (self) => {
             self.window.set_cursor(null);
             if (wholeThing.attribute.hovered)
@@ -122,9 +117,12 @@ export default ({
             destroyWithAnims();
         },
         setup: (self) => {
-            self.on("button-press-event", () => {
+            self.on("button-press-event", (self) => {
                 wholeThing.attribute.held = true;
                 notificationContent.toggleClassName(`${isPopup ? 'popup-' : ''}notif-clicked-${notifObject.urgency}`, true);
+                self.window.set_cursor(Gdk.Cursor.new_from_name(display, 'grab'));
+                if (!wholeThing.attribute.hovered)
+                    wholeThing.attribute.hovered = true;    
                 Utils.timeout(800, () => {
                     if (wholeThing?.attribute.held) {
                         Utils.execAsync(['wl-copy', `${notifObject.body}`]).catch(print);
@@ -135,7 +133,7 @@ export default ({
             }).on("button-release-event", () => {
                 wholeThing.attribute.held = false;
                 notificationContent.toggleClassName(`${isPopup ? 'popup-' : ''}notif-clicked-${notifObject.urgency}`, false);
-            })
+            });
         }
     });
     let wholeThing = Revealer({
@@ -204,7 +202,7 @@ export default ({
                         ...notifObject.actions.map(action => Widget.Button({
                             hexpand: true,
                             className: `notif-action notif-action-${notifObject.urgency}`,
-                            onClicked: () => notifObject.invoke(action.id),
+                            onClicked: () => notifObject.invoke(action.id), // This comment is an anchor
                             setup: setupCursorHover,
                             child: Label({
                                 label: action.label,

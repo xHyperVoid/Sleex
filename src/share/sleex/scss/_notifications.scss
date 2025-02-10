@@ -1,5 +1,5 @@
 @mixin notif-rounding {
-    @include normal-rounding;
+    border-radius: 10px;
 }
 
 .notif-low {
