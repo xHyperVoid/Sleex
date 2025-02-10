@@ -168,7 +168,7 @@ const UpdateBox = () => {
           },
         }),
         setup: (self) => {
-          self.reveal_child != isNewVersionAvailable;
+          self.reveal_child = isNewVersionAvailable;
         },
       }),
     ],
