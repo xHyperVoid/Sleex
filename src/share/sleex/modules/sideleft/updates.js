@@ -1,6 +1,7 @@
 import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import { MaterialIcon } from "../.commonwidgets/materialicon.js";
+import { setupCursorHover } from "../.widgetutils/cursorhover.js";
 const { execAsync } = Utils;
 
 const { Box, Label, Scrollable, Revealer, Button } = Widget;
@@ -155,18 +156,19 @@ const UpdateBox = () => {
       }),
       Revealer({
         revealChild: true,
-        transition: 'slide_down',
+        transition: "slide_down",
         transitionDuration: userOptions.animations.durationLarge,
         className: "sidebar-chat-name txt-smaller txt-bold",
         child: Button({
-          className: "btn-primary",
+          className: "btn-update",
           label: "Update",
+          setup: setupCursorHover,
           onClicked: () => {
             execAsync("foot -e sudo pacman -Sy sleex");
           },
         }),
         setup: (self) => {
-          self.reveal_child = isNewVersionAvailable;
+          self.reveal_child != isNewVersionAvailable;
         },
       }),
     ],
