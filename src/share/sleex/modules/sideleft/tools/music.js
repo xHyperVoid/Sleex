@@ -395,7 +395,7 @@ const MusicControlsWidget = (player) => Box({
         
     ]
 })
-const NoMusicBox = () => Bow({
+const NoMusicBox = () => Box({
     className: 'osd-music spacing-h-20',
     children: [
         Box({
@@ -407,8 +407,16 @@ const NoMusicBox = () => Bow({
                     vpack: 'center',
                     hexpand: false,
                     children: [
-                        TrackTitle({ player: "No music playing" }),
-                        TrackArtists({ player: "Nobody" }),
+                        TrackTitle({ player: { 
+                            trackTitle: "No music playing", 
+                            connect: () => {}, 
+                            disconnect: () => {} 
+                        } }),
+                        TrackArtists({ player: { 
+                            trackArtists: "Nobody", 
+                            connect: () => {}, 
+                            disconnect: () => {} 
+                        } }),
                     ]
                 }),
             ]
@@ -427,7 +435,10 @@ export default () => SidebarModule({
         children: [
             Box({
                 children: Mpris.bind("players")
-                    .as(players => players.map((player) => (isRealPlayer(player) ? MusicControlsWidget(player) : NoMusicBox())))
+                    .as(players => players.length > 0 && players.some(isRealPlayer) 
+                        ? players.filter(isRealPlayer).map((player) => MusicControlsWidget(player))
+                        : [NoMusicBox()]
+                    )
             })
         ],
     })

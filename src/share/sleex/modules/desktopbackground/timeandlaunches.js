@@ -15,7 +15,6 @@ const TimeAndDate = () =>
     children: [
       Label({
         className: "bg-time-clock",
-        xalign: 2,
         label: GLib.DateTime.new_now_local().format(userOptions.time.format),
         setup: (self) =>
           self.poll(userOptions.time.interval, (label) => {

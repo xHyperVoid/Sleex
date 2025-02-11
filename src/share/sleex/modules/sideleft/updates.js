@@ -141,13 +141,11 @@ const UpdateBox = () => {
     children: [
       MaterialIcon("update", "norm"),
       Label({
-        xalign: 2,
         className: "txt-bold",
         label: `Current version: ${currentVersion}`,
       }),
       Box({ hexpand: true }),
       Label({
-        xalign: 2,
         className:
           "sidebar-chat-name sidebar-chat-name-bot txt-smaller txt-bold",
         label: isNewVersionAvailable
@@ -181,7 +179,6 @@ const UpdateWidget = () =>
     className: "",
     children: [
       // Label({
-      //   xalign: 2,
       //   className: "txt-bold",
       //   label: "The update section shows the latest updates of Sleex.",
       // }),
