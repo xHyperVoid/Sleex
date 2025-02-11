@@ -11,12 +11,20 @@
   @include large-rounding;
   margin: 2.045rem;
   padding: 0.682rem;
+  margin-bottom: 15rem;
 }
+
+.bg-weather-box {
+  padding: 0.682rem;
+  margin-bottom: 15rem;
+}
+
 
 .bg-time-clock {
   @include titlefont;
   @include bg-textshadow;
-  font-size: 5.795rem;
+  font-weight: 800;
+  font-size: 10.091rem;
   color: $onLayer0;
 }
 
@@ -89,4 +97,12 @@
   font-size: 0px;
   padding: 0rem;
   background-color: $layer2;
+}
+
+.desktop-weather {
+  @include normal-rounding;
+  margin: 2.045rem;
+  padding: 1rem;
+  background-color: $layer0;
+  font-size: 1.5rem;
 }

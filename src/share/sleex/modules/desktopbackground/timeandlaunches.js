@@ -5,6 +5,7 @@ const { exec, execAsync } = Utils;
 const { Box, Label, Button } = Widget;
 import { setupCursorHover } from "../.widgetutils/cursorhover.js";
 import { quickLaunchItems } from "./data_quicklaunches.js";
+import Weather from "./weather.js";
 
 const TimeAndDate = () =>
   Box({
@@ -14,7 +15,7 @@ const TimeAndDate = () =>
     children: [
       Label({
         className: "bg-time-clock",
-        xalign: 0,
+        xalign: 2,
         label: GLib.DateTime.new_now_local().format(userOptions.time.format),
         setup: (self) =>
           self.poll(userOptions.time.interval, (label) => {
@@ -36,6 +37,7 @@ const TimeAndDate = () =>
             );
           }),
       }),
+      Weather(),
     ],
   });
 
@@ -70,19 +72,12 @@ const QuickLaunches = () =>
     ],
   });
 
-const getBarPosition = () => {
-  const BARPOS_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/bar_position.txt`;
-  const actualPos = exec(`bash -c "cat ${BARPOS_FILE_LOCATION}"`);
-  const currentVpack = actualPos == "top" ? "end" : "start";
-  return currentVpack;
-};
-
 export default () =>
   Box({
-    hpack: "start",
-    vpack: getBarPosition(),
+    hpack: "center",
+    vpack: "center",
     vertical: true,
-    className: "bg-time-box spacing-h--10",
+    className: "bg-time-box",
     children: [
       TimeAndDate(),
       // QuickLaunches(),

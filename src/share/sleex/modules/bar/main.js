@@ -87,22 +87,16 @@ export const Bar = async (monitor = 0) => {
     const nothingContent = Widget.Box({
         className: 'bar-bg-nothing',
     })
-    const getBarPosition = () => {
-        const BARPOS_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/bar_position.txt`;
-        let actual_bar_position = exec(`bash -c "cat ${BARPOS_FILE_LOCATION}"`);
-        const currentanchor = actual_bar_position == 'top' ? 'top' : 'bottom';
-        return currentanchor;
-    }
     return Widget.Window({
         monitor,
         className: 'bar-bg', // Full bar
         name: `bar${monitor}`,
-        anchor: [`${getBarPosition()}`, 'left', 'right'],
+        anchor: ['top', 'left', 'right'],
         exclusivity: 'exclusive',
         visible: true,
         child: Widget.Stack({
             homogeneous: false,
-            transition: getBarPosition() == 'top' ? 'slide_down' : 'slide_up',
+            transition: "slide_down",
             transitionDuration: userOptions.animations.durationLarge,
             children: {
                 'normal': normalBarContent,

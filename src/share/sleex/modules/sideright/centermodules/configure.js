@@ -7,14 +7,6 @@ import { ConfigGap, ConfigSpinButton, ConfigToggle } from '../../.commonwidgets/
 import { setupCursorHover } from '../../.widgetutils/cursorhover.js';
 import { MaterialIcon } from '../../.commonwidgets/materialicon.js';
 
-
-const BARPOS_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/bar_position.txt`;
-const actual_bar_position = exec(`bash -c "cat ${BARPOS_FILE_LOCATION}"`);
-if (actual_bar_position == null) {
-    execAsync(['bash', '-c', `echo "top" > ${BARPOS_FILE_LOCATION}`]).catch(print);
-    actual_bar_position = exec(`bash -c "cat ${BARPOS_FILE_LOCATION}"`);
-}
-
 const SHOWMON_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_monitor.txt`;
 const actual_show_monitor = exec(`bash -c "cat ${SHOWMON_FILE_LOCATION}"`);
 if (actual_show_monitor == null) {
@@ -90,18 +82,6 @@ const createToggle = (fileLocation, actualValue, execCommand, icon, name, desc, 
     onChange: (self, newValue) => {
         const newValueStr = actualValue === 'true' ? 'false' : 'true';
         execAsync(['bash', '-c', `echo "${newValueStr}" > ${fileLocation}`]).catch(print);
-        extraOnChange(self, newValue);
-    }
-});
-
-const CustomBarToggle = ({ icon, name, desc = null, extraOnChange = () => { } }) => ConfigToggle({
-    icon: icon,
-    name: name,
-    desc: desc,
-    initValue: userOptions.appearance.barPosition,
-    onChange: (self, newValue) => {
-        const newPos = actual_bar_position === 'top' ? 'bottom' : 'top';
-        execAsync(['bash', '-c', `echo "${newPos}" > ${BARPOS_FILE_LOCATION}`]).catch(print);
         extraOnChange(self, newValue);
     }
 });
@@ -215,7 +195,6 @@ export default (props) => {
                 }),
                 ConfigSection({
                     name: 'Customization', children: [
-                        CustomBarToggle({ icon: 'palette', name: 'Bar position', desc: 'Change the bar position'}),
                         ShowMonitorToggle({ icon: 'memory_alt', name: 'Show system ressource indicators', desc: 'Show the system ressource indicators on the bar'}),
                         ShowTimeDate({ icon: 'schedule', name: 'Show time and date', desc: 'Show the time and date on the bar'}),
                         ShowWinTitle({ icon: 'title', name: 'Show window title', desc: 'Show the window title on the bar'}),

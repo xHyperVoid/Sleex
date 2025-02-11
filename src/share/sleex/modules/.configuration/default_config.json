@@ -1,6 +1,6 @@
 {
   "ai": {
-    "defaultGPTProvider": "openrouter",
+    "defaultGPTProvider": "openai",
     "defaultTemperature": 0.9,
     "enhancements": false,
     "useHistory": true,
@@ -22,7 +22,6 @@
     "keyboardUseFlag": false,
     "layerSmoke": false,
     "layerSmokeStrength": 0.2,
-    "barPosition": "top",
     "showMonitor": true,
     "showTimeDate": true,
     "showWinTitle": true,
@@ -82,7 +81,7 @@
     "pages": {
       "order": ["apis", "tools", "updates"],
       "apis": {
-        "order": ["gpt", "gemini"]
+        "order": ["gemini", "gpt"]
       }
     }
   },
