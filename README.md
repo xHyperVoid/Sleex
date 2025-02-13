@@ -27,7 +27,8 @@ or
 sudo pacman -S sleex
 ```
 
-If you are using another distribution, you can download the source code and compile it yourself but the dependencies are on the AxOS package repository.
+> [!IMPORTANT]
+> If you are using another distribution, you can't install Sleex.
 
 ## License
 Sleex is licensed under the GNU General Public License v3.0
