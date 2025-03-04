@@ -20,7 +20,8 @@ const BarGroup = ({ child }) =>
     className: "bar-group-margin bar-sides",
     children: [
       Box({
-        className: "bar-group bar-group-standalone bar-group-pad-system bar-group-left",
+        className:
+          "bar-group bar-group-standalone bar-group-pad-system bar-group-left",
         children: [child],
       }),
     ],
@@ -151,8 +152,10 @@ const switchToRelativeWorkspace = async (self, num) => {
 const showBarRessources = () => {
   const SHOWMON_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_monitor.txt`;
   const actual_show_monitor = exec(`bash -c "cat ${SHOWMON_FILE_LOCATION}"`);
-  actual_show_monitor == null ? actual_show_monitor = userOptions.appearance.showMonitor : actual_show_monitor;
-  return actual_show_monitor == 'true' ? true : false;
+  actual_show_monitor == null
+    ? (actual_show_monitor = userOptions.appearance.showMonitor)
+    : actual_show_monitor;
+  return actual_show_monitor == "true" ? true : false;
 };
 
 export default () => {
@@ -239,18 +242,25 @@ export default () => {
       });
   };
   if (!showBarRessources()) return null;
-  else return EventBox({
-    onScrollUp: (self) => switchToRelativeWorkspace(self, -1),
-    onScrollDown: (self) => switchToRelativeWorkspace(self, +1),
-    child: Box({
-      children: [BarCornerTopleft(), SystemResourcesOrCustomModule(), BarCornerBottomleft()],
-    }),
-  });
+  else
+    return EventBox({
+      onScrollUp: (self) => switchToRelativeWorkspace(self, -1),
+      onScrollDown: (self) => switchToRelativeWorkspace(self, +1),
+      child: Box({
+        children: [
+          BarCornerTopleft(),
+          SystemResourcesOrCustomModule(),
+          BarCornerBottomleft(),
+        ],
+      }),
+    });
 };
 
-const BarCornerBottomleft = () => Widget.Box({
-    child: RoundedCorner('bottomleft', { className: 'corner', }),
-});
-const BarCornerTopleft = () => Widget.Box({
-    child: RoundedCorner('topleft', { className: 'corner', }),
-});
+const BarCornerBottomleft = () =>
+  Widget.Box({
+    child: RoundedCorner("bottomleft", { className: "corner" }),
+  });
+const BarCornerTopleft = () =>
+  Widget.Box({
+    child: RoundedCorner("topleft", { className: "corner" }),
+  });
