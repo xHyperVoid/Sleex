@@ -13,6 +13,7 @@ $bar_ws_width_focus_active: 2.045rem;
 }
 
 .bar-bg {
+  //background-image: linear-gradient(90deg, $layer0 5%, $glass 25%, $glass 85%, $layer0 95%);
   background-color: $glass;
   min-height: 2.727rem;
   padding: 0rem 1.273rem;

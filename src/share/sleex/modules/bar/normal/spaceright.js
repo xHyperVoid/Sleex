@@ -113,7 +113,7 @@ export default (monitor = 0) => {
     const barStatusIcons = StatusIcons({
         className: 'bar-statusicons',
         setup: (self) => self.hook(App, (self, currentName, visible) => {
-            if (currentName === 'sideright') {
+            if (currentName === 'dashboard') {
                 self.toggleClassName('bar-statusicons-active', visible);
             }
         }),
@@ -121,7 +121,7 @@ export default (monitor = 0) => {
     const SpaceRightDefaultClicks = (child) => Widget.EventBox({
         onHover: () => { barStatusIcons.toggleClassName('bar-statusicons-hover', true) },
         onHoverLost: () => { barStatusIcons.toggleClassName('bar-statusicons-hover', false) },
-        onPrimaryClick: () => App.toggleWindow('sideright'),
+        onPrimaryClick: () => App.toggleWindow('dashboard'),
         onSecondaryClick: () => execAsync(['bash', '-c', 'playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"` &']).catch(print),
         onMiddleClick: () => execAsync('playerctl play-pause').catch(print),
         setup: (self) => self.on('button-press-event', (self, event) => {

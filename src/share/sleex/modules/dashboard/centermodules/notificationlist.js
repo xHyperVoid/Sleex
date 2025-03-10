@@ -165,7 +165,7 @@ export default (props) => {
     });
     return Box({
         ...props,
-        className: 'spacing-v-5',
+        className: 'spacing-v-5 notif-list',
         vertical: true,
         children: [
             listContents,

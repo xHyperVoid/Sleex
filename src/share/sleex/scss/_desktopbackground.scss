@@ -19,7 +19,6 @@
   margin-bottom: 15rem;
 }
 
-
 .bg-time-clock {
   @include titlefont;
   @include bg-textshadow;
@@ -109,4 +108,22 @@
 
 .txt-weather-location {
   margin: 0.682rem 0;
+}
+
+.hours-circprog {
+  @include fluent_decel_long;
+  min-width: 1.136rem; // line width
+  min-height: 15.636rem;
+  padding: 0rem;
+  background-color: $battLayer2;
+  color: $battOnLayer2;
+}
+
+.minutes-circprog {
+  @include fluent_decel_long;
+  min-width: 1.136rem; // line width
+  min-height: 11.636rem;
+  padding: 0rem;
+  background-color: $battLayer2;
+  color: $battOnLayer2;
 }

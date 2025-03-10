@@ -29,7 +29,8 @@
     "showSysTray": true,
     "showWeather": false,
     "showMusic": false,
-    "showSysIcons": true
+    "showSysIcons": true,
+    "showAnalogClock": false
   },
   "apps": {
     "bluetooth": "blueberry",

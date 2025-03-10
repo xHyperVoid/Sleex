@@ -199,6 +199,7 @@ const UndoneTodoList = () => {
     });
     return Box({ // The list, with a New button
         vertical: true,
+        vexpand: true,
         className: 'spacing-v-5',
         setup: (box) => {
             box.pack_start(todoItems(false), true, true, 0);

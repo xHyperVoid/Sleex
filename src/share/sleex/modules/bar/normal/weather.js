@@ -149,7 +149,7 @@ export default () =>
     !ShowWeather() ? Widget.Box({}) : Widget.EventBox({
     onScrollUp: (self) => switchToRelativeWorkspace(self, -1),
     onScrollDown: (self) => switchToRelativeWorkspace(self, +1),
-    onPrimaryClick: () => App.toggleWindow("sideright"),
+    onPrimaryClick: () => App.toggleWindow("dashboard"),
     child: Widget.Box({
       children: [
         BarCornerBottomright(),

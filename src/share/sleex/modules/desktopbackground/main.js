@@ -3,7 +3,6 @@ import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import WallpaperImage from "./wallpaper.js";
 import TimeAndLaunchesWidget from "./timeandlaunches.js";
 import SystemWidget from "./system.js";
-import Weather from "./weather.js";
 
 export default (monitor) =>
   Widget.Window({

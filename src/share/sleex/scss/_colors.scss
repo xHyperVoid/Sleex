@@ -29,11 +29,12 @@ $subtext: $outline;
 $actiontext: mix($onBackground, $background, 85%);
 $black: black;
 $white: white;
-$glass: rgba(255, 255, 255, 0);
+$glass: rgba(0, 0, 0, 0);
 
 /// Color mappings for more chaotic, dynamic colors like the average rice ///
 // General
 $layer0: $background;
+$layer0lighter: mix($layer0, $onBackground, 90%);
 $onLayer0: $onBackground;
 $layer0Hover: mix($layer0, $onLayer0, 85%);
 $layer0Active: $surfaceContainerHigh;

@@ -4,11 +4,11 @@ $sidebar_chat_textboxareaColor: mix($onSurfaceVariant, $surfaceVariant, 40%);
   padding: 0.341rem;
 }
 
-.sidebar-right {
+.dashboard {
   @include menu_decel;
   @include elevation-border;
   @include elevation2;
-  //border-radius: $rounding_large - $elevation_margin + 0.068rem;
+  border-radius: $rounding_large - $elevation_margin + 0.068rem;
   min-width: 27.818rem;
   background-color: $background;
   padding: 1.023rem;
@@ -44,17 +44,26 @@ $sidebar_chat_textboxareaColor: mix($onSurfaceVariant, $surfaceVariant, 40%);
 }
 
 .sidebar-togglesbox {
-  @include full-rounding;
+  @include normal-rounding;
   @include group-padding;
   background-color: $layer1;
 }
 
 .sidebar-iconbutton {
-  @include full-rounding;
+  @include small-rounding;
   @include element_decel;
   color: $onSurface;
-  min-width: 2.727rem;
-  min-height: 2.727rem;
+  min-width: 5.455rem;
+  min-height: 3.409rem;
+}
+
+.sidebar-iconbutton-alt {
+  @include small-rounding;
+  @include element_decel;
+  color: $onSurface;
+  min-width: 5.455rem;
+  min-height: 3.409rem;
+  background-color: $layer1;
 }
 
 .sidebar-iconbutton:hover,
@@ -994,4 +1003,37 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
 
 .btn-update:hover {
   background-color: mix($primary, $onPrimary, 80%);
+}
+
+.notif-list {
+  min-width: 27rem;
+  background-color: $layer1;
+  @include normal-rounding;
+  padding: 0.682rem;
+}
+
+.sidebar-opt-stack {
+  @include normal-rounding;
+  background-color: $layer1;
+  padding: 0.682rem;
+  min-width: 27rem;
+}
+
+.greetings {
+  @include normal-rounding;
+  background-color: $layer1;
+  padding: 1.682rem;
+}
+
+.todo-list {
+  @include normal-rounding;
+  background-color: $layer1;
+  padding: 0.682rem;
+  min-height: 20rem;
+}
+
+.calendar {
+  @include normal-rounding;
+  background-color: $layer1;
+  padding: 0.682rem;
 }

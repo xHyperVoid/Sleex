@@ -89,7 +89,7 @@ export const ModuleNightLight = async (props = {}) => {
         onClicked: (self) => {
             self.attribute.enabled = !self.attribute.enabled;
             self.toggleClassName('sidebar-button-active', self.attribute.enabled);
-            if (self.attribute.enabled) Utils.execAsync('gammastep -O 4500K ').catch(print)
+            if (self.attribute.enabled) Utils.execAsync('gammastep').catch(print)
             else Utils.execAsync('pkill gammastep')
                 .then(() => {
                     // disable the button until fully terminated to avoid race
@@ -252,11 +252,11 @@ export const ModuleDoNotDisturb = (props = {}) => Widget.Button({ // TODO: Make 
 
 export const ModuleReloadIcon = (props = {}) => Widget.Button({
     ...props,
-    className: 'txt-small sidebar-iconbutton',
+    className: 'txt-small sidebar-iconbutton sidebar-iconbutton-alt',
     tooltipText: 'Reload Environment config',
     onClicked: () => {
         execAsync(['bash', '-c', 'hyprctl reload || swaymsg reload &']);
-        App.closeWindow('sideright');
+        App.closeWindow('dashboard');
     },
     child: MaterialIcon('refresh', 'norm'),
     setup: button => {
@@ -266,11 +266,11 @@ export const ModuleReloadIcon = (props = {}) => Widget.Button({
 
 export const ModuleSettingsIcon = (props = {}) => Widget.Button({
     ...props,
-    className: 'txt-small sidebar-iconbutton',
+    className: 'txt-small sidebar-iconbutton sidebar-iconbutton-alt',
     tooltipText: 'Open Settings',
     onClicked: () => {
         execAsync(['bash', '-c', `${userOptions.apps.settings}`, '&']);
-        App.closeWindow('sideright');
+        App.closeWindow('dashboard');
     },
     child: MaterialIcon('settings', 'norm'),
     setup: button => {
@@ -280,7 +280,7 @@ export const ModuleSettingsIcon = (props = {}) => Widget.Button({
 
 export const ModulePowerIcon = (props = {}) => Widget.Button({
     ...props,
-    className: 'txt-small sidebar-iconbutton',
+    className: 'txt-small sidebar-iconbutton sidebar-iconbutton-alt',
     tooltipText: 'Session',
     onClicked: () => {
         closeEverything();

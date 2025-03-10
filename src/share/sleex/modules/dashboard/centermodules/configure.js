@@ -63,6 +63,13 @@ if (actual_show_music == null) {
     actual_show_music = exec(`bash -c "cat ${MUSIC_FILE_LOCATION}"`);
 }
 
+const ANALOGCLOCK_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_analogclock.txt`;
+const actual_show_analogclock = exec(`bash -c "cat ${ANALOGCLOCK_FILE_LOCATION}"`);
+if (actual_show_analogclock == null) {
+    execAsync(['bash', '-c', `echo "true" > ${ANALOGCLOCK_FILE_LOCATION}`]).catch(print);
+    actual_show_analogclock = exec(`bash -c "cat ${ANALOGCLOCK_FILE_LOCATION}"`);
+}
+
 const HyprlandToggle = ({ icon, name, desc = null, option, enableValue = 1, disableValue = 0, extraOnChange = () => { } }) => ConfigToggle({
     icon: icon,
     name: name,
@@ -94,6 +101,7 @@ const ShowSystray = (props) => createToggle(SYSTRAY_FILE_LOCATION, actual_show_s
 const ShowSysicon = (props) => createToggle(SYSICON_FILE_LOCATION, actual_show_sysicon, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
 const ShowWeather = (props) => createToggle(WEATHER_FILE_LOCATION, actual_show_weather, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
 const ShowMusic = (props) => createToggle(MUSIC_FILE_LOCATION, actual_show_music, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
+const ShowAnalogClock = (props) => createToggle(ANALOGCLOCK_FILE_LOCATION, actual_show_analogclock, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
 
 const HyprlandSpinButton = ({ icon, name, desc = null, option, ...rest }) => ConfigSpinButton({
     icon: icon,
@@ -203,6 +211,7 @@ export default (props) => {
                         ShowSysicon({ icon: 'settings', name: 'Show system icons', desc: 'Show the system icons on the bar'}),
                         ShowWeather({ icon: 'cloud', name: 'Show weather', desc: 'Show the weather on the bar'}),
                         ShowMusic({ icon: 'music_note', name: 'Show music', desc: 'Show the music on the bar'}),
+                        ShowAnalogClock({ icon: 'schedule', name: 'Show analog clock', desc: 'Show the analog clock on the bar'}),
                         saveButton,
                     ]
                 }),

@@ -36,7 +36,7 @@ export const MicMuteIndicator = () => Widget.Revealer({
 });
 
 
-export const NotificationIndicator = (notifCenterName = 'sideright') => {
+export const NotificationIndicator = (notifCenterName = 'dashboard') => {
     const widget = Widget.Revealer({
         transition: 'slide_left',
         transitionDuration: userOptions.animations.durationSmall,

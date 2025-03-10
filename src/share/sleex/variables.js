@@ -75,6 +75,6 @@ globalThis['closeEverything'] = () => {
         App.closeWindow(`session${i}`);
     }
     App.closeWindow('sideleft');
-    App.closeWindow('sideright');
+    App.closeWindow('dashboard');
     App.closeWindow('overview');
 };

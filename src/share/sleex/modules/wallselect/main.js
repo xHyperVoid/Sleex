@@ -194,7 +194,7 @@ export default () =>
       overlays: [
         Box({
           vertical: true,
-          className: "sidebar-right spacing-v-15",
+          className: "dashboard spacing-v-15",
           vpack: userOptions.bar.position === "top" ? "start" : "end",
           children: [
             Box({

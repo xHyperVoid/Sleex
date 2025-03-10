@@ -1,6 +1,6 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
-const { execAsync } = Utils;
+const { execAsync, exec } = Utils;
 const { Box, EventBox } = Widget;
 import {
     ToggleIconBluetooth,
@@ -20,13 +20,14 @@ import { ModuleCalendar } from "./calendar.js";
 import { getDistroIcon } from '../.miscutils/system.js';
 import { ExpandingIconTabContainer } from '../.commonwidgets/tabcontainer.js';
 import { checkKeybind } from '../.widgetutils/keybind.js';
+import { TodoWidget } from "./todolist.js";
 
 const centerWidgets = [
-    {
-        name: 'Notifications',
-        materialIcon: 'notifications',
-        contentWidget: ModuleNotificationList,
-    },
+    // {
+    //     name: 'Notifications',
+    //     materialIcon: 'notifications',
+    //     contentWidget: ModuleNotificationList,
+    // },
     {
         name: 'Audio controls',
         materialIcon: 'volume_up',
@@ -102,7 +103,7 @@ const timeRow = Box({
                 });
             },
         }),
-        Widget.Box({ hexpand: true }),
+        Widget.Box({ hexpand: true }), 
         ModuleReloadIcon({ hpack: 'end' }),
         // ModuleSettingsIcon({ hpack: 'end' }), // Button does work, gnome-control-center is kinda broken
         ModulePowerIcon({ hpack: 'end' }),
@@ -115,18 +116,15 @@ const togglesBox = Widget.Box({
     children: [
         ToggleIconWifi(),
         ToggleIconBluetooth(),
-        // await ModuleRawInput(),
-        // await HyprToggleIcon('touchpad_mouse', 'No touchpad while typing', 'input:touchpad:disable_while_typing', {}),
         await ModuleNightLight(),
-        // await ModuleInvertColors(),
         ModuleIdleInhibitor(),
-        await ModuleCloudflareWarp(),
-        // await ModuleDoNotDisturb(),
+        // await ModuleCloudflareWarp(),
     ]
 })
 
 export const sidebarOptionsStack = ExpandingIconTabContainer({
     tabsHpack: 'center',
+    className: 'sidebar-opt-stack',
     tabSwitcherClassName: 'sidebar-icontabswitcher',
     icons: centerWidgets.map((api) => api.materialIcon),
     names: centerWidgets.map((api) => api.name),
@@ -137,36 +135,77 @@ export const sidebarOptionsStack = ExpandingIconTabContainer({
     }
 });
 
+const userName = exec('whoami').charAt(0).toUpperCase() + exec('whoami').slice(1);9
+
 export default () => Box({
     vexpand: true,
     hexpand: true,
-    css: 'min-width: 2px;',
     children: [
         EventBox({
-            onPrimaryClick: () => App.closeWindow('sideright'),
-            onSecondaryClick: () => App.closeWindow('sideright'),
-            onMiddleClick: () => App.closeWindow('sideright'),
+            onPrimaryClick: () => App.closeWindow('dashboard'),
+            onSecondaryClick: () => App.closeWindow('dashboard'),
+            onMiddleClick: () => App.closeWindow('dashboard'),
         }),
         Box({
             vertical: true,
             vexpand: true,
-            className: 'sidebar-right spacing-v-15',
+            className: 'dashboard spacing-v-15',
             children: [
                 Box({
                     vertical: true,
                     className: 'spacing-v-5',
                     children: [
                         timeRow,
-                        togglesBox,
+                        // togglesBox,
                     ]
                 }),
                 Box({
-                    className: 'sidebar-group',
+                    className: 'spacing-v-5 spacing-h-10',
                     children: [
-                        sidebarOptionsStack,
+                        Box({
+                            className: 'spacing-h-5',
+                            child: ModuleNotificationList(),
+                        }),
+                        Box({
+                            className: 'spacing-v-10',
+                            hexpand: true,
+                            vertical: true,
+                            children: [
+                                Box({
+                                    className: 'greetings spacing-v-5',
+                                    vertical: true,
+                                    children: [
+                                        Widget.Label({
+                                            xalign: 0,
+                                            label: `Hello, ${userName}`,
+                                            className: 'txt txt-title',
+                                        }),
+                                        Widget.Label({
+                                            xalign: 0,
+                                            label: 'Today is a good day to have a good day',
+                                            className: 'txt txt-medium',
+                                        }),
+                                    ],
+                                }),
+                                sidebarOptionsStack,
+                            ]
+                        }),
+                        Box({
+                            vertical: true,
+                            className: 'spacing-v-10',
+                            children: [
+                                togglesBox,
+                                Box({
+                                    className: 'spacing-v-5 todo-list',
+                                    children: [
+                                        TodoWidget(),
+                                    ]
+                                }),
+                                ModuleCalendar(),
+                            ]
+                        }), 
                     ],
                 }),
-                ModuleCalendar(),
             ]
         }),
     ],
