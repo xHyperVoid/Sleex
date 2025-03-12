@@ -28,7 +28,7 @@ optdepends=(
 
 package() {
         mkdir -p "$pkgdir/usr/"
-        install -Dm755 -t "$pkgdir/usr/" "$srcdir/bin"
-        install -Dm755 -t "$pkgdir/usr/" "$srcdir/share"
+        cp -r "$srcdir/bin" "$pkgdir/usr/"
+        cp -r "$srcdir/share" "$pkgdir/usr/"
 }
 
