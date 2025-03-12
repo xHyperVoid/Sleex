@@ -21,6 +21,10 @@ import { getDistroIcon } from '../.miscutils/system.js';
 import { ExpandingIconTabContainer } from '../.commonwidgets/tabcontainer.js';
 import { checkKeybind } from '../.widgetutils/keybind.js';
 import { TodoWidget } from "./todolist.js";
+import { QuoteWidget } from "./quote.js";
+import { MusicWidget } from './music.js';
+import { WeatherWidget } from './weather.js';
+import Name from "./name.js";
 
 const centerWidgets = [
     // {
@@ -151,6 +155,7 @@ export default () => Box({
             vexpand: true,
             className: 'dashboard spacing-v-15',
             children: [
+                // Top row
                 Box({
                     vertical: true,
                     className: 'spacing-v-5',
@@ -162,10 +167,12 @@ export default () => Box({
                 Box({
                     className: 'spacing-v-5 spacing-h-10',
                     children: [
+                        // Column 1
                         Box({
                             className: 'spacing-h-5',
                             child: ModuleNotificationList(),
                         }),
+                        // Column 2
                         Box({
                             className: 'spacing-v-10',
                             hexpand: true,
@@ -190,6 +197,7 @@ export default () => Box({
                                 sidebarOptionsStack,
                             ]
                         }),
+                        // Column 3
                         Box({
                             vertical: true,
                             className: 'spacing-v-10',
@@ -204,6 +212,17 @@ export default () => Box({
                                 ModuleCalendar(),
                             ]
                         }), 
+                        // Column 4
+                        Box({
+                            vertical: true,
+                            className: 'spacing-h-5 spacing-v-10',
+                            children: [
+                                QuoteWidget(),
+                                MusicWidget(),
+                                WeatherWidget(),
+                                Name(),
+                            ]
+                        }),
                     ],
                 }),
             ]

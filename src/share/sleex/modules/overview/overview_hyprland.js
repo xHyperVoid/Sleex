@@ -133,7 +133,6 @@ export default (overviewMonitor = 0) => {
                     vpack: 'center',
                     children: [
                         appIcon,
-                        // TODO: Add xwayland tag instead of just having italics
                         Widget.Revealer({
                             transition: 'slide_right',
                             revealChild: revealInfoCondition,

@@ -195,18 +195,14 @@ export default ({
                             className: `notif-action notif-action-${notifObject.urgency}`,
                             onClicked: () => destroyWithAnims(),
                             setup: setupCursorHover,
-                            child: Label({
-                                label: 'Close',
-                            }),
+                            label: 'Close',
                         }),
                         ...notifObject.actions.map(action => Widget.Button({
                             hexpand: true,
                             className: `notif-action notif-action-${notifObject.urgency}`,
                             onClicked: () => notifObject.invoke(action.id), // This comment is an anchor
                             setup: setupCursorHover,
-                            child: Label({
-                                label: action.label,
-                            }),
+                            label: action.label,
                         }))
                     ],
                 })

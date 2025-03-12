@@ -164,7 +164,7 @@ export default () => {
       const interval =
         Number(Utils.readFile(CUSTOM_MODULE_CONTENT_INTERVAL_FILE)) || 5000;
       return BarGroup({
-        child: Button({
+        child: Box({
           child: Label({
             className: "txt-smallie txt-onSurfaceVariant",
             useMarkup: true,

@@ -35,40 +35,26 @@ if (actual_show_workspaces == null) {
     actual_show_workspaces = exec(`bash -c "cat ${WORKSPACE_FILE_LOCATION}"`);
 }
 
-const SYSTRAY_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_systray.txt`;
-const actual_show_systray = exec(`bash -c "cat ${SYSTRAY_FILE_LOCATION}"`);
-if (actual_show_systray == null) {
-    execAsync(['bash', '-c', `echo "true" > ${SYSTRAY_FILE_LOCATION}`]).catch(print);
-    actual_show_systray = exec(`bash -c "cat ${SYSTRAY_FILE_LOCATION}"`);
-}
+// const WEATHER_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_weather.txt`;
+// const actual_show_weather = exec(`bash -c "cat ${WEATHER_FILE_LOCATION}"`);
+// if (actual_show_weather == null) {
+//     execAsync(['bash', '-c', `echo "true" > ${WEATHER_FILE_LOCATION}`]).catch(print);
+//     actual_show_weather = exec(`bash -c "cat ${WEATHER_FILE_LOCATION}"`);
+// }
 
-const SYSICON_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_sysicon.txt`;
-const actual_show_sysicon = exec(`bash -c "cat ${SYSICON_FILE_LOCATION}"`);
-if (actual_show_sysicon == null) {
-    execAsync(['bash', '-c', `echo "true" > ${SYSICON_FILE_LOCATION}`]).catch(print);
-    actual_show_sysicon = exec(`bash -c "cat ${SYSICON_FILE_LOCATION}"`);
-}
+// const MUSIC_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_music.txt`;
+// const actual_show_music = exec(`bash -c "cat ${MUSIC_FILE_LOCATION}"`);
+// if (actual_show_music == null) {
+//     execAsync(['bash', '-c', `echo "true" > ${MUSIC_FILE_LOCATION}`]).catch(print);
+//     actual_show_music = exec(`bash -c "cat ${MUSIC_FILE_LOCATION}"`);
+// }
 
-const WEATHER_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_weather.txt`;
-const actual_show_weather = exec(`bash -c "cat ${WEATHER_FILE_LOCATION}"`);
-if (actual_show_weather == null) {
-    execAsync(['bash', '-c', `echo "true" > ${WEATHER_FILE_LOCATION}`]).catch(print);
-    actual_show_weather = exec(`bash -c "cat ${WEATHER_FILE_LOCATION}"`);
-}
-
-const MUSIC_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_music.txt`;
-const actual_show_music = exec(`bash -c "cat ${MUSIC_FILE_LOCATION}"`);
-if (actual_show_music == null) {
-    execAsync(['bash', '-c', `echo "true" > ${MUSIC_FILE_LOCATION}`]).catch(print);
-    actual_show_music = exec(`bash -c "cat ${MUSIC_FILE_LOCATION}"`);
-}
-
-const ANALOGCLOCK_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_analogclock.txt`;
-const actual_show_analogclock = exec(`bash -c "cat ${ANALOGCLOCK_FILE_LOCATION}"`);
-if (actual_show_analogclock == null) {
-    execAsync(['bash', '-c', `echo "true" > ${ANALOGCLOCK_FILE_LOCATION}`]).catch(print);
-    actual_show_analogclock = exec(`bash -c "cat ${ANALOGCLOCK_FILE_LOCATION}"`);
-}
+// const ANALOGCLOCK_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_analogclock.txt`;
+// const actual_show_analogclock = exec(`bash -c "cat ${ANALOGCLOCK_FILE_LOCATION}"`);
+// if (actual_show_analogclock == null) {
+//     execAsync(['bash', '-c', `echo "true" > ${ANALOGCLOCK_FILE_LOCATION}`]).catch(print);
+//     actual_show_analogclock = exec(`bash -c "cat ${ANALOGCLOCK_FILE_LOCATION}"`);
+// }
 
 const HyprlandToggle = ({ icon, name, desc = null, option, enableValue = 1, disableValue = 0, extraOnChange = () => { } }) => ConfigToggle({
     icon: icon,
@@ -97,11 +83,9 @@ const ShowMonitorToggle = (props) => createToggle(SHOWMON_FILE_LOCATION, actual_
 const ShowTimeDate = (props) => createToggle(TIMEDATE_FILE_LOCATION, actual_show_timedate, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
 const ShowWinTitle = (props) => createToggle(WINTITLE_FILE_LOCATION, actual_show_wintitle, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
 const ShowWorkspaces = (props) => createToggle(WORKSPACE_FILE_LOCATION, actual_show_workspaces, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
-const ShowSystray = (props) => createToggle(SYSTRAY_FILE_LOCATION, actual_show_systray, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
-const ShowSysicon = (props) => createToggle(SYSICON_FILE_LOCATION, actual_show_sysicon, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
-const ShowWeather = (props) => createToggle(WEATHER_FILE_LOCATION, actual_show_weather, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
-const ShowMusic = (props) => createToggle(MUSIC_FILE_LOCATION, actual_show_music, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
-const ShowAnalogClock = (props) => createToggle(ANALOGCLOCK_FILE_LOCATION, actual_show_analogclock, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
+// const ShowWeather = (props) => createToggle(WEATHER_FILE_LOCATION, actual_show_weather, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
+// const ShowMusic = (props) => createToggle(MUSIC_FILE_LOCATION, actual_show_music, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
+// const ShowAnalogClock = (props) => createToggle(ANALOGCLOCK_FILE_LOCATION, actual_show_analogclock, 'pkill ags && ags', props.icon, props.name, props.desc, props.extraOnChange);
 
 const HyprlandSpinButton = ({ icon, name, desc = null, option, ...rest }) => ConfigSpinButton({
     icon: icon,
@@ -207,11 +191,9 @@ export default (props) => {
                         ShowTimeDate({ icon: 'schedule', name: 'Show time and date', desc: 'Show the time and date on the bar'}),
                         ShowWinTitle({ icon: 'title', name: 'Show window title', desc: 'Show the window title on the bar'}),
                         ShowWorkspaces({ icon: 'view_module', name: 'Show workspaces', desc: 'Show the workspaces on the bar'}),
-                        ShowSystray({ icon: 'settings_input_hdmi', name: 'Show system tray', desc: 'Show the app trays on the bar'}),
-                        ShowSysicon({ icon: 'settings', name: 'Show system icons', desc: 'Show the system icons on the bar'}),
-                        ShowWeather({ icon: 'cloud', name: 'Show weather', desc: 'Show the weather on the bar'}),
-                        ShowMusic({ icon: 'music_note', name: 'Show music', desc: 'Show the music on the bar'}),
-                        ShowAnalogClock({ icon: 'schedule', name: 'Show analog clock', desc: 'Show the analog clock on the bar'}),
+                        // ShowWeather({ icon: 'cloud', name: 'Show weather', desc: 'Show the weather on the bar'}),
+                        // ShowMusic({ icon: 'music_note', name: 'Show music', desc: 'Show the music on the bar'}),
+                        // ShowAnalogClock({ icon: 'schedule', name: 'Show analog clock', desc: 'Show the analog clock on the bar'}),
                         saveButton,
                     ]
                 }),

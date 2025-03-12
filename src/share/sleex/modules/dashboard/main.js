@@ -7,7 +7,6 @@ import clickCloseRegion from '../.commonwidgets/clickcloseregion.js';
 export default () => PopupWindow({
     keymode: 'on-demand',
     name: 'dashboard',
-    layer: 'top',
     child: Box({
         children: [
             clickCloseRegion({ name: 'dashboard', multimonitor: false }),

@@ -202,7 +202,7 @@ export const ModuleRawInput = async (props = {}) => {
     };
 }
 
-export const ModuleIdleInhibitor = (props = {}) => Widget.Button({ // TODO: Make this work
+export const ModuleIdleInhibitor = (props = {}) => Widget.Button({
     attribute: {
         enabled: false,
     },
@@ -223,7 +223,7 @@ export const ModuleIdleInhibitor = (props = {}) => Widget.Button({ // TODO: Make
     ...props,
 });
 
-export const ModuleDoNotDisturb = (props = {}) => Widget.Button({ // TODO: Make this works
+export const ModuleDoNotDisturb = (props = {}) => Widget.Button({
     attribute: {
         enabled: false,
     },

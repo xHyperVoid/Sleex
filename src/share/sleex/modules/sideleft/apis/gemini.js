@@ -136,20 +136,14 @@ export const GoogleAiInstructions = () => Box({
                 self.revealChild = (GeminiService.key.length == 0);
             }, 'hasKey')
         ,
-        child: Button({
-            child: Label({
-                useMarkup: true,
-                wrap: true,
-                className: 'txt sidebar-chat-welcome-txt',
-                justify: Gtk.Justification.CENTER,
-                label: 'A Google AI API key is required\nYou can grab one <u>here</u>, then enter it below',
-                // setup: self => self.set_markup("This is a <a href=\"https://www.github.com\">test link</a>")
-            }),
-            setup: setupCursorHover,
-            onClicked: () => {
-                Utils.execAsync(['bash', '-c', `xdg-open https://makersuite.google.com/app/apikey &`]);
-            }
-        })
+        child: Label({
+            useMarkup: true,
+            wrap: true,
+            className: 'txt sidebar-chat-welcome-txt',
+            justify: Gtk.Justification.CENTER,
+            label: 'A Google AI API key is required',
+            // setup: self => self.set_markup("This is a <a href=\"https://www.github.com\">test link</a>")
+        }),
     })]
 });
 

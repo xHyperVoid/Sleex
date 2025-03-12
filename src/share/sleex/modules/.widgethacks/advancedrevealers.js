@@ -55,7 +55,11 @@ export const MarginRevealer = ({
     return widget;
 }
 
-// TODO: Allow reveal update. Currently this just helps at declaration
+// Allow reveal update by setting initial state and adding update method
+MarginRevealer.updateReveal = (widget, shouldReveal) => {
+    if (shouldReveal) widget.attribute.show();
+    else widget.attribute.hide();
+};
 export const DoubleRevealer = ({
     transition1 = 'slide_right',
     transition2 = 'slide_left',

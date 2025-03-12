@@ -4,7 +4,6 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 const { Box, Button } = Widget;
 import { MaterialIcon } from '../.commonwidgets/materialicon.js';
 import { setupCursorHover } from '../.widgetutils/cursorhover.js';
-import toolBox from './toolbox.js';
 import apiWidgets from './apiwidgets.js';
 import { chatEntry } from './apiwidgets.js';
 import { TabContainer } from '../.commonwidgets/tabcontainer.js';
@@ -12,12 +11,6 @@ import { checkKeybind } from '../.widgetutils/keybind.js';
 import githubWidget from './updates.js';
 
 const SIDEBARTABS = {
-    'tools': {
-        name: 'tools',
-        content: toolBox,
-        materialIcon: 'home_repair_service',
-        friendlyName: 'Tools',
-    },
     'apis': {
         name: 'apis',
         content: apiWidgets,

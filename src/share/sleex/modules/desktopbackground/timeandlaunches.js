@@ -74,24 +74,24 @@ const analogClock = () => {
   });
 };
 
-const showAnalog = () => {
-  const ANALOGCLOCK_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_analogclock.txt`;
-  const show_analogclock = exec(`bash -c "cat ${ANALOGCLOCK_FILE_LOCATION}"`);
-  show_analogclock == null ? show_analogclock = userOptions.appearance.showAnalogClock : show_analogclock;
-  return show_analogclock == 'true' ? true : false;
-}
+// const showAnalog = () => {
+//   const ANALOGCLOCK_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_analogclock.txt`;
+//   const show_analogclock = Utils.readFile(ANALOGCLOCK_FILE_LOCATION);
+//   show_analogclock == null ? show_analogclock = userOptions.appearance.showAnalogClock : show_analogclock;
+//   return show_analogclock == 'true' ? true : false;
+// }
 
 export default () => {
-  if (showAnalog()) return Box({
-    hpack: "center",
-    vpack: "center",
-    vertical: true,
-    className: "bg-time-box",
-    children: [
-      analogClock(),
-    ],
-  });
-  else return Box({
+  // if (showAnalog()) return Box({
+  //   hpack: "center",
+  //   vpack: "center",
+  //   vertical: true,
+  //   className: "bg-time-box",
+  //   children: [
+  //     analogClock(),
+  //   ],
+  // });
+  return Box({
     hpack: "center",
     vpack: "center",
     vertical: true,

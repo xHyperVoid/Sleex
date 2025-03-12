@@ -70,8 +70,7 @@ const BarBattery = () => Box({
 });
 
 const SeparatorDot = () => {
-    if (!ShowTray()) return;
-    else return Widget.Revealer({
+    return Widget.Revealer({
         transition: 'slide_left',
         revealChild: false,
         attribute: {
@@ -92,24 +91,8 @@ const SeparatorDot = () => {
     });
 }
 
-const ShowTray = () => {
-    const SYSTRAY_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_systray.txt`;
-    const actual_show_systray = exec(`bash -c "cat ${SYSTRAY_FILE_LOCATION}"`);
-    actual_show_systray == null ? actual_show_systray = userOptions.appearance.showSysTray : actual_show_systray;
-    return actual_show_systray == 'true' ? true : false;
-}
-
-const ShowSysIcons = () => {
-    const SYSICONS_FILE_LOCATION = `${GLib.get_user_state_dir()}/ags/user/show_sysicon.txt`;
-    const actual_show_sysicons = exec(`bash -c "cat ${SYSICONS_FILE_LOCATION}"`);
-    actual_show_sysicons == null ? actual_show_sysicons = userOptions.appearance.showSysIcons : actual_show_sysicons;
-    return actual_show_sysicons == 'true' ? true : false;
-}
-
-
 export default (monitor = 0) => {
     let barTray = Tray();
-    if (!ShowTray()) barTray = Widget.Box({ hexpand: true, });
     const barStatusIcons = StatusIcons({
         className: 'bar-statusicons',
         setup: (self) => self.hook(App, (self, currentName, visible) => {
@@ -146,7 +129,6 @@ export default (monitor = 0) => {
             barStatusIcons
         ],
     }));
-    if (!ShowSysIcons()) indicatorArea = null;
     const actualContent = Widget.Box({
         hexpand: true,
         className: 'spacing-h-5 bar-spaceright',

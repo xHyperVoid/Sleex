@@ -9,6 +9,7 @@ const { execAsync } = Utils;
 import userOptions from './modules/.configuration/user_options.js'; // Not unused, careful
 import { firstRunWelcome, startBatteryWarningService } from './services/messages.js';
 import { startAutoDarkModeService } from './services/darkmode.js';
+import './services/weather.js'; // service that updates weather every 15 minutes
 // Widgets
 import { Bar } from './modules/bar/main.js';
 import Cheatsheet from './modules/cheatsheet/main.js';
@@ -50,7 +51,7 @@ firstRunWelcome().catch(print);
 startBatteryWarningService().catch(print);
 
 const Windows = () => [
-    forMonitors(DesktopBackground),
+    forMonitors(DesktopBackground), 
     Overview(),
     forMonitors(Indicator),
     forMonitors(Cheatsheet),
@@ -75,4 +76,3 @@ App.config({
 // Stuff that don't need to be toggled. And they're async so ugh...
 forMonitorsAsync(Bar);
 // Bar().catch(print); // Use this to debug the bar. Single monitor only.
-

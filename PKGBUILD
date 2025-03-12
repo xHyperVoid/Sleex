@@ -1,5 +1,5 @@
 pkgname="sleex"
-pkgver="0.16"
+pkgver="0.17"
 pkgrel="1"
 pkgdesc="Third desktop environment for AxOS"
 arch=("x86_64")
@@ -27,7 +27,8 @@ optdepends=(
 
 
 package() {
-	mkdir -p "$pkgdir/usr/"
-	cp -r "$srcdir/bin" "$pkgdir/usr/"
-	cp -r "$srcdir/share" "$pkgdir/usr/"
+        mkdir -p "$pkgdir/usr/"
+        install -Dm755 -t "$pkgdir/usr/" "$srcdir/bin"
+        install -Dm755 -t "$pkgdir/usr/" "$srcdir/share"
 }
+

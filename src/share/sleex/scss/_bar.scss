@@ -419,3 +419,11 @@ $bar_ws_width_focus_active: 2.045rem;
   font-size: 1.032rem;
   padding: 0.205rem 0.341rem;
 }
+
+.bar-dot-button {
+  @include full-rounding;
+  min-height: 1.77rem;
+  min-width: 1.77rem;
+  background-color: $layer0;
+  color: $onLayer0;
+}

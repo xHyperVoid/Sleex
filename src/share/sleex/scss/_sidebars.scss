@@ -444,64 +444,6 @@ $sidebar_chat_textboxareaColor: mix($onSurfaceVariant, $surfaceVariant, 40%);
 
 $colorpicker_rounding: 0.341rem;
 
-.sidebar-module-colorpicker-wrapper {
-  padding: 0.341rem;
-}
-
-.sidebar-module-colorpicker-cursorwrapper {
-  padding: 0.341rem 0.136rem;
-}
-
-.sidebar-module-colorpicker-hue {
-  min-height: 13.636rem;
-  min-width: 1.091rem;
-  border-radius: $colorpicker_rounding;
-}
-
-.sidebar-module-colorpicker-hue-cursor {
-  background-color: $onBackground;
-  border: 0.136rem solid $onBackground;
-  min-height: 0.136rem;
-  margin-top: -0.136rem;
-  border-radius: $colorpicker_rounding;
-}
-
-.sidebar-module-colorpicker-saturationandlightness-wrapper {
-  padding: 0.341rem;
-}
-
-.sidebar-module-colorpicker-saturationandlightness {
-  min-height: 13.636rem;
-  min-width: 13.636rem;
-  border-radius: $colorpicker_rounding;
-}
-
-.sidebar-module-colorpicker-saturationandlightness-cursorwrapper {
-  padding: 0.341rem;
-  margin-top: -0.409rem;
-  margin-left: -0.409rem;
-}
-
-.sidebar-module-colorpicker-saturationandlightness-cursor {
-  @include full-rounding;
-  border: 0.136rem solid white;
-  min-width: 0.682rem;
-  min-height: 0.682rem;
-  margin-top: -0.409rem;
-  margin-left: -0.409rem;
-}
-
-.sidebar-module-colorpicker-result-area {
-  padding: 0.341rem;
-}
-
-.sidebar-module-colorpicker-result-box {
-  border-radius: $colorpicker_rounding;
-  min-width: 2.045rem;
-  min-height: 0.682rem;
-  padding: 0.341rem;
-}
-
 .sidebar-icontabswitcher {
   @include full-rounding;
   @include group-padding;
@@ -1036,4 +978,40 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
   @include normal-rounding;
   background-color: $layer1;
   padding: 0.682rem;
+}
+
+.quote-box {
+  @include normal-rounding;
+  background-color: $layer1;
+  padding: 0.682rem;
+  min-width: 20rem;
+}
+
+.music-widget {
+  @include normal-rounding;
+  background-color: $layer1;
+  padding: 0.682rem;
+}
+
+.name {
+  @include normal-rounding;
+  background-color: $layer1;
+  padding: 0.682rem;
+}
+
+.weather-widget {
+  @include normal-rounding;
+  background-color: $layer1;
+  padding: 0.682rem;
+}
+
+.weather-image-box {
+  @include normal-rounding;
+  background-size: cover;
+  background-position: center;
+  min-width: 5.5rem;
+  min-height: 5.5rem;
+  padding: 0.682rem;
+  margin: 0.682rem;
+  margin-right: 1.682rem;
 }

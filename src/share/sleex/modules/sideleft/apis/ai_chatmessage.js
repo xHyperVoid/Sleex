@@ -164,7 +164,7 @@ const CodeBlock = (content = '', lang = 'txt') => {
                 }),
                 onClicked: (self) => {
                     const buffer = sourceView.get_buffer();
-                    const copyContent = buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), false); // TODO: fix this
+                    const copyContent = buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), false);
                     execAsync([`wl-copy`, `${copyContent}`]).catch(print);
                 },
             }),

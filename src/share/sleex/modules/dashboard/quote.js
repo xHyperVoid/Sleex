@@ -1,7 +1,5 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 const { Box, Label } = Widget;
-import SidebarModule from './module.js';
-import { MaterialIcon } from '../../.commonwidgets/materialicon.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
 
 const MakeRequest = async () => {
@@ -21,16 +19,14 @@ const MakeRequest = async () => {
     }
 };
 
-export default () => {
+export const QuoteWidget = () => {
     const quoteLabel = Label({
         wrap: true,
-        hpack: 'center',
         className: 'txt txt-quote',
         label: 'Loading...'
     });
 
     const authorLabel = Label({
-        hpack: 'center',
         className: 'txt txt-small',
         label: 'Loading...'
     });
@@ -44,17 +40,12 @@ export default () => {
         // console.log('Author:', author);
     })();
 
-    return SidebarModule({
-        icon: MaterialIcon('format_quote', 'norm'),
-        name: 'Quotes',
-        child: Box({
-            vertical: true,
-            hexpand: true,
-            className: 'spacing-v-5',
-            children: [
-                quoteLabel,
-                authorLabel
-            ]
-        })
-    });
+    return Box({
+        vertical: true,
+        className: 'spacing-v-5 quote-box',
+        children: [
+            quoteLabel,
+            authorLabel
+        ]
+    })
 };
