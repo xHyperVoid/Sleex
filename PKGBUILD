@@ -1,5 +1,5 @@
 pkgname="sleex"
-pkgver="0.18"
+pkgver="0.19"
 pkgrel="1"
 pkgdesc="Third desktop environment for AxOS"
 arch=("x86_64")
