@@ -164,7 +164,7 @@ const UpdateBox = () => {
                          setup: setupCursorHover,
                          onClicked: () => {
                               execAsync(
-                                   "foot -e sudo pacman -Sy sleex axskel-hypr && cp -r /etc/skel/.config/hypr/hyprland/* ~/.config/hypr/hyprland/"
+                                   "foot -e sudo pacman -Sy sleex axskel-hypr"
                               );
                          },
                     }),
