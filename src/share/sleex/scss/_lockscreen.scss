@@ -1,0 +1,30 @@
+.lockscreen {
+    background-color: rgba(0, 0, 0, 0.25);
+
+    spinner {
+        margin-top: 0.625rem;
+    }
+
+    entry {
+        background-color: $layer1;
+        margin-top: 1rem;
+        padding: 1rem;
+        min-height: 20px;
+        @include small-rounding;
+    }
+
+    .avatar {
+        border-radius: 99px;
+        min-width: 7rem;
+        min-height: 7rem;
+        margin: 1rem;
+        background-size: cover;
+    }
+} 
+
+.lockscreen-container {
+    background-color: $layer0;
+    padding: 2rem;
+    border: none;
+    @include normal-rounding;
+}
