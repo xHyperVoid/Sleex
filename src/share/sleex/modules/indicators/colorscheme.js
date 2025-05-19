@@ -219,15 +219,15 @@ export default () => Widget.Revealer({
     setup: (self) => {
         self
             .hook(showColorScheme, (revealer) => {
-                if (showColorScheme.value == true)
+                if (showColorScheme.value === true)
                     revealer.revealChild = true;
                 else
                     revealer.revealChild = isHoveredColorschemeSettings.value;
             })
             .hook(isHoveredColorschemeSettings, (revealer) => {
-                if (isHoveredColorschemeSettings.value == false) {
+                if (isHoveredColorschemeSettings.value === false) {
                     setTimeout(() => {
-                        if (isHoveredColorschemeSettings.value == false)
+                        if (isHoveredColorschemeSettings.value === false)
                             revealer.revealChild = showColorScheme.value;
                     }, 2000);
                 }

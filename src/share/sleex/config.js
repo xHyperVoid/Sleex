@@ -21,8 +21,8 @@ import SideLeft from './modules/sideleft/main.js';
 import Dashboard from './modules/dashboard/main.js';
 import { COMPILED_STYLE_DIR } from './init.js';
 import Wallselect from './modules/wallselect/main.js';
-
-
+import indicatorvalueBrightness from './modules/indicators/indicatorvalueBrightness.js';
+import indicatorvaluesAudio from './modules/indicators/indicatorvaluesAudio.js';
 
 const range = (length, start = 1) => Array.from({ length }, (_, i) => i + start);
 function forMonitors(widget) {
@@ -48,17 +48,21 @@ FirstRunScript();
 handleStyles(true);
 startAutoDarkModeService().catch(print);
 firstRunWelcome().catch(print);
+
 startBatteryWarningService().catch(print);
 
 const Windows = () => [
     forMonitors(DesktopBackground), 
     Overview(),
     forMonitors(Indicator),
+    forMonitors(indicatorvalueBrightness),
+    forMonitors(indicatorvaluesAudio),
     forMonitors(Cheatsheet),
     SideLeft(),
     Dashboard(),
     forMonitors(Session),
     Wallselect(),
+
 ];
 
 const CLOSE_ANIM_TIME = 210; // Longer than actual anim time to make sure widgets animate fully

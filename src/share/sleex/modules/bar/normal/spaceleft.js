@@ -5,6 +5,7 @@ import Brightness from '../../../services/brightness.js';
 import Indicator from '../../../services/indicator.js';
 import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 const { exec } = Utils;
+import { RoundedCorner } from "../../.commonwidgets/cairo_roundedcorner.js";
 
 const WindowTitle = async () => {
     try {
@@ -29,9 +30,14 @@ const WindowTitle = async () => {
                         truncate: 'end',
                         maxWidthChars: 1, // Doesn't matter, just needs to be non negative
                         className: 'txt-smallie bar-wintitle-txt',
-                        setup: (self) => self.hook(Hyprland.active.client, label => { // Hyprland.active.client
-                            label.label = Hyprland.active.client.title.length === 0 ? `Workspace ${Hyprland.active.workspace.id}` : Hyprland.active.client.title;
-                        }),
+                        setup: (self) => {
+                            self.hook(Hyprland.active.client, label => { // Hyprland.active.client
+                                label.label = Hyprland.active.client.title.length === 0 ? `Workspace ${Hyprland.active.workspace.id}` : Hyprland.active.client.title;
+                            });
+                            self.hook(Hyprland.active.workspace, label => { // Hyprland.active.client
+                                label.label = Hyprland.active.client.title.length === 0 ? `Workspace ${Hyprland.active.workspace.id}` : Hyprland.active.client.title;
+                            });
+                        }
                     })
                 ]
             })
@@ -50,16 +56,13 @@ const ShowWindowTitle = () => {
 
 export default async (monitor = 0) => {
     let optionalWindowTitleInstance = await WindowTitle();
-    if (!ShowWindowTitle()) optionalWindowTitleInstance = null;
-
-    
-    return Widget.EventBox({
+    if (ShowWindowTitle()) return Widget.EventBox({
         onScrollUp: () => {
-            Indicator.popup(1); // Since the brightness and speaker are both on the same window
+            Indicator.popup(1);
             Brightness[monitor].screen_value += 0.05;
         },
         onScrollDown: () => {
-            Indicator.popup(1); // Since the brightness and speaker are both on the same window
+            Indicator.popup(1);
             Brightness[monitor].screen_value -= 0.05;
         },
         onPrimaryClick: () => {
@@ -68,23 +71,32 @@ export default async (monitor = 0) => {
         child: Widget.Box({
             homogeneous: false,
             children: [
-                Widget.Box({ className: 'bar-corner-spacing' }),
                 Widget.Overlay({
                     overlays: [
                         Widget.Box({ hexpand: true }),
                         Widget.Box({
-                            className: 'bar-sidemodule', hexpand: true,
+                            className: 'bar-sidemodule', 
+                            hexpand: true,
                             children: [Widget.Box({
                                 vertical: true,
-                                className: 'bar-space-button',
+                                className: 'bar-space-button bar-spaceleft',
                                 children: [
                                     optionalWindowTitleInstance,
                                 ]
                             })]
                         }),
                     ]
-                })
+                }),
+                RoundedCorner('topright', { className: 'corner', }),
+                Widget.Box({ hexpand: true }),
             ]
         })
+    });
+    else return Widget.Box({
+        children: [
+            RoundedCorner('topright', { className: 'corner', }),
+            Widget.Box({ hexpand: true }),
+            
+        ]
     });
 }

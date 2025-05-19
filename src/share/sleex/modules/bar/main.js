@@ -1,14 +1,11 @@
-const { Gtk, GLib } = imports.gi;
+const { GLib } = imports.gi;
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
-const { execAsync, exec } = Utils;
-import { MaterialIcon } from '../.commonwidgets/materialicon.js';
+const { exec } = Utils;
 import WindowTitle from "./normal/spaceleft.js";
 import Indicators from "./normal/spaceright.js";
 import Monitor from "./normal/monitor.js";
 import System from "./normal/system.js";
-// import Music from "./normal/music.js";
-// import Weather from './normal/weather.js';
 import { currentShellMode } from '../../variables.js';
 import { RoundedCorner } from "../.commonwidgets/cairo_roundedcorner.js";
 
@@ -55,12 +52,10 @@ export const Bar = async (monitor = 0) => {
             className: 'bar-center', // Center bar
             children: [
                 Monitor(),
-                // Music(),
                 BarCornerTopleft(),
                 await NormalOptionalWorkspaces(),
                 BarCornerTopright(),
                 System(),
-                // Weather(),
             ]
         }),
         endWidget: Indicators(monitor),
