@@ -21,7 +21,7 @@ const WindowTitle = async () => {
                         truncate: 'end',
                         maxWidthChars: 1, // Doesn't matter, just needs to be non negative
                         className: 'txt-smaller bar-wintitle-topdesc txt',
-                        setup: (self) => self.hook(Hyprland.active.client, label => { // Hyprland.active.client
+                        setup: (self) => self.hook(Hyprland.active.client, label => {
                             label.label = Hyprland.active.client.class.length === 0 ? 'Desktop' : Hyprland.active.client.class;
                         }),
                     }),
@@ -31,10 +31,10 @@ const WindowTitle = async () => {
                         maxWidthChars: 1, // Doesn't matter, just needs to be non negative
                         className: 'txt-smallie bar-wintitle-txt',
                         setup: (self) => {
-                            self.hook(Hyprland.active.client, label => { // Hyprland.active.client
+                            self.hook(Hyprland.active.client, label => {
                                 label.label = Hyprland.active.client.title.length === 0 ? `Workspace ${Hyprland.active.workspace.id}` : Hyprland.active.client.title;
                             });
-                            self.hook(Hyprland.active.workspace, label => { // Hyprland.active.client
+                            self.hook(Hyprland.active.workspace, label => {
                                 label.label = Hyprland.active.client.title.length === 0 ? `Workspace ${Hyprland.active.workspace.id}` : Hyprland.active.client.title;
                             });
                         }
@@ -94,7 +94,7 @@ export default async (monitor = 0) => {
     });
     else return Widget.Box({
         children: [
-            RoundedCorner('topright', { className: 'corner', }),
+            // RoundedCorner('topright', { className: 'corner', }),
             Widget.Box({ hexpand: true }),
             
         ]

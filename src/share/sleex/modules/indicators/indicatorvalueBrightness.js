@@ -9,7 +9,6 @@ import { RoundedCorner } from "../.commonwidgets/cairo_roundedcorner.js";
 
 const BrightnessOsd = (monitor = 0) => {
      const brightnessIndicator = OsdValue({
-          name: "Brightness",
           icon: "light_mode",
           extraClassName: "osd-brightness",
           extraProgressClassName: "osd-brightness-progress",

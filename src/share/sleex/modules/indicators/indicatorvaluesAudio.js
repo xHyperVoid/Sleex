@@ -9,7 +9,6 @@ import { RoundedCorner } from "../.commonwidgets/cairo_roundedcorner.js";
 
 const audioOsd = () => {
      const volumeIndicator = OsdValue({
-          name: "Volume",
           icon: "volume_up",
           extraClassName: "osd-volume",
           extraProgressClassName: "osd-volume-progress",

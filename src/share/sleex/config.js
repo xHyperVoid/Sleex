@@ -23,6 +23,7 @@ import { COMPILED_STYLE_DIR } from './init.js';
 import Wallselect from './modules/wallselect/main.js';
 import indicatorvalueBrightness from './modules/indicators/indicatorvalueBrightness.js';
 import indicatorvaluesAudio from './modules/indicators/indicatorvaluesAudio.js';
+import indicatorvalues from './modules/indicators/indicatorvalues.js';
 
 const range = (length, start = 1) => Array.from({ length }, (_, i) => i + start);
 function forMonitors(widget) {
@@ -55,13 +56,14 @@ const Windows = () => [
     forMonitors(DesktopBackground), 
     Overview(),
     forMonitors(Indicator),
-    forMonitors(indicatorvalueBrightness),
-    forMonitors(indicatorvaluesAudio),
+    // forMonitors(indicatorvalueBrightness),
+    // forMonitors(indicatorvaluesAudio),
     forMonitors(Cheatsheet),
     SideLeft(),
     Dashboard(),
     forMonitors(Session),
     Wallselect(),
+    forMonitors(indicatorvalues),
 
 ];
 
