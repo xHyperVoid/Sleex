@@ -146,6 +146,7 @@ export default (monitor = 0) => Widget.Window({
      name: `indicatorOsd${monitor}`,
      monitor,
      className: 'indicator',
+     exclusivity: "ignore",
      layer: 'overlay',
      visible: true,
      anchor: ['top', 'left'],
