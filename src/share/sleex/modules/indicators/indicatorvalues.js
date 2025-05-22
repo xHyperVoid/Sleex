@@ -1,15 +1,13 @@
-// This file is for brightness/volume indicators
 import Widget from "resource:///com/github/Aylur/ags/widget.js";
-import Audio from "resource:///com/github/Aylur/ags/service/audio.js";
-import Utils from "resource:///com/github/Aylur/ags/utils.js";
-const { Box, Label, ProgressBar } = Widget;
-import { MarginRevealer } from "../.widgethacks/advancedrevealers.js";
+const { Box, Label, ProgressBar, Revealer } = Widget;
+import { MaterialIcon } from "../.commonwidgets/materialicon.js";
 import Brightness from "../../services/brightness.js";
 import Indicator from "../../services/indicator.js";
-import { MaterialIcon } from "../.commonwidgets/materialicon.js";
+import { RoundedCorner } from "../.commonwidgets/cairo_roundedcorner.js";
+import Audio from "resource:///com/github/Aylur/ags/service/audio.js";
+import Utils from "resource:///com/github/Aylur/ags/utils.js";
 
-const OsdValue = ({
-     name,
+export const OsdValue = ({
      icon,
      nameSetup = undefined,
      labelSetup,
@@ -18,14 +16,6 @@ const OsdValue = ({
      extraProgressClassName = "",
      ...rest
 }) => {
-     const valueName = Label({
-          xalign: 0,
-          yalign: 0,
-          hexpand: true,
-          className: "osd-label",
-          label: `${name}`,
-          setup: nameSetup,
-     });
      const valueNumber = Label({
           hexpand: false,
           className: "osd-value-txt",
@@ -47,9 +37,6 @@ const OsdValue = ({
                     className: "spacing-v-5",
                     vpack: "center",
                     children: [
-                         Box({
-                              children: [valueName, valueNumber],
-                         }),
                          ProgressBar({
                               className: `osd-progress ${extraProgressClassName}`,
                               hexpand: true,
@@ -58,14 +45,17 @@ const OsdValue = ({
                          }),
                     ],
                }),
+               Box({
+                    children: [valueNumber],
+               }),
+
           ],
           ...rest,
      });
 };
 
-export default (monitor = 0) => {
+const BrightnessOsd = (monitor = 0) => {
      const brightnessIndicator = OsdValue({
-          name: "Brightness",
           icon: "light_mode",
           extraClassName: "osd-brightness",
           extraProgressClassName: "osd-brightness-progress",
@@ -91,8 +81,11 @@ export default (monitor = 0) => {
                ),
      });
 
+     return brightnessIndicator;
+};
+
+const audioOsd = () => {
      const volumeIndicator = OsdValue({
-          name: "Volume",
           icon: "volume_up",
           extraClassName: "osd-volume",
           extraProgressClassName: "osd-volume-progress",
@@ -145,24 +138,48 @@ export default (monitor = 0) => {
                }),
      });
 
-     return MarginRevealer({
-          transition: "slide_down",
-          showClass: "osd-show",
-          hideClass: "osd-hide",
-          extraSetup: (self) =>
-               self.hook(
-                    Indicator,
-                    (revealer, value) => {
-                         if (value > -1) revealer.attribute.show();
-                         else revealer.attribute.hide();
-                    },
-                    "popup"
-               ),
-          child: Box({
-               hpack: "center",
-               vertical: false,
-               className: "spacing-h--10",
-               children: [brightnessIndicator, volumeIndicator],
-          }),
-     });
+     return volumeIndicator;
 };
+
+
+export default (monitor = 0) => Widget.Window({
+     name: `indicatorOsd${monitor}`,
+     monitor,
+     className: 'indicator',
+     exclusivity: "ignore",
+     layer: 'overlay',
+     visible: true,
+     anchor: ['top', 'left'],
+     child: Widget.Box({
+          vertical: true,
+          className: 'osd-window',
+          css: 'min-height: 2px;',
+          child: Revealer({
+               transition: "slide_down",
+               transitionDuration: userOptions.animations.durationLarge,
+               revealChild: false,
+               setup: (self) =>
+                    self.hook(Indicator, (revealer, value) => {
+                              if (value > -1) self.revealChild = true;
+                              else self.revealChild = false;
+                         },
+                         'popup',
+                    ),
+               child: Box({
+                    hpack: "center",
+                    vertical: false,
+                    className: "spacing-h--10",
+                    children: [
+                         Box({
+                              vertical: true,
+                              children: [
+                                   BrightnessOsd(monitor),
+                                   audioOsd(),
+                              ],
+                         }),
+                         RoundedCorner('topright', { className: 'corner'}),
+                    ],
+               }),
+          }),
+     })
+});

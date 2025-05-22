@@ -1,5 +1,5 @@
 pkgname="sleex"
-pkgver="0.22"
+pkgver="0.23"
 pkgrel="1"
 pkgdesc="Third desktop environment for AxOS"
 arch=("x86_64")
@@ -20,6 +20,7 @@ depends=(
 	"sleex-screencapture"
 	"sleex-widgets"
 	"axskel-hypr"
+	"axctl"
 )
 optdepends=(
 	"sleex-optional: Optional packages"

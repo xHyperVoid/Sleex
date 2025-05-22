@@ -21,8 +21,7 @@ import SideLeft from './modules/sideleft/main.js';
 import Dashboard from './modules/dashboard/main.js';
 import { COMPILED_STYLE_DIR } from './init.js';
 import Wallselect from './modules/wallselect/main.js';
-
-
+import indicatorvalues from './modules/indicators/indicatorvalues.js';
 
 const range = (length, start = 1) => Array.from({ length }, (_, i) => i + start);
 function forMonitors(widget) {
@@ -48,6 +47,7 @@ FirstRunScript();
 handleStyles(true);
 startAutoDarkModeService().catch(print);
 firstRunWelcome().catch(print);
+
 startBatteryWarningService().catch(print);
 
 const Windows = () => [
@@ -59,6 +59,8 @@ const Windows = () => [
     Dashboard(),
     forMonitors(Session),
     Wallselect(),
+    forMonitors(indicatorvalues),
+
 ];
 
 const CLOSE_ANIM_TIME = 210; // Longer than actual anim time to make sure widgets animate fully

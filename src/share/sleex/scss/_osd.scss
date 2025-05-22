@@ -1,15 +1,11 @@
-// .osd-window {
-    // margin-top: 2.727rem;
-// }
-
 .osd-bg {
     min-width: 8.864rem;
 }
 
 .osd-value {
-    @include elevation-border;
-    @include elevation2;
-    @include small-rounding;
+    //@include elevation-border;
+    //@include elevation2;
+    //@include small-rounding;
     background-color: $layer0;
     padding: 0.341rem 1.023rem 0.341rem 0.682rem;
     min-width: 9.545rem;
@@ -17,7 +13,7 @@
 
 .osd-progress {
     min-height: 0.682rem;
-    min-width: 8.182rem;
+    min-width: 12.727rem;
     padding: 0rem;
     border-radius: 10rem;
     @include fluent_decel;
@@ -53,6 +49,7 @@
 
 .osd-brightness {
     color: $brightnessOnLayer0;
+    //border-radius: 0 0 1.364rem 0;
 }
 .osd-brightness-progress {
     progress {
@@ -61,6 +58,7 @@
 }
 .osd-volume {
     color: $volumeOnLayer0;
+    border-radius: 0 0 1.364rem 0;
 }
 .osd-volume-progress {
     progress {

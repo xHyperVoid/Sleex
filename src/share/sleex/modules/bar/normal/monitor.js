@@ -7,14 +7,6 @@ import { AnimatedCircProg } from "../../.commonwidgets/cairo_circularprogress.js
 import { MaterialIcon } from "../../.commonwidgets/materialicon.js";
 import { RoundedCorner } from "../../.commonwidgets/cairo_roundedcorner.js";
 
-const CUSTOM_MODULE_CONTENT_INTERVAL_FILE = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-interval.txt`;
-const CUSTOM_MODULE_CONTENT_SCRIPT = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-poll.sh`;
-const CUSTOM_MODULE_LEFTCLICK_SCRIPT = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-leftclick.sh`;
-const CUSTOM_MODULE_RIGHTCLICK_SCRIPT = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-rightclick.sh`;
-const CUSTOM_MODULE_MIDDLECLICK_SCRIPT = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-middleclick.sh`;
-const CUSTOM_MODULE_SCROLLUP_SCRIPT = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-scrollup.sh`;
-const CUSTOM_MODULE_SCROLLDOWN_SCRIPT = `${GLib.get_user_cache_dir()}/ags/user/scripts/custom-module-scrolldown.sh`;
-
 const BarGroup = ({ child }) =>
   Box({
     className: "bar-group-margin bar-sides",
@@ -160,36 +152,6 @@ const showBarRessources = () => {
 
 export default () => {
   const SystemResourcesOrCustomModule = () => {
-    if (GLib.file_test(CUSTOM_MODULE_CONTENT_SCRIPT, GLib.FileTest.EXISTS)) {
-      const interval =
-        Number(Utils.readFile(CUSTOM_MODULE_CONTENT_INTERVAL_FILE)) || 5000;
-      return BarGroup({
-        child: Box({
-          child: Label({
-            className: "txt-smallie txt-onSurfaceVariant",
-            useMarkup: true,
-            setup: (self) =>
-              Utils.timeout(1, () => {
-                self.label = exec(CUSTOM_MODULE_CONTENT_SCRIPT);
-                self.poll(interval, (self) => {
-                  const content = exec(CUSTOM_MODULE_CONTENT_SCRIPT);
-                  self.label = content;
-                });
-              }),
-          }),
-          onPrimaryClickRelease: () =>
-            execAsync(CUSTOM_MODULE_LEFTCLICK_SCRIPT).catch(print),
-          onSecondaryClickRelease: () =>
-            execAsync(CUSTOM_MODULE_RIGHTCLICK_SCRIPT).catch(print),
-          onMiddleClickRelease: () =>
-            execAsync(CUSTOM_MODULE_MIDDLECLICK_SCRIPT).catch(print),
-          onScrollUp: () =>
-            execAsync(CUSTOM_MODULE_SCROLLUP_SCRIPT).catch(print),
-          onScrollDown: () =>
-            execAsync(CUSTOM_MODULE_SCROLLDOWN_SCRIPT).catch(print),
-        }),
-      });
-    } else
       return BarGroup({
         child: Box({
           children: [

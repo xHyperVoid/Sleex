@@ -13,6 +13,7 @@ import { MaterialIcon } from '../../.commonwidgets/materialicon.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import { AnimatedCircProg } from "../../.commonwidgets/cairo_circularprogress.js";
 const { Box, Label, Overlay, Revealer } = Widget;
+import { RoundedCorner } from "../../.commonwidgets/cairo_roundedcorner.js";
 
 
 const BarBatteryProgress = () => {
@@ -32,6 +33,7 @@ const BarBatteryProgress = () => {
 }
 
 const BarBattery = () => Box({
+    tooltipText: ``,
     className: 'spacing-h-4 bar-batt-txt',
     children: [
         Revealer({
@@ -41,12 +43,6 @@ const BarBattery = () => Box({
             child: MaterialIcon('bolt', 'norm', { tooltipText: "Charging" }),
             setup: (self) => self.hook(Battery, revealer => {
                 self.revealChild = Battery.charging;
-            }),
-        }),
-        Label({
-            className: 'txt-smallie',
-            setup: (self) => self.hook(Battery, label => {
-                label.label = `${Number.parseFloat(Battery.percent.toFixed(1))}%`;
             }),
         }),
         Overlay({
@@ -66,7 +62,10 @@ const BarBattery = () => Box({
                 BarBatteryProgress(),
             ]
         }),
-    ]
+    ],
+    setup: (self) => self.hook(Battery, box => {
+        box.tooltipText = `${Battery.charging ? 'Charging:' : 'Battery:'} ${Battery.percent}%`;
+    }),
 });
 
 const SeparatorDot = () => {
@@ -130,7 +129,7 @@ export default (monitor = 0) => {
         ],
     }));
     const actualContent = Widget.Box({
-        hexpand: true,
+        hexpand: false,
         className: 'spacing-h-5 bar-spaceright',
         children: [
             emptyArea,
@@ -138,6 +137,7 @@ export default (monitor = 0) => {
             indicatorArea
         ],
     });
+    
 
     return Widget.EventBox({
         onScrollUp: () => {
@@ -154,8 +154,10 @@ export default (monitor = 0) => {
         },
         child: Widget.Box({
             children: [
+                Widget.Box({ hexpand: true, }),
+                RoundedCorner('topleft', { className: 'corner', }),
                 actualContent,
-                SpaceRightDefaultClicks(Widget.Box({ className: 'bar-corner-spacing' })),
+                SpaceRightDefaultClicks(Widget.Box({})),
             ]
         })
     });
