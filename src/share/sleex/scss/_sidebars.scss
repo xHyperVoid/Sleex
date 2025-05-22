@@ -1015,3 +1015,9 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
   margin: 0.682rem;
   margin-right: 1.682rem;
 }
+
+.greetings-img {
+  min-width: 5.5rem;
+  background-image: url("file:///usr/share/sleex/assets/icons/mona-loading.gif");
+  background-size: cover;
+}

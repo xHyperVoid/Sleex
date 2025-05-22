@@ -179,18 +179,25 @@ export default () => Box({
                             vertical: true,
                             children: [
                                 Box({
-                                    className: 'greetings spacing-v-5',
-                                    vertical: true,
+                                    className: 'greetings spacing-h-10',
                                     children: [
-                                        Widget.Label({
-                                            xalign: 0,
-                                            label: `Hello, ${userName}`,
-                                            className: 'txt txt-title',
+                                        Box({
+                                            vertical: true,
+                                            children: [
+                                                Widget.Label({
+                                                    xalign: 0,
+                                                    label: `Hello, ${userName}`,
+                                                    className: 'txt txt-title',
+                                                }),
+                                                Widget.Label({
+                                                    xalign: 0,
+                                                    label: 'Today is a good day to have a good day',
+                                                    className: 'txt txt-medium',
+                                                }),
+                                            ],
                                         }),
-                                        Widget.Label({
-                                            xalign: 0,
-                                            label: 'Today is a good day to have a good day',
-                                            className: 'txt txt-medium',
+                                        Box({
+                                            className: 'greetings-img',
                                         }),
                                     ],
                                 }),
