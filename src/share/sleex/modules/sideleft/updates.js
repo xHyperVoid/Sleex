@@ -164,7 +164,7 @@ const UpdateBox = () => {
                          setup: setupCursorHover,
                          onClicked: () => {
                               execAsync(
-                                   "foot -e sudo pacman -Sy sleex axskel-hypr"
+                                   "foot -e sudo pacman -Sy sleex axskel-hypr && sudo axctl load-style-config"
                               );
                          },
                     }),

@@ -20,6 +20,7 @@ depends=(
 	"sleex-screencapture"
 	"sleex-widgets"
 	"axskel-hypr"
+	"axctl"
 )
 optdepends=(
 	"sleex-optional: Optional packages"
