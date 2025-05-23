@@ -210,19 +210,19 @@ export default () => {
       onScrollDown: (self) => switchToRelativeWorkspace(self, +1),
       child: Box({
         children: [
-          BarCornerTopleft(),
+          //BarCornerTopleft(),
           SystemResourcesOrCustomModule(),
-          BarCornerBottomleft(),
+          //BarCornerBottomleft(),
         ],
       }),
     });
 };
 
-const BarCornerBottomleft = () =>
-  Widget.Box({
-    child: RoundedCorner("bottomleft", { className: "corner" }),
-  });
-const BarCornerTopleft = () =>
-  Widget.Box({
-    child: RoundedCorner("topleft", { className: "corner" }),
-  });
+// const BarCornerBottomleft = () =>
+//   Widget.Box({
+//     child: RoundedCorner("bottomleft", { className: "corner" }),
+//   });
+// const BarCornerTopleft = () =>
+//   Widget.Box({
+//     child: RoundedCorner("topleft", { className: "corner" }),
+//   });

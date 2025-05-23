@@ -349,7 +349,7 @@ export default () =>
     },
     child: Box({
       homogeneous: true,
-      className: "bar-group-margin workspaces",
+      className: "bar-group-margin workspaces bar-bg-light",
       children: [
         Box({
           className: "bar-group-pad",

@@ -49,13 +49,19 @@ export const Bar = async (monitor = 0) => {
         // className: 'bar-bg',
         startWidget: (await WindowTitle(monitor)),
         centerWidget: Widget.Box({
-            className: 'bar-center', // Center bar
             children: [
-                Monitor(),
                 BarCornerTopleft(),
-                await NormalOptionalWorkspaces(),
+                    Widget.Box({
+                        className: 'bar-center', // Center bar
+                        children: [
+                        Monitor(),
+                        BarCornerTopleftWs(),
+                        await NormalOptionalWorkspaces(),
+                        BarCornerToprightWs(),
+                        System(),
+                    ],
+                }),
                 BarCornerTopright(),
-                System(),
             ]
         }),
         endWidget: Indicators(monitor),
@@ -105,6 +111,23 @@ export const Bar = async (monitor = 0) => {
         }),
     });
 }
+
+const BarCornerTopleftWs = () => Widget.Box({
+    child: RoundedCorner('topleft', { className: 'corner-light', }),
+    setup: (self) => {
+        if (!ShowWorkspaces()) {
+            self.child = Widget.Box({});
+        }
+    }
+});
+const BarCornerToprightWs = () => Widget.Box({
+    child: RoundedCorner('topright', { className: 'corner-light', }),
+    setup: (self) => {
+        if (!ShowWorkspaces()) {
+            self.child = Widget.Box({});
+        }
+    }
+});
 
 const BarCornerTopleft = () => Widget.Box({
     child: RoundedCorner('topleft', { className: 'corner', }),

@@ -57,7 +57,7 @@ export const WeatherWidget = () =>
                 vpack: "center",
                 children: [
                     Label({ label: "Loading...", className: "txt txt-title", xalign: 0 }),
-                    Label({ label: "Loading...", className: "txt txt-large", xalign: 0 }),
+                    Label({ label: "Loading...", className: "txt txt-large", xalign: 0, wrap: true }),
                 ],
             }),
         ],

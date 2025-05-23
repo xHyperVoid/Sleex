@@ -81,16 +81,16 @@ export default () =>
     onPrimaryClick: () => App.toggleWindow("dashboard"),
     child: Widget.Box({
       children: [
-        BarCornerBottomright(),
+        // BarCornerBottomright(),
         BarGroup({ child: BarClock() }),
-        BarCornerTopright(),
+        // BarCornerTopright(),
       ],
     }),
   });
 
-const BarCornerBottomright = () => Widget.Box({
-    child: RoundedCorner('bottomright', { className: 'corner', }),
-});
-const BarCornerTopright = () => Widget.Box({
-    child: RoundedCorner('topright', { className: 'corner', }),
-});
+// const BarCornerBottomright = () => Widget.Box({
+//     child: RoundedCorner('bottomright', { className: 'corner', }),
+// });
+// const BarCornerTopright = () => Widget.Box({
+//     child: RoundedCorner('topright', { className: 'corner', }),
+// });
