@@ -826,7 +826,7 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
 
 .sidebar-bluetooth-device {
   padding: 0.682rem;
-  @include normal-rounding;
+  @include small-rounding;
   background-color: $layer2;
   color: $onLayer2;
 }
@@ -853,7 +853,7 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
 
 .sidebar-wifinetworks-network {
   padding: 0.682rem;
-  @include normal-rounding;
+  @include small-rounding;
   background-color: $layer2;
   color: $onLayer2;
 }

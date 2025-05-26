@@ -92,7 +92,7 @@ export const keybindList = [[
             { "keys": ["󰖳", "+", "W"], "action": "Launch browser: Firefox" },
             { "keys": ["󰖳", "+", "C"], "action": "Launch editor: vscode" },
             { "keys": ["󰖳", "+", "X"], "action": "Launch editor: GNOME Text Editor" },
-            { "keys": ["󰖳", "+", "I"], "action": "Launch settings: GNOME Control center" }
+            { "keys": ["󰖳", "+", "I"], "action": "Launch settings" }
         ],
         "id": 6
     },

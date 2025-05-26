@@ -165,6 +165,6 @@ const CalendarWidget = () => {
 
 export const ModuleCalendar = () =>
      Box({
-          className: "calendar spacing-h-5",
+          className: "calendar spacing-h-5 dash-widget",
           child: CalendarWidget(),
      });

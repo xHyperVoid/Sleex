@@ -9,6 +9,7 @@ import {
     ModuleIdleInhibitor,
     ModuleReloadIcon,
     ModulePowerIcon,
+    ModuleSettingsIcon,
 } from "./widgets/quicktoggles.js";
 import { getDistroIcon } from '../.miscutils/system.js';
 import { TabContainer } from '../.commonwidgets/tabcontainer.js';
@@ -112,7 +113,7 @@ const timeRow = Box({
         Widget.Box({ hexpand: true }), 
         togglesBox,
         ModuleReloadIcon({ hpack: 'end' }),
-        // ModuleSettingsIcon({ hpack: 'end' }), // Button does work, gnome-control-center is kinda broken
+        ModuleSettingsIcon({ hpack: 'end' }),
         ModulePowerIcon({ hpack: 'end' }),
     ]
 });

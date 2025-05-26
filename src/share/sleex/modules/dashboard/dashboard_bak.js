@@ -9,7 +9,7 @@ import {
     ModuleIdleInhibitor,
     ModuleReloadIcon,
     ModulePowerIcon,
-    ModuleCloudflareWarp,
+    ModuleSettingsIcon,
 } from "./widgets/quicktoggles.js";
 import ModuleNotificationList from "./centermodules/notificationlist.js";
 import { ModuleCalendar } from "./widgets/calendar.js";
@@ -105,7 +105,7 @@ const timeRow = Box({
         }),
         Widget.Box({ hexpand: true }), 
         ModuleReloadIcon({ hpack: 'end' }),
-        // ModuleSettingsIcon({ hpack: 'end' }), // Button does work, gnome-control-center is kinda broken
+        ModuleSettingsIcon({ hpack: 'end' }),
         ModulePowerIcon({ hpack: 'end' }),
     ]
 });

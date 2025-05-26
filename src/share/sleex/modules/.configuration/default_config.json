@@ -35,8 +35,8 @@
   "apps": {
     "bluetooth": "blueberry",
     "imageViewer": "loupe",
-    "network": "XDG_CURRENT_DESKTOP=\"gnome\" gnome-control-center wifi",
-    "settings": "XDG_CURRENT_DESKTOP=\"gnome\" gnome-control-center",
+    "network": "sleex-control",
+    "settings": "sleex-control",
     "taskManager": "gnome-usage",
     "terminal": "foot"
   },

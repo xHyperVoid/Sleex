@@ -6,7 +6,7 @@ import { QuoteWidget } from '../widgets/quote.js';
 import { MusicWidget } from '../widgets/music.js';
 import { WeatherWidget } from '../widgets/weather.js';
 import { githubWidget } from '../widgets/github.js';
-import { timerWidget } from '../widgets/timer.js';
+import { ModuleCalendar } from "../widgets/calendar.js";
 import ModuleNotificationList from "../centermodules/notificationlist.js";
 
 
@@ -40,7 +40,7 @@ export default () => Box({
                                     children: [
                                         MusicWidget(),
                                         WeatherWidget(),
-                                        timerWidget(),
+                                        ModuleCalendar(),
                                     ]
                                 })
                             ]
