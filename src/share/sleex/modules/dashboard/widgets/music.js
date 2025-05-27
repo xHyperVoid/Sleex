@@ -254,16 +254,17 @@ export const MusicWidget = () => {
                                         }),
                                         Box({
                                              hpack: 'end',
-                                             className: "spacing-h-15 spacing-v-5 track-control-box",
+                                             className: "spacing-h-15 spacing-v-5",
+                                             css: 'min-height: 50px;',
                                              vertical: true,
-                                             children: [
-                                                  TrackControls({ player }),
-                                             ],
                                         }),
                                    ],
                               }),
                          ];
-                         self.css = `background: ''`
+                         self.css = `background: linear-gradient(to right, rgba(24,24,24,0.85) 0%, rgba(24,24,24,0.0) 80%), url('file:///usr/share/sleex/assets/no_music.png');
+                                background-size: cover;
+                                background-position: center;
+                         `;
                     }
                }),
      })

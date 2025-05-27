@@ -17,7 +17,7 @@ import DesktopBackground from './modules/desktopbackground/main.js';
 import Indicator from './modules/indicators/main.js';
 import Overview from './modules/overview/main.js';
 import Session from './modules/session/main.js';
-import SideLeft from './modules/sideleft/main.js';
+//import SideLeft from './modules/sideleft/main.js';
 import Dashboard from './modules/dashboard/main.js';
 import { COMPILED_STYLE_DIR } from './init.js';
 import Wallselect from './modules/wallselect/main.js';
@@ -55,7 +55,7 @@ const Windows = () => [
     Overview(),
     forMonitors(Indicator),
     forMonitors(Cheatsheet),
-    SideLeft(),
+    //SideLeft(),
     Dashboard(),
     forMonitors(Session),
     Wallselect(),

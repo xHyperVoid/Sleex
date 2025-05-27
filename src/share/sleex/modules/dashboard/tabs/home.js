@@ -10,7 +10,6 @@ import { ModuleCalendar } from "../widgets/calendar.js";
 import ModuleNotificationList from "../centermodules/notificationlist.js";
 
 
-
 export default () => Box({ 
     vertical: true,
     children: [

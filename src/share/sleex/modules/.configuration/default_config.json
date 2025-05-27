@@ -88,7 +88,7 @@
   },
   "dashboard": {
     "pages": {
-      "order": ["home", "settings", "todo", "calendar"]
+      "order": ["home", "settings", "todo", "apis", "updates", "calendar"]
     }
   },
   "search": {

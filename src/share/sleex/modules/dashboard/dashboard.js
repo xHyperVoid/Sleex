@@ -16,6 +16,8 @@ import { TabContainer } from '../.commonwidgets/tabcontainer.js';
 import home from './tabs/home.js'
 import settings from './tabs/settings.js'
 import todo from './tabs/todo.js'
+import apiWidgets from './tabs/apiwidgets.js';
+import updatesTab from './tabs/updates.js';
 
 const TABS = {
     'home': {
@@ -35,6 +37,18 @@ const TABS = {
         content: todo(),
         materialIcon: 'checklist',
         friendlyName: 'Todo',
+    },
+    'apis': {
+        name: 'apis',
+        content: apiWidgets(),
+        materialIcon: 'api',
+        friendlyName: 'APIs',
+    },
+    'updates': {
+        name: 'updates',
+        content: updatesTab(),
+        materialIcon: 'update',
+        friendlyName: 'Updates',
     },
     'calendar': {
         name: 'calendar',
