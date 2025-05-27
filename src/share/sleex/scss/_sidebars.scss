@@ -202,6 +202,31 @@ $sidebar_chat_textboxareaColor: mix($onSurfaceVariant, $surfaceVariant, 40%);
   }
 }
 
+.sidebar-scrollbar-horizontal {
+  trough {
+    @include full-rounding;
+    min-height: 0.545rem;
+    background-color: transparent;
+  }
+
+  slider {
+    @include full-rounding;
+    @include element_decel;
+    min-height: 0.273rem;
+    min-width: 2.045rem;
+    background-color: transparentize($onSurfaceVariant, 0.7);
+  }
+
+  slider:hover,
+  slider:focus {
+    background-color: transparentize($onSurfaceVariant, 0.6);
+  }
+
+  slider:active {
+    background-color: transparentize($onSurface, 0.5);
+  }
+}
+
 .sidebar-calendar-btn {
   @include full-rounding;
   @include element_decel;
