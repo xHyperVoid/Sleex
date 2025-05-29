@@ -153,13 +153,11 @@ const createDistroAndVersion = () =>
                          Label({
                               className: "bg-distro-txt",
                               xalign: 0,
-                              label: "<distroversion>",
+                              label: "UNKNOWN",
                               setup: (label) => {
                                    execAsync([
-                                        `grep`,
-                                        `-oP`,
-                                        `VERSION=\\K[^"]+`,
-                                        `/etc/os-release`,
+                                        `cat`,
+                                        `/etc/axos-version`
                                    ])
                                         .then((distro) => {
                                              label.label = distro;

@@ -1,5 +1,5 @@
 pkgname="sleex"
-pkgver="0.25"
+pkgver="0.26"
 pkgrel="1"
 pkgdesc="Third desktop environment for AxOS"
 arch=("x86_64")
@@ -22,6 +22,7 @@ depends=(
 	"axskel-hypr"
 	"axctl"
 	"sleex-control-center"
+	"hyprland"
 )
 optdepends=(
 	"sleex-optional: Optional packages"
