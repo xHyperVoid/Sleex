@@ -81,12 +81,16 @@ const createContent = async () => {
       child: Scrollable({
         hexpand: true,
         vexpand: false,
-        hscroll: "always",
+        hscroll: "automatic",
         vscroll: "never",
         child: Box({
           className: "wallpaper-list",
           children: wallpaperPaths.map(WallpaperButton),
         }),
+        setup: (listContents) => {
+               const hScrollbar = listContents.get_hscrollbar();
+               hScrollbar.get_style_context().add_class("sidebar-scrollbar-horizontal");
+          },
       }),
     });
 
@@ -194,7 +198,7 @@ export default () =>
       overlays: [
         Box({
           vertical: true,
-          className: "dashboard spacing-v-15",
+          className: "wallselect spacing-v-15",
           vpack: userOptions.bar.position === "top" ? "start" : "end",
           children: [
             Box({

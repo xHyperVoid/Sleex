@@ -48,3 +48,9 @@
         background-color: mix($secondaryContainer, $onSecondaryContainer, 80%);
     }
 }
+
+.wallselect {
+    background-color: $layer0;
+    @include normal-rounding;
+    padding: 1rem;
+}

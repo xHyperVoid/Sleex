@@ -9,7 +9,8 @@ $sidebar_chat_textboxareaColor: mix($onSurfaceVariant, $surfaceVariant, 40%);
   @include elevation-border;
   @include elevation2;
   border-radius: $rounding_large - $elevation_margin + 0.068rem;
-  min-width: 27.818rem;
+  min-width: 97.818rem;
+  min-height: 57.818rem;
   background-color: $background;
   padding: 1.023rem;
 }
@@ -201,6 +202,31 @@ $sidebar_chat_textboxareaColor: mix($onSurfaceVariant, $surfaceVariant, 40%);
   }
 }
 
+.sidebar-scrollbar-horizontal {
+  trough {
+    @include full-rounding;
+    min-height: 0.545rem;
+    background-color: transparent;
+  }
+
+  slider {
+    @include full-rounding;
+    @include element_decel;
+    min-height: 0.273rem;
+    min-width: 2.045rem;
+    background-color: transparentize($onSurfaceVariant, 0.7);
+  }
+
+  slider:hover,
+  slider:focus {
+    background-color: transparentize($onSurfaceVariant, 0.6);
+  }
+
+  slider:active {
+    background-color: transparentize($onSurface, 0.5);
+  }
+}
+
 .sidebar-calendar-btn {
   @include full-rounding;
   @include element_decel;
@@ -283,13 +309,11 @@ $sidebar_chat_textboxareaColor: mix($onSurfaceVariant, $surfaceVariant, 40%);
   @include small-rounding;
   margin-right: 0.545rem;
   // padding: 0.341rem;
-  background-color: $layer2;
   color: $onLayer2;
 }
 
 .sidebar-todo-txt {
   margin: 0.682rem;
-  margin-bottom: 0rem;
 }
 
 .sidebar-todo-actions {
@@ -827,7 +851,7 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
 
 .sidebar-bluetooth-device {
   padding: 0.682rem;
-  @include normal-rounding;
+  @include small-rounding;
   background-color: $layer2;
   color: $onLayer2;
 }
@@ -854,7 +878,7 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
 
 .sidebar-wifinetworks-network {
   padding: 0.682rem;
-  @include normal-rounding;
+  @include small-rounding;
   background-color: $layer2;
   color: $onLayer2;
 }
@@ -933,7 +957,7 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
   @include small-rounding;
   margin: 0.341rem;
   padding: 0.682rem;
-  background-color: $layer1;
+  background-color: $layer2;
 }
 
 .btn-update {
@@ -1021,3 +1045,42 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
   background-image: url("file:///usr/share/sleex/assets/icons/mona-loading.gif");
   background-size: cover;
 }
+
+.dash-widget {
+  @include small-rounding;
+  margin: 0.682rem;
+  padding: 0.682rem;
+  background-color: $layer1;
+}
+
+.avatar-widget {
+  @include full-rounding;
+  min-width: 7rem;
+  min-height: 7rem;
+  margin: 1rem;
+}
+
+.txt-clock {
+  font-size: 4rem;
+  font-weight: bold;
+  color: $primary;
+}
+
+.txt-contrib {
+  font-size: 3rem;
+  font-weight: bold;
+  color: $primary;
+}
+
+.txt-author {
+  color: mix($layer0, $onLayer0, 50%);
+}
+
+.txt-quote-author {
+  color: $primary;
+}
+
+.clock-widget, .github-widget, .user-widget, .quote-widget {
+  padding: 2rem;
+}
+

@@ -9,51 +9,68 @@ import {
     ModuleIdleInhibitor,
     ModuleReloadIcon,
     ModulePowerIcon,
-    ModuleCloudflareWarp,
-} from "./quicktoggles.js";
-import ModuleNotificationList from "./centermodules/notificationlist.js";
-import ModuleAudioControls from "./centermodules/audiocontrols.js";
-import ModuleWifiNetworks from "./centermodules/wifinetworks.js";
-import ModuleBluetooth from "./centermodules/bluetooth.js";
-import ModuleConfigure from "./centermodules/configure.js";
-import { ModuleCalendar } from "./calendar.js";
+    ModuleSettingsIcon,
+} from "./widgets/quicktoggles.js";
 import { getDistroIcon } from '../.miscutils/system.js';
-import { ExpandingIconTabContainer } from '../.commonwidgets/tabcontainer.js';
-import { checkKeybind } from '../.widgetutils/keybind.js';
-import { TodoWidget } from "./todolist.js";
-import { QuoteWidget } from "./quote.js";
-import { MusicWidget } from './music.js';
-import { WeatherWidget } from './weather.js';
-import Name from "./name.js";
+import { TabContainer } from '../.commonwidgets/tabcontainer.js';
+import home from './tabs/home.js'
+import settings from './tabs/settings.js'
+import todo from './tabs/todo.js'
+import apiWidgets from './tabs/apiwidgets.js';
+import updatesTab from './tabs/updates.js';
 
-const centerWidgets = [
-    // {
-    //     name: 'Notifications',
-    //     materialIcon: 'notifications',
-    //     contentWidget: ModuleNotificationList,
-    // },
-    {
-        name: 'Audio controls',
-        materialIcon: 'volume_up',
-        contentWidget: ModuleAudioControls,
+const TABS = {
+    'home': {
+        name: 'home',
+        content: home(),
+        materialIcon: 'rocket_launch',
+        friendlyName: 'Home',
     },
-    {
-        name: 'Bluetooth',
-        materialIcon: 'bluetooth',
-        contentWidget: ModuleBluetooth,
+    'settings': {
+        name: 'settings',
+        content: settings(),
+        materialIcon: 'settings',
+        friendlyName: 'Settings',
     },
-    {
-        name: 'Wifi networks',
-        materialIcon: 'wifi',
-        contentWidget: ModuleWifiNetworks,
-        onFocus: () => execAsync('nmcli dev wifi list').catch(print),
+    'todo': {
+        name: 'todo',
+        content: todo(),
+        materialIcon: 'checklist',
+        friendlyName: 'Todo',
     },
-    {
-        name: 'Live config',
-        materialIcon: 'tune',
-        contentWidget: ModuleConfigure,
+    'apis': {
+        name: 'apis',
+        content: apiWidgets(),
+        materialIcon: 'api',
+        friendlyName: 'APIs',
     },
-];
+    'updates': {
+        name: 'updates',
+        content: updatesTab(),
+        materialIcon: 'update',
+        friendlyName: 'Updates',
+    },
+    'calendar': {
+        name: 'calendar',
+        content: Widget.Box({}),
+        materialIcon: 'event',
+        friendlyName: 'Calendar',
+    },
+}
+
+const CONTENTS = userOptions.dashboard.pages.order.map((tabName) => TABS[tabName])
+
+
+const togglesBox = Widget.Box({
+    hpack: 'center',
+    className: 'sidebar-togglesbox spacing-h-5',
+    children: [
+        ToggleIconWifi(),
+        ToggleIconBluetooth(),
+        await ModuleNightLight(),
+        ModuleIdleInhibitor(),
+    ]
+})
 
 const timeRow = Box({
     className: 'spacing-h-10 sidebar-group-invisible-morehorizpad',
@@ -108,38 +125,21 @@ const timeRow = Box({
             },
         }),
         Widget.Box({ hexpand: true }), 
+        togglesBox,
         ModuleReloadIcon({ hpack: 'end' }),
-        // ModuleSettingsIcon({ hpack: 'end' }), // Button does work, gnome-control-center is kinda broken
+        ModuleSettingsIcon({ hpack: 'end' }),
         ModulePowerIcon({ hpack: 'end' }),
     ]
 });
 
-const togglesBox = Widget.Box({
-    hpack: 'center',
-    className: 'sidebar-togglesbox spacing-h-5',
-    children: [
-        ToggleIconWifi(),
-        ToggleIconBluetooth(),
-        await ModuleNightLight(),
-        ModuleIdleInhibitor(),
-        // await ModuleCloudflareWarp(),
-    ]
-})
 
-export const sidebarOptionsStack = ExpandingIconTabContainer({
-    tabsHpack: 'center',
-    className: 'sidebar-opt-stack',
-    tabSwitcherClassName: 'sidebar-icontabswitcher',
-    icons: centerWidgets.map((api) => api.materialIcon),
-    names: centerWidgets.map((api) => api.name),
-    children: centerWidgets.map((api) => api.contentWidget()),
-    onChange: (self, id) => {
-        self.shown = centerWidgets[id].name;
-        if (centerWidgets[id].onFocus) centerWidgets[id].onFocus();
-    }
+const widgetContentDash = TabContainer({
+    icons: CONTENTS.map((item) => item.materialIcon),
+    names: CONTENTS.map((item) => item.friendlyName),
+    children: CONTENTS.map((item) => item.content),
+    className: 'spacing-v-10',
 });
 
-const userName = exec('whoami').charAt(0).toUpperCase() + exec('whoami').slice(1);9
 
 export default () => Box({
     vexpand: true,
@@ -153,6 +153,7 @@ export default () => Box({
         Box({
             vertical: true,
             vexpand: true,
+            hexpand: true,
             className: 'dashboard spacing-v-15',
             children: [
                 // Top row
@@ -161,88 +162,10 @@ export default () => Box({
                     className: 'spacing-v-5',
                     children: [
                         timeRow,
-                        // togglesBox,
                     ]
                 }),
-                Box({
-                    className: 'spacing-v-5 spacing-h-10',
-                    children: [
-                        // Column 1
-                        Box({
-                            className: 'spacing-h-5',
-                            child: ModuleNotificationList(),
-                        }),
-                        // Column 2
-                        Box({
-                            className: 'spacing-v-10',
-                            hexpand: true,
-                            vertical: true,
-                            children: [
-                                Box({
-                                    className: 'greetings spacing-h-10',
-                                    children: [
-                                        Box({
-                                            vertical: true,
-                                            children: [
-                                                Widget.Label({
-                                                    xalign: 0,
-                                                    label: `Hello, ${userName}`,
-                                                    className: 'txt txt-title',
-                                                }),
-                                                Widget.Label({
-                                                    xalign: 0,
-                                                    label: 'Today is a good day to have a good day',
-                                                    className: 'txt txt-medium',
-                                                }),
-                                            ],
-                                        }),
-                                        Box({
-                                            className: 'greetings-img',
-                                        }),
-                                    ],
-                                }),
-                                sidebarOptionsStack,
-                            ]
-                        }),
-                        // Column 3
-                        Box({
-                            vertical: true,
-                            className: 'spacing-v-10',
-                            children: [
-                                togglesBox,
-                                Box({
-                                    className: 'spacing-v-5 todo-list',
-                                    children: [
-                                        TodoWidget(),
-                                    ]
-                                }),
-                                ModuleCalendar(),
-                            ]
-                        }), 
-                        // Column 4
-                        Box({
-                            vertical: true,
-                            className: 'spacing-h-5 spacing-v-10',
-                            children: [
-                                QuoteWidget(),
-                                MusicWidget(),
-                                WeatherWidget(),
-                                Name(),
-                            ]
-                        }),
-                    ],
-                }),
+                widgetContentDash
             ]
         }),
-    ],
-    setup: (self) => self
-        .on('key-press-event', (widget, event) => { // Handle keybinds
-            if (checkKeybind(event, userOptions.keybinds.sidebar.options.nextTab)) {
-                sidebarOptionsStack.nextTab();
-            }
-            else if (checkKeybind(event, userOptions.keybinds.sidebar.options.prevTab)) {
-                sidebarOptionsStack.prevTab();
-            }
-        })
-    ,
+    ]
 });

@@ -410,7 +410,7 @@ export default (props) => {
     })
     return Box({
         ...props,
-        className: 'spacing-v-10',
+        className: 'spacing-v-10 dash-widget',
         vertical: true,
         children: [
             CurrentNetwork(),
