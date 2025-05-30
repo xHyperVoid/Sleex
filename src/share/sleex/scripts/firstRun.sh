@@ -37,4 +37,6 @@ else
 
 fi
 
+hyprctl reload
+
 echo 'Complete!'
