@@ -1,9 +1,23 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+const { GLib } = imports.gi;
 
 export const clockWidget = () => {
 
-    const date = new Date();
-    const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const time = Variable("", {
+    poll: [
+        userOptions.time.interval,
+        () => GLib.DateTime.new_now_local().format(userOptions.time.format),
+    ],
+    });
+
+    const rawDate = new Date();
+    const date = Variable("", {
+    poll: [
+        userOptions.time.dateInterval,
+        () => rawDate.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' }),
+    ],
+    });
+
     return Widget.Box({
         vertical: true,
         className: 'clock-widget dash-widget spacing-v-5',
@@ -11,12 +25,12 @@ export const clockWidget = () => {
             Widget.Label({
                 className: 'txt txt-clock',
                 hpack: 'center',
-                label: time,
+                label: time.bind(),
             }), 
             Widget.Label({
                 className: 'txt txt-medium',
                 hpack: 'center',
-                label: date.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' }),
+                label: date.bind(),
             }),
         ],
     });
