@@ -9,6 +9,7 @@ echo 'true' > ~/.local/state/ags/user/show_timedate.txt
 echo 'true' > ~/.local/state/ags/user/show_workspaces.txt
 echo 'true' > ~/.local/state/ags/user/show_wintitle.txt
 
+cp /usr/share/sleex/modules/.configuration/default_config.json ~/.sleex/settings.json
 
 CONFIG_FILE="$HOME/.config/hypr/custom/general.conf"
 KEYBINDS_DIR="$HOME/.config/hypr/hyprland"

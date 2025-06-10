@@ -146,6 +146,10 @@ apply_gtk() {
         sed -i "s/{{ ${colorlist[$i]} }}/#${colorvalues[$i]#\#}/g" "$CACHE_DIR"/user/generated/gtk/gtk-colors.css
     done
 
+    # Create GTK config directories if they don't exist
+    [ ! -d "$XDG_CONFIG_HOME/gtk-3.0" ] && mkdir -p "$XDG_CONFIG_HOME/gtk-3.0"
+    [ ! -d "$XDG_CONFIG_HOME/gtk-4.0" ] && mkdir -p "$XDG_CONFIG_HOME/gtk-4.0"
+
     cp "$CACHE_DIR"/user/generated/gtk/gtk-colors.css "$XDG_CONFIG_HOME"/gtk-3.0/gtk.css
     cp "$CACHE_DIR"/user/generated/gtk/gtk-colors.css "$XDG_CONFIG_HOME"/gtk-4.0/gtk.css
 

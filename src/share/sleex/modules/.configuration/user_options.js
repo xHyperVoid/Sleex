@@ -2,16 +2,20 @@ const { GLib } = imports.gi;
 import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import userOverrides from "../../user_options.js";
 
-// Default options.
+// Determine config path: prefer user's settings if present
+const userConfigPath = `${GLib.get_home_dir()}/.sleex/settings.json`;
 const defaultConfigPath = `/usr/share/sleex/modules/.configuration/default_config.json`;
+const configPath = GLib.file_test(userConfigPath, GLib.FileTest.EXISTS)
+  ? userConfigPath
+  : defaultConfigPath;
+
 let configOptions = {};
 
-
 try {
-  const defaultConfig = Utils.readFile(defaultConfigPath);
-  configOptions = JSON.parse(defaultConfig);
+  const configContent = Utils.readFile(configPath);
+  configOptions = JSON.parse(configContent);
 } catch (e) {
-  console.error('Error loading user_options.default.json:', e);
+  console.error('Error loading config:', e);
 }
 
 // Override defaults with user's options
@@ -45,7 +49,7 @@ if (!optionsOkay)
       "Update your user options",
       "One or more config options don't exist",
       "-a",
-      "ags",
+      "Sleex",
     ]).catch(print)
   );
 
