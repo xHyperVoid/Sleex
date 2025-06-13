@@ -1084,3 +1084,37 @@ $skeleton-accent: mix($secondary, $onSecondary, 50%);
   padding: 2rem;
 }
 
+.applauncher {
+  @include normal-rounding;
+  background-color: $layer0;
+  padding: 0.682rem;
+  min-width: 27rem;
+  margin: 0.682rem;
+}
+
+.applauncher-item {
+  @include small-rounding;
+  background-color: $layer1;
+  color: $onLayer1;
+  padding: 0.682rem;
+  margin: 0.341rem;
+}
+
+.applauncher-item:hover {
+  background-color: $layer1Hover;
+}
+
+.applauncher-title {
+  @include titlefont;
+  color: $onLayer1;
+  margin: 0.682rem;
+}
+
+.applauncher-entry {
+  @include small-rounding;
+  background-color: $layer1;
+  color: $onLayer1;
+  padding: 0.682rem;
+  margin: 0.341rem;
+  margin-bottom: 0.682rem;
+}

@@ -1,11 +1,9 @@
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { SearchAndWindows } from "./windowcontent.js";
-import PopupWindow from '../.widgethacks/popupwindow.js';
 import { clickCloseRegion } from '../.commonwidgets/clickcloseregion.js';
 
-export default (id = '') => PopupWindow({
+export default (id = '') => Widget.Window({
     name: `overview${id}`,
-    // exclusivity: 'ignore',
     keymode: 'on-demand',
     visible: false,
     anchor: ['top', 'bottom', 'left', 'right'],

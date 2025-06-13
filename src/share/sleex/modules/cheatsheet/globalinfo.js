@@ -5,7 +5,6 @@ import { MaterialIcon } from '../.commonwidgets/materialicon.js';
 // import { TabContainer } from '../.commonwidgets/tabcontainer.js';
 import { setupCursorHover } from '../.widgetutils/cursorhover.js';
 import Cheat from '../../services/globalinfo.js'
-// import name from '../sideleft/tools/name.js';
 
 const CheatItem = (task, id) => {
     const taskName = Widget.Label({

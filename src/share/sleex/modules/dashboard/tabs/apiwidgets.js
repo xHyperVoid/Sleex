@@ -68,7 +68,7 @@ export const chatEntry = TextView({
      setup: (self) =>
           self
                .hook(App, (self, currentName, visible) => {
-                    if (visible && currentName === "sideleft") {
+                    if (visible && currentName === "dashboard") {
                          self.grab_focus();
                     }
                })

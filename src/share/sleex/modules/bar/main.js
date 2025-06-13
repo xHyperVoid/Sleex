@@ -46,7 +46,7 @@ const FocusOptionalWorkspaces = async () => {
 export const Bar = async (monitor = 0) => {
     
     const normalBarContent = Widget.CenterBox({
-        // className: 'bar-bg',
+        className: 'bar-normal',
         startWidget: (await WindowTitle(monitor)),
         centerWidget: Widget.Box({
             children: [

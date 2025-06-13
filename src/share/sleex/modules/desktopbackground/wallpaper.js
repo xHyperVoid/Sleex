@@ -21,10 +21,10 @@ export default (monitor = 0) => {
         attribute: {
             pixbuf: undefined,
             workspace: 1,
-            sideleft: 0,
+            applauncher: 0,
             dashboard: 0,
             updatePos: (self) => {
-                self.setCss(`font-size: ${self.attribute.workspace - self.attribute.sideleft + self.attribute.dashboard}px;`)
+                self.setCss(`font-size: ${self.attribute.workspace - self.attribute.applauncher + self.attribute.dashboard}px;`)
             },
         },
         className: 'bg-wallpaper-transition',

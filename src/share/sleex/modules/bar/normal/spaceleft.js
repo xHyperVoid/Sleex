@@ -66,7 +66,7 @@ export default async (monitor = 0) => {
             Brightness[monitor].screen_value -= 0.05;
         },
         onPrimaryClick: () => {
-            App.toggleWindow('sideleft');
+            App.toggleWindow('applauncher');
         },
         child: Widget.Box({
             homogeneous: false,
