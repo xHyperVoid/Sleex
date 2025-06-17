@@ -44,7 +44,7 @@ Singleton {
     Process {
         id: getUsername
         command: ["whoami"]
-        stdout: {
+        stdout: SplitParser {
             onRead: data => {
                 username = data.trim();
             }

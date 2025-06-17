@@ -27,7 +27,7 @@ Singleton {
     property string notificationsPath: FileUtils.trimFileProtocol(`${Directories.cache}/notifications/notifications.json`)
     property string generatedMaterialThemePath: FileUtils.trimFileProtocol(`${Directories.state}/user/generated/colors.json`)
     property string cliphistDecode: FileUtils.trimFileProtocol(`/tmp/sleex/media/cliphist`)
-    property string wallpaperSwitchScriptPath: FileUtils.trimFileProtocol('/usr/share/sleex/scripts/switchwall.sh`)
+    property string wallpaperSwitchScriptPath: FileUtils.trimFileProtocol('/usr/share/sleex/scripts/switchwall.sh')
     // Cleanup on init
     Component.onCompleted: {
         Hyprland.dispatch(`exec mkdir -p '${shellConfig}'`)

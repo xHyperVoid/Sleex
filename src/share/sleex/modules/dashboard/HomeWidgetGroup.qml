@@ -35,17 +35,24 @@ Rectangle {
                     anchors.centerIn: parent
                     spacing: 10
                 
-                    AnimatedImage {
-                        id: userAvatar
+                    Rectangle {
                         width: 150
                         height: 150
-                        source: Directories.home + "/.sleex/user/avatar.gif"
+                        radius: width / 2
+                        clip: true
                         anchors.horizontalCenter: parent.horizontalCenter
-                        fillMode: Image.PreserveAspectCrop
+
+
+                        AnimatedImage {
+                            id: userAvatar
+                            anchors.fill: parent
+                            source: `/var/lib/AccountsService/icons/${SystemInfo.username}`
+                            fillMode: Image.PreserveAspectCrop
+                        }
                     }
 
                     Text {
-                        text: qsTr("Welcome, %1!").arg(SystemInfo.getUsername)
+                        text: qsTr("Welcome, %1!").arg(SystemInfo.username)
                         color: Appearance.colors.colOnLayer1
                         font.pixelSize: 30
                         font.bold: true

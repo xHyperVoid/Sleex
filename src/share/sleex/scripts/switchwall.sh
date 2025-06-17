@@ -31,15 +31,6 @@ post_process() {
     local screen_height="$2"
     local wallpaper_path="$3"
 
-    # Determine the largest region on the wallpaper that's sufficiently un-busy to put widgets in
-    if [ ! -f "$MATUGEN_DIR/scripts/least_busy_region.py" ]; then
-        echo "Error: least_busy_region.py script not found in $MATUGEN_DIR/scripts/"
-    else
-        "$MATUGEN_DIR/scripts/least_busy_region.py" \
-            --screen-width "$screen_width" --screen-height "$screen_height" \
-            --width 300 --height 200 \
-            "$wallpaper_path" > "$STATE_DIR"/user/generated/wallpaper/least_busy_region.json
-    fi
 }
 
 check_and_prompt_upscale() {

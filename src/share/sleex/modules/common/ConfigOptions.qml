@@ -21,7 +21,7 @@ Singleton {
         property QtObject protection: QtObject { // Prevent sudden bangs
             property bool enable: true
             property real maxAllowedIncrease: 10
-            property real maxAllowed: 90 // Realistically should already provide some protection when it's 99...
+            property real maxAllowed: 100 // Realistically should already provide some protection when it's 99...
         }
     }
 
