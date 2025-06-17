@@ -36,18 +36,30 @@ Rectangle {
                     spacing: 10
                 
                     Rectangle {
+                        id: userAvatar
                         width: 150
                         height: 150
-                        radius: width / 2
-                        clip: true
+                        radius: 99
                         anchors.horizontalCenter: parent.horizontalCenter
 
+                        layer.enabled: true
+                        layer.effect: OpacityMask {
+                            maskSource: Rectangle {
+                                width: 150
+                                height: 150
+                                radius: 75
+                            }
+                        }
 
                         AnimatedImage {
-                            id: userAvatar
+                            id: userAvatarImage
                             anchors.fill: parent
                             source: `/var/lib/AccountsService/icons/${SystemInfo.username}`
                             fillMode: Image.PreserveAspectCrop
+                            cache: false
+                            antialiasing: true
+                            sourceSize.width: 150
+                            sourceSize.height: 150
                         }
                     }
 
@@ -71,7 +83,28 @@ Rectangle {
                 color: Appearance.colors.colLayer1
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
-                Layout.fillHeight: true
+                Layout.preferredHeight: 150
+
+                Column{
+                    anchors.centerIn: parent
+                    spacing: 10
+
+                    Text {
+                        text: DateTime.time
+                        color: Appearance.colors.colPrimary
+                        font.pixelSize: 60
+                        font.bold: true
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+
+                    Text {
+                        text: DateTime.longDateFormat
+                        color: Appearance.colors.colOnLayer1
+                        font.pixelSize: 20
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+                
             }
 
             Rectangle {
@@ -79,6 +112,34 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                
+                Column{
+                    anchors.centerIn: parent
+                    spacing: 10
+
+                    Text {
+                        text: Github.contribution_number
+                        color: Appearance.colors.colPrimary
+                        font.pixelSize: 60
+                        font.bold: true
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+
+                    Text {
+                        text: "contributions this year"
+                        color: Appearance.colors.colOnLayer1
+                        font.pixelSize: 20
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+
+                    Text {
+                        text: "@levraiardox"
+                        color: Appearance.colors.colOnLayer1
+                        font.pixelSize: 16
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+                
             }
         }
         
