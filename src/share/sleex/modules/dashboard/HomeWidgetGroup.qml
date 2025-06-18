@@ -37,8 +37,8 @@ Rectangle {
                 
                     Rectangle {
                         id: userAvatar
-                        width: 150
-                        height: 150
+                        width: 120
+                        height: 120
                         radius: 99
                         anchors.horizontalCenter: parent.horizontalCenter
 

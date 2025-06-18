@@ -22,6 +22,16 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                
+                Text {
+                    anchors.centerIn: parent
+                    text: "Quick settings: coming soon"
+                    color: Appearance.colors.colOnLayer1
+                    font.pixelSize: 30
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
         }
         
         ColumnLayout {
@@ -33,6 +43,15 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "BT settings: coming soon"
+                    color: Appearance.colors.colOnLayer1
+                    font.pixelSize: 30
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
             }
 
             VolumeMixer {
@@ -51,20 +70,15 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-            }
 
-            Rectangle {
-                color: Appearance.colors.colLayer1
-                radius: Appearance.rounding.normal
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
-
-            Rectangle {
-                color: Appearance.colors.colLayer1
-                radius: Appearance.rounding.normal
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+                Text {
+                    anchors.centerIn: parent
+                    text: "WiFi settings: coming soon"
+                    color: Appearance.colors.colOnLayer1
+                    font.pixelSize: 30
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
             }
         }
     }

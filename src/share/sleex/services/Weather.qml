@@ -14,6 +14,16 @@ Singleton {
     property string temperature
     property string condition
     
+    Timer {
+        id: weatherTimer
+        interval: 3600000 // 1 hour
+        running: true
+        repeat: true
+        onTriggered: {
+            getIp.running = true
+        }
+    }
+
     Process {
         id: getIp
         command: ["curl", "ipinfo.io"]
@@ -37,13 +47,4 @@ Singleton {
         }
     }
 
-    Timer {
-        id: weatherTimer
-        interval: 3600000 // 1 hour
-        running: true
-        repeat: true
-        onTriggered: {
-            getIp.running = true
-        }
-    }
 }

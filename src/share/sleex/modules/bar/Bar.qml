@@ -204,32 +204,11 @@ Scope {
                             color: Appearance.colors.colLayer1
                         }
 
-                        Canvas {
-                            anchors.fill: parent 
-                            z: 0
-
-                            onPaint: {
-                                var ctx = getContext("2d");
-                                ctx.clearRect(0, 0, width, height);
-                                ctx.fillStyle = ConfigOptions?.bar.borderless ? "transparent" : Appearance.colors.colLayer1;
-                                ctx.beginPath();
-                                ctx.moveTo(0, 0);
-                                ctx.lineTo(width, 0);
-                                ctx.lineTo(width, height - 20);
-                                ctx.quadraticCurveTo(width, height, width - 20, height); // bottom-right
-                                ctx.lineTo(20, height);
-                                ctx.quadraticCurveTo(0, height, 0, height - 20);         // bottom-left
-                                ctx.lineTo(0, 0);
-                                ctx.closePath();
-                                ctx.fill();
-                            }
-
-                        }
-
                         Workspaces {
                             id: workspacesWidget
                             bar: barRoot
                             Layout.fillHeight: true
+
                             MouseArea { // Right-click to toggle overview
                                 anchors.fill: parent
                                 acceptedButtons: Qt.RightButton
@@ -239,6 +218,28 @@ Scope {
                                         Hyprland.dispatch('global quickshell:overviewToggle')
                                     }
                                 }
+                            }
+
+                            Canvas {
+                                anchors.fill: parent 
+                                z: -1
+
+                                onPaint: {
+                                    var ctx = getContext("2d");
+                                    ctx.clearRect(0, 0, width, height);
+                                    ctx.fillStyle = ConfigOptions?.bar.borderless ? "transparent" : Appearance.colors.colLayer1;
+                                    ctx.beginPath();
+                                    ctx.moveTo(0, 0);
+                                    ctx.lineTo(width, 0);
+                                    ctx.lineTo(width, height - 20);
+                                    ctx.quadraticCurveTo(width, height, width - 20, height); // bottom-right
+                                    ctx.lineTo(20, height);
+                                    ctx.quadraticCurveTo(0, height, 0, height - 20);         // bottom-left
+                                    ctx.lineTo(0, 0);
+                                    ctx.closePath();
+                                    ctx.fill();
+                                }
+
                             }
                         }
 

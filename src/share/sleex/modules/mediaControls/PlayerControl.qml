@@ -252,7 +252,7 @@ Item { // Player instance
                         Item {
                             id: progressBarContainer
                             Layout.fillWidth: true
-                            implicitHeight: progressBar.implicitHeight
+                            implicitHeight: 4
 
                             StyledProgressBar { 
                                 id: progressBar
