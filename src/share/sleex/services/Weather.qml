@@ -14,7 +14,7 @@ Singleton {
     property string temperature
     property string condition
     
-    Timer {
+        Timer {
         id: weatherTimer
         interval: 3600000 // 1 hour
         running: true
@@ -26,6 +26,7 @@ Singleton {
 
     Process {
         id: getIp
+        running: true
         command: ["curl", "ipinfo.io"]
         stdout: StdioCollector {
             onStreamFinished: {

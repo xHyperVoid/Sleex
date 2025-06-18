@@ -118,7 +118,7 @@ Rectangle {
                     spacing: 10
 
                     Text {
-                        text: Github.contribution_number || qsTr("Error")
+                        text: Github.contribution_number || qsTr("Loading...")
                         color: Appearance.colors.colPrimary
                         font.pixelSize: 60
                         font.bold: true
@@ -169,7 +169,7 @@ Rectangle {
                     spacing: 10
                     
                     Text {
-                        text: `${Weather.temperature}` || qsTr("Error")
+                        text: Weather.temperature || qsTr("--")
                         font.bold: true
                         color: Appearance.colors.colPrimary
                         font.pixelSize: 60

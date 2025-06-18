@@ -4,8 +4,8 @@ XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 CONFIG_DIR="$XDG_CONFIG_HOME/quickshell"
-CACHE_DIR="$XDG_CACHE_HOME/quickshell"
-STATE_DIR="$XDG_STATE_HOME/quickshell"
+CACHE_DIR="$XDG_CACHE_HOME/sleex"
+STATE_DIR="$XDG_STATE_HOME/sleex"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 term_alpha=100 #Set this to < 100 make all your terminals transparent
@@ -61,6 +61,36 @@ apply_ags() {
   pidof agsv1 && agsv1 run-js 'openColorScheme.value = true; Utils.timeout(2000, () => openColorScheme.value = false);'
 }
 
+
+apply_gtk() {
+    if [ ! -f "scripts/templates/gtk/gtk-colors.css" ]; then
+        echo "Template file not found for gtk colors. Skipping that."
+        return
+    fi
+
+    # Copy template
+    mkdir -p "$CACHE_DIR"/user/generated/gtk/
+    cp "scripts/templates/gtk/gtk-colors.css" "$CACHE_DIR"/user/generated/gtk/gtk-colors.css
+
+    # Apply colors
+    for i in "${!colorlist[@]}"; do
+        sed -i "s/{{ ${colorlist[$i]} }}/#${colorvalues[$i]#\#}/g" "$CACHE_DIR"/user/generated/gtk/gtk-colors.css
+    done
+
+    # Create GTK config directories if they don't exist
+    [ ! -d "$XDG_CONFIG_HOME/gtk-3.0" ] && mkdir -p "$XDG_CONFIG_HOME/gtk-3.0"
+    [ ! -d "$XDG_CONFIG_HOME/gtk-4.0" ] && mkdir -p "$XDG_CONFIG_HOME/gtk-4.0"
+
+    cp "$CACHE_DIR"/user/generated/gtk/gtk-colors.css "$XDG_CONFIG_HOME"/gtk-3.0/gtk.css
+    cp "$CACHE_DIR"/user/generated/gtk/gtk-colors.css "$XDG_CONFIG_HOME"/gtk-4.0/gtk.css
+
+    lightdark=$(get_light_dark)
+    if [ "$lightdark" = "light" ]; then
+        gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
+    else
+        gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark
+    fi
+}
 apply_ags &
 apply_qt &
 apply_term &
