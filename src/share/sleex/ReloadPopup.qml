@@ -79,7 +79,7 @@ Scope {
 						renderType: Text.NativeRendering
 						font.family: "Rubik"
 						font.pointSize: 14
-						text: root.failed ? "Quickshell: Reload failed" : "Quickshell reloaded"
+						text: root.failed ? "Sleex: Reload failed" : "Sleex reloaded"
 						color: failed ? "#ff93000A" : "#ff0C1F13"
 					}
 

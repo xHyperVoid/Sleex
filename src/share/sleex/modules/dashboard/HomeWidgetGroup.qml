@@ -118,7 +118,7 @@ Rectangle {
                     spacing: 10
 
                     Text {
-                        text: Github.contribution_number
+                        text: Github.contribution_number || qsTr("Error")
                         color: Appearance.colors.colPrimary
                         font.pixelSize: 60
                         font.bold: true
@@ -133,7 +133,7 @@ Rectangle {
                     }
 
                     Text {
-                        text: "@levraiardox"
+                        text: `@${Github.author}`
                         color: Appearance.colors.colOnLayer1
                         font.pixelSize: 16
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -163,13 +163,47 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 10
+                    
+                    Text {
+                        text: `${Weather.temperature}` || qsTr("Error")
+                        font.bold: true
+                        color: Appearance.colors.colPrimary
+                        font.pixelSize: 60
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+
+                    Text {
+                        //text: Weather.condition
+                        text: Weather.condition || qsTr("Loading...")
+                        font.pixelSize: 30
+                        color: Appearance.colors.colOnLayer1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+
             }
 
-            // CalendarWidget {
-            //     Layout.fillWidth: true
-            //     Layout.fillHeight: true
-            // }
+            Rectangle {
+                color: Appearance.colors.colLayer1
+                radius: Appearance.rounding.normal
+                Layout.fillWidth: true
+                Layout.preferredHeight: 400
+
+                CalendarWidget {}
+            }
+
         }
+    }
+
+    Rectangle {
+        color: Appearance.colors.colLayer1
+        radius: Appearance.rounding.normal
+        Layout.fillWidth: true
+        Layout.preferredHeight: 150
     }
 
 }
