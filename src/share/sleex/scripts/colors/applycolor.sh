@@ -3,7 +3,7 @@
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
-CONFIG_DIR="$XDG_CONFIG_HOME/quickshell"
+CONFIG_DIR="/usr/share/sleex"
 CACHE_DIR="$XDG_CACHE_HOME/sleex"
 STATE_DIR="$XDG_STATE_HOME/sleex"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -28,13 +28,13 @@ colorvalues=($colorstrings) # Array of color values
 
 apply_term() {
   # Check if terminal escape sequence template exists
-  if [ ! -f "$SCRIPT_DIR"/terminal/sequences.txt ]; then
+  if [ ! -f "$CONFIG_DIR"/scripts/terminal/sequences.txt ]; then
     echo "Template file not found for Terminal. Skipping that."
     return
   fi
   # Copy template
   mkdir -p "$STATE_DIR"/user/generated/terminal
-  cp "$SCRIPT_DIR"/terminal/sequences.txt "$STATE_DIR"/user/generated/terminal/sequences.txt
+  cp "$CONFIG_DIR"/scripts/terminal/sequences.txt "$STATE_DIR"/user/generated/terminal/sequences.txt
   # Apply colors
   for i in "${!colorlist[@]}"; do
     sed -i "s/${colorlist[$i]} #/${colorvalues[$i]#\#}/g" "$STATE_DIR"/user/generated/terminal/sequences.txt
@@ -56,41 +56,5 @@ apply_qt() {
   python "$CONFIG_DIR/scripts/kvantum/changeAdwColors.py" # apply config colors
 }
 
-apply_ags() {
-  pidof agsv1 && agsv1 run-js "handleStyles(false);"
-  pidof agsv1 && agsv1 run-js 'openColorScheme.value = true; Utils.timeout(2000, () => openColorScheme.value = false);'
-}
-
-
-apply_gtk() {
-    if [ ! -f "scripts/templates/gtk/gtk-colors.css" ]; then
-        echo "Template file not found for gtk colors. Skipping that."
-        return
-    fi
-
-    # Copy template
-    mkdir -p "$CACHE_DIR"/user/generated/gtk/
-    cp "scripts/templates/gtk/gtk-colors.css" "$CACHE_DIR"/user/generated/gtk/gtk-colors.css
-
-    # Apply colors
-    for i in "${!colorlist[@]}"; do
-        sed -i "s/{{ ${colorlist[$i]} }}/#${colorvalues[$i]#\#}/g" "$CACHE_DIR"/user/generated/gtk/gtk-colors.css
-    done
-
-    # Create GTK config directories if they don't exist
-    [ ! -d "$XDG_CONFIG_HOME/gtk-3.0" ] && mkdir -p "$XDG_CONFIG_HOME/gtk-3.0"
-    [ ! -d "$XDG_CONFIG_HOME/gtk-4.0" ] && mkdir -p "$XDG_CONFIG_HOME/gtk-4.0"
-
-    cp "$CACHE_DIR"/user/generated/gtk/gtk-colors.css "$XDG_CONFIG_HOME"/gtk-3.0/gtk.css
-    cp "$CACHE_DIR"/user/generated/gtk/gtk-colors.css "$XDG_CONFIG_HOME"/gtk-4.0/gtk.css
-
-    lightdark=$(get_light_dark)
-    if [ "$lightdark" = "light" ]; then
-        gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
-    else
-        gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark
-    fi
-}
-apply_ags &
 apply_qt &
 apply_term &

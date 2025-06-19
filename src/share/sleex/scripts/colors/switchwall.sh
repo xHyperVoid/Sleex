@@ -3,12 +3,26 @@
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
-CONFIG_DIR="$XDG_CONFIG_HOME/quickshell"
+CONFIG_DIR="/usr/share/sleex"
 CACHE_DIR="$XDG_CACHE_HOME/sleex"
 STATE_DIR="$XDG_STATE_HOME/sleex"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MATUGEN_DIR="$XDG_CONFIG_HOME/matugen"
-terminalscheme="$XDG_CONFIG_HOME/sleex/scripts/terminal/scheme-base.json"
+terminalscheme="/usr/share/sleex/scripts/terminal/scheme-base.json"
+
+handle_kde_material_you_colors() {
+    # Map $type_flag to allowed scheme variants for kde-material-you-colors-wrapper.sh
+    local kde_scheme_variant=""
+    case "$type_flag" in
+        scheme-content|scheme-expressive|scheme-fidelity|scheme-fruit-salad|scheme-monochrome|scheme-neutral|scheme-rainbow|scheme-tonal-spot)
+            kde_scheme_variant="$type_flag"
+            ;;
+        *)
+            kde_scheme_variant="scheme-tonal-spot" # default
+            ;;
+    esac
+    "$XDG_CONFIG_HOME"/matugen/templates/kde/kde-material-you-colors-wrapper.sh --scheme-variant "$kde_scheme_variant"
+}
 
 pre_process() {
     local mode_flag="$1"
@@ -31,6 +45,7 @@ post_process() {
     local screen_height="$2"
     local wallpaper_path="$3"
 
+    handle_kde_material_you_colors &
 }
 
 check_and_prompt_upscale() {
@@ -99,7 +114,7 @@ create_restore_script() {
 pkill -f -9 mpvpaper
 
 for monitor in \$(hyprctl monitors -j | jq -r '.[] | .name'); do
-    mpvpaper -o "$VIDEO_OPTS" "\$monitor" "$video_path" &
+    mpvpaper -o "$VIDEO_OPTS" "\$monitor" "$video_path" --mpv-options '--load-scripts=no' &
     sleep 0.1
 done
 EOF
@@ -171,7 +186,7 @@ switch() {
             local video_path="$imgpath"
             monitors=$(hyprctl monitors -j | jq -r '.[] | .name')
             for monitor in $monitors; do
-                mpvpaper -o "$VIDEO_OPTS" "$monitor" "$video_path" &
+                mpvpaper -o "$VIDEO_OPTS" "$monitor" "$video_path" --mpv-options '--load-scripts=no' &
                 sleep 0.1
             done
 
@@ -194,7 +209,7 @@ switch() {
             # Set wallpaper with swww
             swww img "$imgpath" --transition-step 100 --transition-fps 120 \
                 --transition-type grow --transition-angle 30 --transition-duration 1 \
-                --transition-pos "$cursorposx, $cursorposy_inverted"
+                --transition-pos "$cursorposx, $cursorposy_inverted" &
             remove_restore
         fi
     fi
@@ -217,8 +232,8 @@ switch() {
     pre_process "$mode_flag"
 
     matugen "${matugen_args[@]}"
-    source "$(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)/bin/activate"
-    python "$SCRIPT_DIR/generate_colors_material.py" "${generate_colors_material_args[@]}" \
+    source "$(eval echo $SLEEX_VIRTUAL_ENV)/bin/activate"
+    python3 "$SCRIPT_DIR/generate_colors_material.py" "${generate_colors_material_args[@]}" \
         > "$STATE_DIR"/user/generated/material_colors.scss
     "$SCRIPT_DIR"/applycolor.sh
     deactivate
@@ -236,6 +251,15 @@ main() {
     color_flag=""
     color=""
     noswitch_flag=""
+
+    get_type_from_config() {
+        jq -r '.appearance.palette.type' "$XDG_CONFIG_HOME/sleex/config.json" 2>/dev/null || echo "auto"
+    }
+
+    detect_scheme_type_from_image() {
+        local img="$1"
+        "$SCRIPT_DIR"/scheme_for_image.py "$img" 2>/dev/null | tr -d '\n'
+    }
 
     while [[ $# -gt 0 ]]; do
         case "$1" in
@@ -257,6 +281,10 @@ main() {
                     shift
                 fi
                 ;;
+            --image)
+                imgpath="$2"
+                shift 2
+                ;;
             --noswitch)
                 noswitch_flag="1"
                 imgpath=$(swww query | awk -F 'image: ' '{print $2}')
@@ -271,10 +299,53 @@ main() {
         esac
     done
 
+    # If type_flag is not set, get it from config
+    if [[ -z "$type_flag" ]]; then
+        type_flag="$(get_type_from_config)"
+    fi
+
+    # Validate type_flag (allow 'auto' as well)
+    allowed_types=(scheme-content scheme-expressive scheme-fidelity scheme-fruit-salad scheme-monochrome scheme-neutral scheme-rainbow scheme-tonal-spot auto)
+    valid_type=0
+    for t in "${allowed_types[@]}"; do
+        if [[ "$type_flag" == "$t" ]]; then
+            valid_type=1
+            break
+        fi
+    done
+    if [[ $valid_type -eq 0 ]]; then
+        echo "[switchwall.sh] Warning: Invalid type '$type_flag', defaulting to 'auto'" >&2
+        type_flag="auto"
+    fi
+
     # Only prompt for wallpaper if not using --color and not using --noswitch and no imgpath set
     if [[ -z "$imgpath" && -z "$color_flag" && -z "$noswitch_flag" ]]; then
         cd "$(xdg-user-dir PICTURES)/Wallpapers" 2>/dev/null || cd "$(xdg-user-dir PICTURES)" || return 1
         imgpath="$(kdialog --getopenfilename . --title 'Choose wallpaper')"
+    fi
+
+    # If type_flag is 'auto', detect scheme type from image (after imgpath is set)
+    if [[ "$type_flag" == "auto" ]]; then
+        if [[ -n "$imgpath" && -f "$imgpath" ]]; then
+            detected_type="$(detect_scheme_type_from_image "$imgpath")"
+            # Only use detected_type if it's valid
+            valid_detected=0
+            for t in "${allowed_types[@]}"; do
+                if [[ "$detected_type" == "$t" && "$detected_type" != "auto" ]]; then
+                    valid_detected=1
+                    break
+                fi
+            done
+            if [[ $valid_detected -eq 1 ]]; then
+                type_flag="$detected_type"
+            else
+                echo "[switchwall] Warning: Could not auto-detect a valid scheme, defaulting to 'scheme-tonal-spot'" >&2
+                type_flag="scheme-tonal-spot"
+            fi
+        else
+            echo "[switchwall] Warning: No image to auto-detect scheme from, defaulting to 'scheme-tonal-spot'" >&2
+            type_flag="scheme-tonal-spot"
+        fi
     fi
 
     switch "$imgpath" "$mode_flag" "$type_flag" "$color_flag" "$color"
