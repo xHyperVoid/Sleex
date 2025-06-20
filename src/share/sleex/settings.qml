@@ -47,7 +47,7 @@ ApplicationWindow {
 
     visible: true
     onClosing: Qt.quit()
-    title: "illogical-impulse Settings"
+    title: "Sleex Settings"
 
     Component.onCompleted: {
         MaterialThemeLoader.reapplyTheme()

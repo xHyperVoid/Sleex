@@ -12,9 +12,12 @@ Singleton {
         property string systemPrompt: qsTr("Use casual tone. No user knowledge is to be assumed except basic Linux literacy. Be brief and concise: When explaining concepts, use bullet points (prefer minus sign (-) over asterisk (*)) and highlight keywords in bold to pinpoint the main concepts instead of long paragraphs. You are also encouraged to split your response with h2 headers, each header title beginning with an emoji, like `## 🐧 Linux`. When making changes to the user's config, you must get the config to know what values there are before setting.")
     }
 
+
     property QtObject appearance: QtObject {
-        property int fakeScreenRounding: 2 // 0: None | 1: Always | 2: When not fullscreen
         property bool transparency: false
+        property QtObject palette: QtObject {
+            property string type: "auto" // Allowed: auto, scheme-content, scheme-expressive, scheme-fidelity, scheme-fruit-salad, scheme-monochrome, scheme-neutral, scheme-rainbow, scheme-tonal-spot
+        }
     }
 
     property QtObject audio: QtObject { // Values in %
@@ -44,26 +47,19 @@ Singleton {
     property QtObject bar: QtObject {
         property bool bottom: false // Instead of top
         property bool borderless: false // true for no grouping of items
-        property string topLeftIcon: "spark" // Options: distro, spark
-        property bool showBackground: true
         property bool verbose: true
-        property QtObject resources: QtObject {
-            property bool alwaysShowSwap: true
-            property bool alwaysShowCpu: false
-        }
         property list<string> screenList: [] // List of names, like "eDP-1", find out with 'hyprctl monitors' command
-        property QtObject utilButtons: QtObject {
-            property bool showScreenSnip: true
-            property bool showColorPicker: false
-            property bool showMicToggle: false
-            property bool showKeyboardToggle: true
-        }
         property QtObject workspaces: QtObject {
             property int shown: 10
             property bool showAppIcons: true
             property bool alwaysShowNumbers: false
             property int showNumberDelay: 300 // milliseconds
         }
+        property bool showTitle: true // Show the window title at the left
+        property bool showRessources: true // Show the system ressource monitor
+        property bool showWorkspaces: true // Show the workspace indicator
+        property bool showClock: true
+        property bool showTrayAndIcons: true // Show the system tray and icons on the right side
     }
 
     property QtObject dock: QtObject {
@@ -75,25 +71,12 @@ Singleton {
         ]
     }
 
-    property QtObject language: QtObject {
-        property QtObject translator: QtObject {
-            property string engine: "auto" // Run `trans -list-engines` for available engines. auto should use google
-            property string targetLanguage: "auto" // Run `trans -list-all` for available languages
-            property string sourceLanguage: "auto"
-        }
-    }
-
     property QtObject networking: QtObject {
         property string userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
     }
 
     property QtObject osd: QtObject {
         property int timeout: 1000
-    }
-
-    property QtObject osk: QtObject {
-        property string layout: "qwerty_full"
-        property bool pinnedOnStartup: false
     }
 
     property QtObject overview: QtObject {
@@ -117,6 +100,11 @@ Singleton {
             property string clipboard: ";"
             property string emojis: ":"
         }
+    }
+
+
+    property QtObject windows: QtObject {
+        property bool showTitlebar: true // Client-side decoration for shell apps
     }
 
     property QtObject time: QtObject {

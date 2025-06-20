@@ -28,5 +28,4 @@ StyledListView { // Scrollable window
             Notifications.popupGroupsByAppName[modelData] :
             Notifications.groupsByAppName[modelData]
     }
-    
 }

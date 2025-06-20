@@ -51,7 +51,7 @@ Scope {
 
             WlrLayershell.namespace: "quickshell:bar"
             implicitHeight: barHeight + Appearance.rounding.screenRounding
-            exclusiveZone: showBarBackground ? barHeight : (barHeight - 4)
+            exclusiveZone: barHeight
             mask: Region {
                 item: barContent
             }
@@ -144,6 +144,7 @@ Scope {
                             id: leftSectionRowLayout
                             anchors.fill: parent
                             spacing: 10
+                            visible: ConfigOptions.bar.showTitle
                             
 
                             RippleButton { // Left sidebar button
@@ -188,6 +189,7 @@ Scope {
                         Resources {
                             alwaysShowAllResources: barRoot.useShortenedForm === 2
                             Layout.fillWidth: barRoot.useShortenedForm === 2
+                            visible: ConfigOptions.bar.showRessources
                         }
                     }
 
@@ -196,6 +198,7 @@ Scope {
                         id: middleCenterGroup
                         padding: workspacesWidget.widgetPadding
                         Layout.fillHeight: true
+                        visible: ConfigOptions.bar.showWorkspaces
                     
                         RoundCorner {
                             Layout.alignment: Qt.AlignTop | Qt.AlignRight
@@ -260,6 +263,7 @@ Scope {
                             showDate: (ConfigOptions.bar.verbose && barRoot.useShortenedForm < 2)
                             Layout.alignment: Qt.AlignVCenter
                             Layout.fillWidth: true
+                            visible: ConfigOptions.bar.showClock
                         }
                     }
 
@@ -348,6 +352,7 @@ Scope {
                             anchors.fill: parent
                             spacing: 5
                             layoutDirection: Qt.RightToLeft
+                            visible: ConfigOptions.bar.showTrayAndIcons
                             
                     
                             RippleButton { // Right sidebar button

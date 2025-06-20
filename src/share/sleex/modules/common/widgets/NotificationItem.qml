@@ -224,14 +224,10 @@ Item { // Notification item area
 
                     onLinkActivated: (link) => {
                         Qt.openUrlExternally(link)
-                        Hyprland.dispatch("global quickshell:dashboardClose")
+                        Hyprland.dispatch("global quickshell:sidebarRightClose")
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        acceptedButtons: Qt.NoButton // Only for hover
-                        hoverEnabled: true
-                        cursorShape: parent.hoveredLink !== "" ? Qt.PointingHandCursor : Qt.ArrowCursor
-                    }
+                    
+                    PointingHandLinkHover {}
                 }
 
                 Flickable { // Notification actions
