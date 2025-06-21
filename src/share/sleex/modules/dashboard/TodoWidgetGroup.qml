@@ -13,7 +13,6 @@ Rectangle {
     radius: Appearance.rounding.normal
     color: Appearance.colors.colLayer0
     clip: true
-    implicitHeight: collapsed ? collapsedBottomWidgetGroupRow.implicitHeight : bottomWidgetGroupRow.implicitHeight
 
     
     TodoWidget {

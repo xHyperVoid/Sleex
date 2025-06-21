@@ -10,26 +10,7 @@ Item {
     implicitHeight: 40
     implicitWidth: rowLayout.implicitWidth + padding * 2
     default property alias items: rowLayout.children
-
-    Canvas {
-        id: background
-        anchors.fill: parent
-        onPaint: {
-            var ctx = getContext("2d");
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = ConfigOptions?.bar.borderless ? "transparent" : Appearance.colors.colLayer0;
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            ctx.lineTo(width, 0);
-            ctx.lineTo(width, height - 20);
-            ctx.quadraticCurveTo(width, height, width - 20, height); // bottom-right radius
-            ctx.lineTo(0, height);
-            ctx.lineTo(0, 0);
-            ctx.closePath();
-            ctx.fill();
-        }
-    }
-
+    
     RowLayout {
         id: rowLayout
         anchors {

@@ -20,7 +20,7 @@ Singleton {
     property string favicons: FileUtils.trimFileProtocol(`${Directories.cache}/media/favicons`)
     property string coverArt: FileUtils.trimFileProtocol(`${Directories.cache}/media/coverart`)
     property string latexOutput: FileUtils.trimFileProtocol(`${Directories.cache}/media/latex`)
-    property string shellConfig: FileUtils.trimFileProtocol(`${Directories.home}/.sleex/`)
+    property string shellConfig: FileUtils.trimFileProtocol(`${Directories.home}/.sleex`)
     property string shellConfigName: "settings.json"
     property string shellConfigPath: `${Directories.shellConfig}/${Directories.shellConfigName}`
     property string todoPath: FileUtils.trimFileProtocol(`${Directories.home}/.sleex/user/todo.json`)

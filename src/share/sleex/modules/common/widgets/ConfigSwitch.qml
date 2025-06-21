@@ -7,6 +7,7 @@ import QtQuick.Controls
 RippleButton {
     id: root
     Layout.fillWidth: true
+    implicitHeight: contentItem.implicitHeight + 8 * 2
 
     contentItem: RowLayout {
         spacing: 10

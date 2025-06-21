@@ -126,12 +126,14 @@ Rectangle {
                     }
 
                     Text {
-                        text: "contributions this year"
+                        text: ` contributions in the last year`
                         color: Appearance.colors.colOnLayer1
                         font.pixelSize: 20
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
 
+                    GhCalendar {}
+                    
                     Text {
                         text: `@${Github.author}`
                         color: Appearance.colors.colOnLayer1

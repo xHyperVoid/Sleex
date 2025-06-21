@@ -138,11 +138,11 @@ Scope {
                                     toggled: false
                                     buttonIcon: "settings"
                                     onClicked: {
-                                        Hyprland.dispatch(`exec ${ConfigOptions.apps.settings}`)
+                                        Hyprland.dispatch(`exec qs -p /usr/share/sleex/settings.qml`)
                                         Hyprland.dispatch(`global quickshell:dashboardClose`)
                                     }
                                     StyledToolTip {
-                                        content: qsTr("Plasma Settings")
+                                        content: qsTr("Settings")
                                     }
                                 }
                                 QuickToggleButton {

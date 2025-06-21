@@ -26,7 +26,6 @@ Item {
 
     property bool backgroundIsDark: artDominantColor.hslLightness < 0.5
     property QtObject blendedColors: QtObject {
-        property color colLayer0: ColorUtils.mix(Appearance.colors.colLayer0, artDominantColor, (backgroundIsDark && Appearance.m3colors.darkmode) ? 0.6 : 0.5)
         property color colLayer1: ColorUtils.mix(Appearance.colors.colLayer1, artDominantColor, 0.5)
         property color colOnLayer0: ColorUtils.mix(Appearance.colors.colOnLayer0, artDominantColor, 0.5)
         property color colOnLayer1: ColorUtils.mix(Appearance.colors.colOnLayer1, artDominantColor, 0.5)
@@ -61,35 +60,15 @@ Item {
         }
     }
 
-    StyledRectangularShadow {
-        target: background
-    }
     Rectangle {
         id: background
         anchors.fill: parent
-        color: blendedColors.colLayer0
+        color: Appearance.colors.colLayer1
         radius: Appearance.rounding.normal
 
         layer.enabled: true
-        layer.effect: OpacityMask {
-            maskSource: Rectangle {
-                width: background.width
-                height: background.height
-                radius: background.radius
-            }
-        }
 
         // No blurred art or cover image for blank state
-
-        WaveVisualizer {
-            id: visualizerCanvas
-            anchors.fill: parent
-            live: false
-            points: []
-            maxVisualizerValue: 100
-            smoothing: 0
-            color: blendedColors.colPrimary
-        }
 
         RowLayout {
             anchors.fill: parent
@@ -102,14 +81,6 @@ Item {
                 implicitWidth: height
                 radius: Appearance.rounding.verysmall
                 color: ColorUtils.transparentize(blendedColors.colLayer1, 0.5)
-                layer.enabled: true
-                layer.effect: OpacityMask {
-                    maskSource: Rectangle {
-                        width: artBackground.width
-                        height: artBackground.height
-                        radius: artBackground.radius
-                    }
-                }
                 MaterialSymbol {
                     anchors.centerIn: parent
                     iconSize: 40

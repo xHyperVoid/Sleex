@@ -17,7 +17,6 @@ Scope {
 
     readonly property int barHeight: Appearance.sizes.barHeight
     readonly property int osdHideMouseMoveThreshold: 20
-    property bool showBarBackground: ConfigOptions.bar.showBackground
 
     component VerticalBarSeparator: Rectangle {
         Layout.topMargin: barHeight / 3
@@ -169,18 +168,50 @@ Scope {
                         }
                     }
                 }
+                
+                // Background Rectangle - completely outside the RowLayout
+                Rectangle {
+                    id: middleBg
+                    anchors.centerIn: parent
+                    anchors.horizontalCenter: middleSection.horizontalCenter
+                    anchors.verticalCenter: middleSection.verticalCenter
+                    width: middleSection.width
+                    height: middleSection.height
+                    color: Appearance.colors.colLayer0
+                    radius: Appearance.rounding.screenRounding
+                    antialiasing: true
+                    z: -1
 
-                RowLayout { // Middle section
+                    property int bottomRadius: Appearance.rounding.screenRounding
+                    property int topRadius: 0
+
+                    Canvas {
+                        anchors.fill: parent
+                        z: 1
+                        onPaint: {
+                            var ctx = getContext("2d");
+                            ctx.clearRect(0, 0, width, height);
+                            ctx.beginPath();
+                            ctx.moveTo(0, 0);
+                            ctx.lineTo(width, 0);
+                            ctx.lineTo(width, height - middleBg.bottomRadius);
+                            ctx.quadraticCurveTo(width, height, width - middleBg.bottomRadius, height);
+                            ctx.lineTo(middleBg.bottomRadius, height);
+                            ctx.quadraticCurveTo(0, height, 0, height - middleBg.bottomRadius);
+                            ctx.lineTo(0, 0);
+                            ctx.closePath();
+                            ctx.fillStyle = middleBg.color;
+                            ctx.fill();
+                        }
+                    }
+                    visible: true
+                }
+
+                RowLayout { // Middle section - NO Rectangle inside here
                     id: middleSection
                     anchors.centerIn: parent
                     spacing: 0
 
-                    RoundCorner {
-                        Layout.alignment: Qt.AlignTop | Qt.AlignLeft
-                        size: Appearance.rounding.screenRounding
-                        corner: cornerEnum.topRight
-                        color: Appearance.colors.colLayer0
-                    }
 
                     BarGroupL {
                         id: leftCenterGroup
@@ -267,14 +298,28 @@ Scope {
                         }
                     }
 
-                    RoundCorner {
-                        Layout.alignment: Qt.AlignTop | Qt.AlignRight
-                        size: Appearance.rounding.screenRounding
-                        corner: cornerEnum.topLeft
-                        color: Appearance.colors.colLayer0
-                    }
-
                 }
+
+                RoundCorner {
+                    Layout.alignment: Qt.AlignTop | Qt.AlignRight
+                    anchors.right: middleSection.right
+                    size: Appearance.rounding.screenRounding
+                    corner: cornerEnum.topLeft
+                    color: Appearance.colors.colLayer0
+                    z: 1000
+                    anchors.margins: -Appearance.rounding.screenRounding
+                }
+
+                RoundCorner {
+                    Layout.alignment: Qt.AlignTop | Qt.AlignRight
+                    anchors.left: middleSection.left
+                    size: Appearance.rounding.screenRounding
+                    corner: cornerEnum.topRight
+                    color: Appearance.colors.colLayer0
+                    z: 1000
+                    anchors.margins: -Appearance.rounding.screenRounding
+                }
+
 
                 MouseArea { // Right side | scroll to change volume
                     id: barRightSideMouseArea

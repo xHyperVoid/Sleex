@@ -14,7 +14,7 @@ Item {
 
     Rectangle {
         id: background
-        color: ConfigOptions?.bar.borderless ? "transparent" : Appearance.colors.colLayer0
+        color: "transparent"
         anchors.fill: parent
         
         

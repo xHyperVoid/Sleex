@@ -13,6 +13,7 @@ Singleton {
     property string date: Qt.formatDateTime(clock.date, ConfigOptions?.time.dateFormat ?? "dddd, dd/MM")
     property string collapsedCalendarFormat: Qt.formatDateTime(clock.date, "dd MMMM yyyy")
     property string longDateFormat: Qt.formatDateTime(clock.date, "dddd dd MMMM yyyy")
+    property string year: Qt.formatDateTime(clock.date, "yyyy")
     property string uptime: "0h, 0m"
 
     SystemClock {

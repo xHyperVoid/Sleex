@@ -9,8 +9,7 @@ import Quickshell.Services.Mpris
 
 Item {
     id: root
-    property bool borderless: ConfigOptions.bar.borderless
-    property bool alwaysShowAllResources: false
+    property bool alwaysShowAllResources: true
     implicitWidth: rowLayout.implicitWidth + rowLayout.anchors.leftMargin + rowLayout.anchors.rightMargin
     implicitHeight: 32
 

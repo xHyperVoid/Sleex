@@ -89,7 +89,6 @@ Item {
         PlayerControlBlank {
             anchors.fill: parent
             artDominantColor: Appearance.m3colors.m3secondaryContainer
-            visualizerPoints: root.visualizerPoints
         }
         
         Repeater {

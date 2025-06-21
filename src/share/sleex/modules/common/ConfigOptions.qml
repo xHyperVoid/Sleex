@@ -62,6 +62,10 @@ Singleton {
         property bool showTrayAndIcons: true // Show the system tray and icons on the right side
     }
 
+    property QtObject dashboard: QtObject {
+        property string ghUsername: "levraiardox"
+    }
+
     property QtObject dock: QtObject {
         property real height: 60
         property real hoverRegionHeight: 3
@@ -105,6 +109,7 @@ Singleton {
 
     property QtObject windows: QtObject {
         property bool showTitlebar: true // Client-side decoration for shell apps
+        property bool centerTitle: true
     }
 
     property QtObject time: QtObject {

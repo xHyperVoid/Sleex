@@ -108,9 +108,6 @@ Item { // Player instance
 
     }
 
-    StyledRectangularShadow {
-        target: background
-    }
     Rectangle { // Background
         id: background
         anchors.fill: parent
