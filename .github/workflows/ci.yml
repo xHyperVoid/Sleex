@@ -55,6 +55,4 @@ jobs:
         with:
           node-version: "20"
       - run: npm install stylelint stylelint-config-standard
-      - run: |
-          npx stylelint "**/*.css" \
-            --config '{"extends": "stylelint-config-standard"}'
+      - run: npx stylelint "**/*.css" --config .github/workflows/.stylelintrc.json
