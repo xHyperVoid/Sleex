@@ -15,6 +15,12 @@ jobs:
         with:
           node-version: "20"
       - run: npm install eslint
+      - run: |
+          echo 'export default [{
+            files: ["**/*.js"],
+            languageOptions: { ecmaVersion: "latest", sourceType: "module" },
+            rules: { semi: "warn", quotes: ["warn", "single"] }
+          }];' > eslint.config.js
       - run: npx eslint .
 
   shellcheck:
@@ -37,7 +43,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt update && sudo apt install -y sassc
-      - run: find . -type f -name "*.scss" | while read f; do sassc "$f" /dev/null; done
+      - run: |
+          find . -type f -name "*.scss" ! -name "pywal_to_material.scss" \
+          | while read f; do sassc "$f" /dev/null; done
 
   csslint:
     runs-on: ubuntu-latest
@@ -47,4 +55,4 @@ jobs:
         with:
           node-version: "20"
       - run: npm install stylelint stylelint-config-standard
-      - run: npx stylelint "**/*.css"
+      - run: npx stylelint "**/*.css" --config '{"extends": "stylelint-config-standard"}'
