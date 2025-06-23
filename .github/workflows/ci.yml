@@ -1,0 +1,50 @@
+name: Sleex Continuous Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  javascript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install eslint
+      - run: npx eslint .
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt update && sudo apt install -y shellcheck
+      - run: find . -type f -name "*.sh" | xargs -r shellcheck
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt update && sudo apt install -y python3-pip
+      - run: pip install flake8
+      - run: flake8 .
+
+  scss:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt update && sudo apt install -y sassc
+      - run: find . -type f -name "*.scss" | while read f; do sassc "$f" /dev/null; done
+
+  csslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install stylelint stylelint-config-standard
+      - run: npx stylelint "**/*.css"
