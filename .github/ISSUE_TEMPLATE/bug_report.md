@@ -23,9 +23,12 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Axos Version:**
+**Desktop (please complete the following information):**
 
-- Version [e.g. 25.06]
+- CPU of your device [e.g. Intel Core i7]
+- GPU of you device [e.g. NVIDIA]
+- Total RAM in your device [e.g. 8GB]
+- AxOS Version [e.g. 26.06]
 
 **Additional context**
 Add any other context about the problem here.
