@@ -21,11 +21,15 @@ Sleex is the third desktop environement of AxOS. It is based on Hyprland with Qu
 ## Installation
 
 > [!IMPORTANT]
-> If you are not using AxOS, you can't install Sleex yet.
+> THIS BRANCH IS VERY EXPERIMENTAL, BUG ARE TO BE EXPECTED
 
-```bash
-epsi install sleex
-```
+To try this branch of Sleex, here is what you should do:
+
+- Build every sleex meta-packages in `sleex-packages` then install them
+- Build the user configuration and copy the content from `/etc/skel/.config` to your own .config folder
+- Build and install the main package
+
+Then, you can start sleex by selecting the sleex session on your greeter
 
 ## License
 Sleex is licensed under the GNU General Public License v3.0
