@@ -15,7 +15,7 @@ import Quickshell.Hyprland
  */
 Singleton {
     id: root
-    property string keybindParserPath: FileUtils.trimFileProtocol(`${Directories.config}/quickshell/scripts/hyprland/get_keybinds.py`)
+    property string keybindParserPath: FileUtils.trimFileProtocol(`/usr/share/sleex/scripts/hyprland/get_keybinds.py`)
     property string defaultKeybindConfigPath: FileUtils.trimFileProtocol(`${Directories.config}/hypr/hyprland/keybinds.conf`)
     property string userKeybindConfigPath: FileUtils.trimFileProtocol(`${Directories.config}/hypr/custom/keybinds.conf`)
     property var defaultKeybinds: {"children": []}
@@ -41,7 +41,7 @@ Singleton {
     Process {
         id: getDefaultKeybinds
         running: true
-        command: [root.keybindParserPath, "--path", root.defaultKeybindConfigPath,]
+        command: ["python", root.keybindParserPath, "--path", root.defaultKeybindConfigPath,]
         
         stdout: SplitParser {
             onRead: data => {

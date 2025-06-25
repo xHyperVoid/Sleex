@@ -55,11 +55,11 @@ Singleton {
             property bool alwaysShowNumbers: false
             property int showNumberDelay: 300 // milliseconds
         }
-        property bool showTitle: true // Show the window title at the left
-        property bool showRessources: true // Show the system ressource monitor
-        property bool showWorkspaces: true // Show the workspace indicator
+        property bool showTitle: true
+        property bool showRessources: true
+        property bool showWorkspaces: true
         property bool showClock: true
-        property bool showTrayAndIcons: true // Show the system tray and icons on the right side
+        property bool showTrayAndIcons: true
     }
 
     property QtObject dashboard: QtObject {
