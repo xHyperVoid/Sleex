@@ -1,0 +1,38 @@
+pkgname=sleex-optional
+pkgver=1.2
+pkgrel=1
+pkgdesc='Sleex Optional Packages'
+arch=(any)
+license=(None)
+depends=(
+	"hyprwayland-scanner-git" 
+	"neofetch" 
+	"firefox" 
+	"bash-completion" 
+	"pipewire-pulse" 
+	"papirus-icon-theme" 
+	"inxi" 
+	"power-profiles-daemon" 
+	"fwupd" "gnome-autoar" 
+	"gnome-bluetooth" 
+	"gnome-color-manager" 
+	# "gnome-disk-utility" 
+	"gnome-keybindings" 
+	"gnome-power-manager" 
+	"gnome-settings-daemon" 
+	"gnome-system-monitor" 
+	"gnome-themes-extra" 
+	# "gnome-tweaks" 
+	"baobab" 
+	"gparted" 
+	"gnome-calculator" 
+	# "plasma-browser-integration" 
+	# "nautilus"
+	"thunar" 
+	"loupe"
+	"axuralis"
+        "nwg-displays"
+	)
+provides=('illogical-impulse-optional')
+replaces=('illogical-impulse-optional')
+conflicts=('illogical-impulse-optional')

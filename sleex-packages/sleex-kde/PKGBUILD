@@ -1,0 +1,14 @@
+pkgname=sleex-kde
+pkgver=1.0
+pkgrel=1
+pkgdesc='Sleex KDE Dependencies'
+arch=(any)
+license=(None)
+depends=(
+	bluedevil
+	gnome-keyring
+	networkmanager
+	plasma-nm
+	polkit-kde-agent
+	systemsettings
+)
