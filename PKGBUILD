@@ -4,29 +4,24 @@ pkgrel="1"
 pkgdesc="Third desktop environment for AxOS"
 arch=("x86_64")
 depends=(
-	# "sleex-ags"
 	"sleex-audio"
 	"sleex-backlight"
 	"sleex-basic"
 	"sleex-bibata-modern-classic-bin"
 	"sleex-fonts-themes"
-	"sleex-gnome"
-	"sleex-gtk"
+	"sleex-hyprland"
+	"sleex-kde"
 	"sleex-microtex-git"
-	"sleex-oneui4-icons-git"
 	"sleex-portal"
-	"sleex-pymyc-aur"
 	"sleex-python"
 	"sleex-screencapture"
+	"sleex-toolkit"
 	"sleex-widgets"
-	"axskel-hypr"
-	"axctl"
-	"sleex-control-center"
-	"hyprland"
+	"sleex-user-config"
 )
-optdepends=(
-	"sleex-optional: Optional packages"
-)
+# optdepends=(
+# 	"sleex-optional: Optional packages"
+# )
 
 
 package() {
