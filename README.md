@@ -31,3 +31,6 @@ epsi install sleex
 
 ## License
 Sleex is licensed under the GNU General Public License v3.0
+
+## Special thanks
+- [@end-4](https://github.com/end-4/): Great inspiration | Sleex is based on his work
