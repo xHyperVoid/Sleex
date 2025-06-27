@@ -15,7 +15,7 @@ QuickToggleButton {
             Hyprland.dispatch("exec pkill wayland-idle") // pkill doesn't accept too long names
         } else {
             root.toggled = true
-            Hyprland.dispatch('exec ${XDG_CONFIG_HOME:-$HOME/.config}/quickshell/scripts/wayland-idle-inhibitor.py')
+            Hyprland.dispatch('exec /usr/share/sleex/scripts/wayland-idle-inhibitor.py')
         }
     }
     Process {

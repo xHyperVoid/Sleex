@@ -13,6 +13,7 @@ Singleton {
     property string distroId: "unknown"
     property string distroIcon: "linux-symbolic"
     property string username: "user"
+    property string axosVersion: ""
 
     Timer {
         triggeredOnStart: true
@@ -28,6 +29,8 @@ Singleton {
             const prettyNameMatch = textOsRelease.match(/^PRETTY_NAME="(.+?)"/m)
             const nameMatch = textOsRelease.match(/^NAME="(.+?)"/m)
             distroName = prettyNameMatch ? prettyNameMatch[1] : (nameMatch ? nameMatch[1].replace(/Linux/i, "").trim() : "Unknown")
+
+            if (distroName == "AxOS") axosVersion = axosVersionFile.text()
 
             // Extract the ID (LOGO field, fallback to "unknown")
             const logoMatch = textOsRelease.match(/^LOGO=(.+)$/m)
@@ -54,5 +57,10 @@ Singleton {
     FileView {
         id: fileOsRelease
         path: "/etc/os-release"
+    }
+
+    FileView {
+        id: axosVersionFile
+        path: "/etc/axos-version"
     }
 }

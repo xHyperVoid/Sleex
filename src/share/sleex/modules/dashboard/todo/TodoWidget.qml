@@ -10,7 +10,7 @@ import QtQuick.Layouts
 Item {
     id: root
     property bool showAddDialog: false
-    property int dialogMargins: 50
+    property int dialogMargins: 400
     property int fabSize: 48
     property int fabMargins: 14
 

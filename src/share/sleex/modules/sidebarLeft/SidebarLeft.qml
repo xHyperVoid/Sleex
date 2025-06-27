@@ -78,9 +78,6 @@ Scope { // Scope
                 id: grab
                 windows: [ sidebarRoot ]
                 active: sidebarRoot.visible
-                onActiveChanged: { // Focus the selected tab
-                    if (active) sidebarLeftBackground.children[0].focusActiveItem()
-                }
                 onCleared: () => {
                     if (!active) sidebarRoot.hide()
                 }

@@ -296,6 +296,7 @@ Singleton {
         property real barShortenScreenWidthThreshold: 1200 // Shorten if screen width is at most this value
         property real barHellaShortenScreenWidthThreshold: 1000 // Shorten even more...
         property real sidebarWidth: 460
+        property real dashboardWidth: 460
         property real sidebarWidthExtended: 750
         property real osdWidth: 200
         property real mediaControlsWidth: 478

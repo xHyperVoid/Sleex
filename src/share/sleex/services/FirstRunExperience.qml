@@ -13,7 +13,7 @@ Singleton {
     property string firstRunNotifSummary: "Welcome!"
     property string firstRunNotifBody: "Hit Super+/ for a list of keybinds"
     property string defaultWallpaperPath: FileUtils.trimFileProtocol(`${Directories.home}/.sleex/wallpapers/sakura.png`)
-    property string welcomeQmlPath: FileUtils.trimFileProtocol(`${Directories.config}/quickshell/welcome.qml`)
+    property string welcomeQmlPath: FileUtils.trimFileProtocol(`/usr/share/sleex/welcome.qml`)
 
     function load() {
         firstRunFileView.reload()

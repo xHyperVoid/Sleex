@@ -16,11 +16,11 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 
 Scope {
-    property int sidebarWidth: Appearance.sizes.sidebarWidth
-    property int sidebarPadding: 15
+    property int dashboardWidth: Appearance.sizes.dashboardWidth
+    property int dashboardPadding: 15
 
     PanelWindow {
-        id: sidebarRoot
+        id: dashboardRoot
         visible: GlobalStates.dashboardOpen
 
         function hide() {
@@ -37,15 +37,15 @@ Scope {
 
         HyprlandFocusGrab {
             id: grab
-            windows: [ sidebarRoot ]
+            windows: [ dashboardRoot ]
             active: GlobalStates.dashboardOpen
             onCleared: () => {
-                if (!active) sidebarRoot.hide()
+                if (!active) dashboardRoot.hide()
             }
         }
 
         Loader {
-            id: sidebarContentLoader
+            id: dashboardContentLoader
             active: GlobalStates.dashboardOpen
             anchors {
                 top: parent.top
@@ -57,13 +57,13 @@ Scope {
                 bottomMargin: Appearance.sizes.hyprlandGapsOut
                 leftMargin: Appearance.sizes.elevationMargin
             }
-            width: sidebarWidth - Appearance.sizes.hyprlandGapsOut - Appearance.sizes.elevationMargin
+            width: dashboardWidth - Appearance.sizes.hyprlandGapsOut - Appearance.sizes.elevationMargin
             height: parent.height - Appearance.sizes.hyprlandGapsOut * 2
 
             focus: GlobalStates.dashboardOpen
             Keys.onPressed: (event) => {
                 if (event.key === Qt.Key_Escape) {
-                    sidebarRoot.hide();
+                    dashboardRoot.hide();
                 }
             }
 
@@ -79,14 +79,14 @@ Scope {
 
                     anchors.fill: parent
                     implicitHeight: parent.height - Appearance.sizes.hyprlandGapsOut * 2
-                    implicitWidth: sidebarWidth - Appearance.sizes.hyprlandGapsOut * 2
+                    implicitWidth: dashboardWidth - Appearance.sizes.hyprlandGapsOut * 2
                     color: Appearance.colors.colLayer0
                     radius: Appearance.rounding.screenRounding - Appearance.sizes.hyprlandGapsOut + 1
 
                     ColumnLayout {
-                        spacing: sidebarPadding
+                        spacing: dashboardPadding
                         anchors.fill: parent
-                        anchors.margins: sidebarPadding
+                        anchors.margins: dashboardPadding
 
                         RowLayout {
                             Layout.fillHeight: false
@@ -115,7 +115,6 @@ Scope {
                                 font.pixelSize: Appearance.font.pixelSize.normal
                                 color: Appearance.colors.colOnLayer0
                                 text: StringUtils.format(qsTr("Uptime: {0}"), DateTime.uptime)
-                                textFormat: Text.MarkdownText
                             }
 
                             Item {
@@ -177,7 +176,7 @@ Scope {
                             Layout.fillWidth: true
                             Layout.fillHeight: true
                             Layout.preferredHeight: 600
-                            Layout.preferredWidth: sidebarWidth - sidebarPadding * 2
+                            Layout.preferredWidth: dashboardWidth - dashboardPadding * 2
 
                             onCurrentTabChanged: {
                                 if (currentTab === "greetings") {
@@ -213,7 +212,7 @@ Scope {
 
     GlobalShortcut {
         name: "dashboardToggle"
-        description: qsTr("Toggles right sidebar on press")
+        description: qsTr("Toggles dashboard on press")
 
         onPressed: {
             GlobalStates.dashboardOpen = !GlobalStates.dashboardOpen;
@@ -222,7 +221,7 @@ Scope {
     }
     GlobalShortcut {
         name: "dashboardOpen"
-        description: qsTr("Opens right sidebar on press")
+        description: qsTr("Opens dashboard on press")
 
         onPressed: {
             GlobalStates.dashboardOpen = true;
@@ -231,7 +230,7 @@ Scope {
     }
     GlobalShortcut {
         name: "dashboardClose"
-        description: qsTr("Closes right sidebar on press")
+        description: qsTr("Closes dashboard on press")
 
         onPressed: {
             GlobalStates.dashboardOpen = false;

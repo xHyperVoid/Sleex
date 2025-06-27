@@ -72,7 +72,7 @@ Item {
                 root.visualizerPoints = [];
             }
         }
-        command: ["cava", "-p", `${FileUtils.trimFileProtocol(Directories.config)}/quickshell/scripts/cava/raw_output_config.txt`]
+        command: ["cava", "-p", `/usr/share/sleex/scripts/cava/raw_output_config.txt`]
         stdout: SplitParser {
             onRead: data => {
                 let points = data.split(";").map(p => parseFloat(p.trim())).filter(p => !isNaN(p));

@@ -12,6 +12,7 @@ ContentPage {
     forceWidth: true
 
     ContentSection {
+        visible: SystemInfo.distroName == "AxOS"
         title: "Distro"
         
         RowLayout {
@@ -28,13 +29,12 @@ ContentPage {
                 Layout.alignment: Qt.AlignVCenter
                 // spacing: 10
                 StyledText {
-                    text: SystemInfo.distroName
+                    text: SystemInfo.distroName + " " + SystemInfo.axosVersion
                     font.pixelSize: Appearance.font.pixelSize.title
                 }
                 StyledText {
                     font.pixelSize: Appearance.font.pixelSize.normal
                     text: "https://www.axos-project.com"
-                    textFormat: Text.MarkdownText
                     onLinkActivated: (link) => {
                         Qt.openUrlExternally(link)
                     }
@@ -79,10 +79,9 @@ ContentPage {
             spacing: 20
             Layout.topMargin: 10
             Layout.bottomMargin: 10
-            MaterialSymbol {
-                iconSize: 70
-                text: "files"
-                color: Appearance.colors.colOnSecondaryContainer
+            IconImage {
+                implicitSize: 100
+                source: "file:///home/ardox/Téléchargements/image.png"
             }
             ColumnLayout {
                 Layout.alignment: Qt.AlignVCenter
@@ -94,7 +93,6 @@ ContentPage {
                 StyledText {
                     text: "https://github.com/axos-project/sleex"
                     font.pixelSize: Appearance.font.pixelSize.normal
-                    textFormat: Text.MarkdownText
                     onLinkActivated: (link) => {
                         Qt.openUrlExternally(link)
                     }
