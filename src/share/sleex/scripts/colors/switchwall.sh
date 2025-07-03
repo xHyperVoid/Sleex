@@ -8,7 +8,7 @@ CACHE_DIR="$XDG_CACHE_HOME/sleex"
 STATE_DIR="$XDG_STATE_HOME/sleex"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MATUGEN_DIR="$XDG_CONFIG_HOME/matugen"
-terminalscheme="/usr/share/sleex/scripts/terminal/scheme-base.json"
+terminalscheme="$CONFIG_DIR/scripts/terminal/scheme-base.json"
 
 handle_kde_material_you_colors() {
     # Map $type_flag to allowed scheme variants for kde-material-you-colors-wrapper.sh
@@ -46,6 +46,16 @@ post_process() {
     local wallpaper_path="$3"
 
     handle_kde_material_you_colors &
+
+    # Determine the largest region on the wallpaper that's sufficiently un-busy to put widgets in
+    if [ ! -f "$MATUGEN_DIR/scripts/least_busy_region.py" ]; then
+        echo "Error: least_busy_region.py script not found in $MATUGEN_DIR/scripts/"
+    else
+        "$MATUGEN_DIR/scripts/least_busy_region.py" \
+            --screen-width "$screen_width" --screen-height "$screen_height" \
+            --width 300 --height 200 \
+            "$wallpaper_path" > "$STATE_DIR"/user/generated/wallpaper/least_busy_region.json
+    fi
 }
 
 check_and_prompt_upscale() {
@@ -227,12 +237,12 @@ switch() {
     [[ -n "$mode_flag" ]] && matugen_args+=(--mode "$mode_flag") && generate_colors_material_args+=(--mode "$mode_flag")
     [[ -n "$type_flag" ]] && matugen_args+=(--type "$type_flag") && generate_colors_material_args+=(--scheme "$type_flag")
     generate_colors_material_args+=(--termscheme "$terminalscheme" --blend_bg_fg)
-    generate_colors_material_args+=(--cache "$STATE_DIR/user/color.txt")
+    generate_colors_material_args+=(--cache "$STATE_DIR/user/generated/color.txt")
 
     pre_process "$mode_flag"
 
     matugen "${matugen_args[@]}"
-    source "$(eval echo $SLEEX_VIRTUAL_ENV)/bin/activate"
+    source "$(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)/bin/activate"
     python3 "$SCRIPT_DIR/generate_colors_material.py" "${generate_colors_material_args[@]}" \
         > "$STATE_DIR"/user/generated/material_colors.scss
     "$SCRIPT_DIR"/applycolor.sh
@@ -253,7 +263,7 @@ main() {
     noswitch_flag=""
 
     get_type_from_config() {
-        jq -r '.appearance.palette.type' "$XDG_CONFIG_HOME/sleex/config.json" 2>/dev/null || echo "auto"
+        jq -r '.appearance.palette.type' "$XDG_CONFIG_HOME/illogical-impulse/config.json" 2>/dev/null || echo "auto"
     }
 
     detect_scheme_type_from_image() {

@@ -9,8 +9,8 @@ pragma ComponentBehavior: Bound
  * A nice wrapper for date and time strings.
  */
 Singleton {
-    property string time: Qt.formatDateTime(clock.date, ConfigOptions?.time.format ?? "hh:mm")
-    property string date: Qt.formatDateTime(clock.date, ConfigOptions?.time.dateFormat ?? "dddd, dd/MM")
+    property string time: Qt.formatDateTime(clock.date, Config.options?.time.format ?? "hh:mm")
+    property string date: Qt.formatDateTime(clock.date, Config.options?.time.dateFormat ?? "dddd, dd/MM")
     property string collapsedCalendarFormat: Qt.formatDateTime(clock.date, "dd MMMM yyyy")
     property string longDateFormat: Qt.formatDateTime(clock.date, "dddd dd MMMM yyyy")
     property string year: Qt.formatDateTime(clock.date, "yyyy")
@@ -41,7 +41,7 @@ Singleton {
             if (hours > 0) formatted += `${formatted ? ", " : ""}${hours}h`
             if (minutes > 0 || !formatted) formatted += `${formatted ? ", " : ""}${minutes}m`
             uptime = formatted
-            interval = ConfigOptions?.resources?.updateInterval ?? 3000
+            interval = Config.options?.resources?.updateInterval ?? 3000
         }
     }
 

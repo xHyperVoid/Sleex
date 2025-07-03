@@ -35,10 +35,10 @@ ContentPage {
             color: Appearance.colors.colSubtext
         }
          ConfigSelectionArray {
-            currentValue: ConfigOptions.appearance.palette.type
+            currentValue: Config.options.appearance.palette.type
             configOptionName: "appearance.palette.type"
             onSelected: (newValue) => {
-                ConfigLoader.setConfigValueAndSave("appearance.palette.type", newValue);
+                Config.options.appearance.palette.type = newValue;
             }
             options: [
                 {"value": "auto", "displayName": "Auto"},
@@ -112,10 +112,10 @@ ContentPage {
 
         ConfigSwitch {
             text: "Transparency"
-            checked: ConfigOptions.appearance.transparency
+            checked: Config.options.appearance.transparency
             onClicked: checked = !checked;
             // onCheckedChanged: {
-            //     ConfigLoader.setConfigValueAndSave("appearance.transparency", checked);
+            //     Config.options.appearance.transparency = checked;
             // }
             StyledToolTip {
                 content: "Not yet implemented."
@@ -134,19 +134,19 @@ ContentPage {
 
             ConfigSwitch {
                 text: "Title bar"
-                checked: ConfigOptions.windows.showTitlebar
+                checked: Config.options.windows.showTitlebar
                 onClicked: checked = !checked;
                 onCheckedChanged: {
-                    ConfigLoader.setConfigValueAndSave("windows.showTitlebar", checked);
+                    Config.options.windows.showTitlebar = checked;
                 }
             }
 
             ConfigSwitch {
                 text: "Center title"
-                checked: ConfigOptions.windows.centerTitle
+                checked: Config.options.windows.centerTitle
                 onClicked: checked = !checked;
                 onCheckedChanged: {
-                    ConfigLoader.setConfigValueAndSave("windows.centerTitle", checked);
+                    Config.options.windows.centerTitle = checked;
                 }
             }
         }
@@ -162,19 +162,19 @@ ContentPage {
 
             ConfigSwitch {
                 text: "Show app name"
-                checked: ConfigOptions.bar.showTitle
+                checked: Config.options.bar.showTitle
                 onClicked: checked = !checked;
                 onCheckedChanged: {
-                    ConfigLoader.setConfigValueAndSave("bar.showTitle", checked);
+                    Config.options.bar.showTitle = checked;
                 }
             }
 
             ConfigSwitch {
                 text: "Show ressources usage"
-                checked: ConfigOptions.bar.showRessources
+                checked: Config.options.bar.showRessources
                 onClicked: checked = !checked;
                 onCheckedChanged: {
-                    ConfigLoader.setConfigValueAndSave("bar.showRessources", checked);
+                    Config.options.bar.showRessources = checked;
                 }
             }
         }
@@ -185,29 +185,29 @@ ContentPage {
 
             ConfigSwitch {
                 text: "Show Workspaces"
-                checked: ConfigOptions.bar.showWorkspaces
+                checked: Config.options.bar.showWorkspaces
                 onClicked: checked = !checked;
                 onCheckedChanged: {
-                    ConfigLoader.setConfigValueAndSave("bar.showWorkspaces", checked);
+                    Config.options.bar.showWorkspaces = checked;
                 }
             }
 
             ConfigSwitch {
                 text: "Show clock"
-                checked: ConfigOptions.bar.showClock
+                checked: Config.options.bar.showClock
                 onClicked: checked = !checked;
                 onCheckedChanged: {
-                    ConfigLoader.setConfigValueAndSave("bar.showClock", checked);
+                    Config.options.bar.showClock = checked;
                 }
             }
         }
 
         ConfigSwitch {
             text: "Show tray and system icons"
-            checked: ConfigOptions.bar.showTrayAndIcons
+            checked: Config.options.bar.showTrayAndIcons
             onClicked: checked = !checked;
             onCheckedChanged: {
-                ConfigLoader.setConfigValueAndSave("bar.showTrayAndIcons", checked);
+                Config.options.bar.showTrayAndIcons = checked;
             }
         }
     }

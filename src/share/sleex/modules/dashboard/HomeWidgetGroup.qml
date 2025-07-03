@@ -51,7 +51,7 @@ Rectangle {
                             }
                         }
 
-                        AnimatedImage {
+                        Image {
                             id: userAvatarImage
                             anchors.fill: parent
                             source: `/var/lib/AccountsService/icons/${SystemInfo.username}`

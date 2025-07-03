@@ -16,8 +16,8 @@ Singleton {
     property string syntaxHighlightingTheme
 
     // Extremely conservative transparency values for consistency and readability
-    property real transparency: ConfigOptions?.appearance.transparency ? (m3colors.darkmode ? 0.1 : 0) : 0
-    property real contentTransparency: ConfigOptions?.appearance.transparency ? (m3colors.darkmode ? 0.55 : 0) : 0
+    property real transparency: Config.options?.appearance.transparency ? (m3colors.darkmode ? 0.1 : 0) : 0
+    property real contentTransparency: Config.options?.appearance.transparency ? (m3colors.darkmode ? 0.55 : 0) : 0
 
     m3colors: QtObject {
         property bool darkmode: false
@@ -290,7 +290,7 @@ Singleton {
 
     sizes: QtObject {
         property real barHeight: 40
-        property real barCenterSideModuleWidth: ConfigOptions?.bar.verbose ? 360 : 140
+        property real barCenterSideModuleWidth: Config.options?.bar.verbose ? 360 : 140
         property real barCenterSideModuleWidthShortened: 280
         property real barCenterSideModuleWidthHellaShortened: 190
         property real barShortenScreenWidthThreshold: 1200 // Shorten if screen width is at most this value

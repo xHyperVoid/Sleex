@@ -29,7 +29,7 @@ Scope {
     Variants { // For each monitor
         model: {
             const screens = Quickshell.screens;
-            const list = ConfigOptions.bar.screenList;
+            const list = Config.options.bar.screenList;
             if (!list || list.length === 0)
                 return screens;
             return screens.filter(screen => list.includes(screen.name));
@@ -57,8 +57,8 @@ Scope {
             color: "transparent"
 
             anchors {
-                top: !ConfigOptions.bar.bottom
-                bottom: ConfigOptions.bar.bottom
+                top: !Config.options.bar.bottom
+                bottom: Config.options.bar.bottom
                 left: true
                 right: true
             }
@@ -68,8 +68,8 @@ Scope {
                 anchors {
                     right: parent.right
                     left: parent.left
-                    top: !ConfigOptions.bar.bottom ? parent.top : undefined
-                    bottom: ConfigOptions.bar.bottom ? parent.bottom : undefined
+                    top: !Config.options.bar.bottom ? parent.top : undefined
+                    bottom: Config.options.bar.bottom ? parent.bottom : undefined
                 }
                 color: "transparent"
                 height: barHeight
@@ -143,7 +143,7 @@ Scope {
                             id: leftSectionRowLayout
                             anchors.fill: parent
                             spacing: 10
-                            visible: ConfigOptions.bar.showTitle
+                            visible: Config.options.bar.showTitle
                             
 
                             RippleButton { // Left sidebar button
@@ -220,7 +220,7 @@ Scope {
                         Resources {
                             alwaysShowAllResources: barRoot.useShortenedForm === 2
                             Layout.fillWidth: barRoot.useShortenedForm === 2
-                            visible: ConfigOptions.bar.showRessources
+                            visible: Config.options.bar.showRessources
                         }
                     }
 
@@ -229,7 +229,7 @@ Scope {
                         id: middleCenterGroup
                         padding: workspacesWidget.widgetPadding
                         Layout.fillHeight: true
-                        visible: ConfigOptions.bar.showWorkspaces
+                        visible: Config.options.bar.showWorkspaces
                     
                         RoundCorner {
                             Layout.alignment: Qt.AlignTop | Qt.AlignRight
@@ -261,7 +261,7 @@ Scope {
                                 onPaint: {
                                     var ctx = getContext("2d");
                                     ctx.clearRect(0, 0, width, height);
-                                    ctx.fillStyle = ConfigOptions?.bar.borderless ? "transparent" : Appearance.colors.colLayer1;
+                                    ctx.fillStyle = Config.options?.bar.borderless ? "transparent" : Appearance.colors.colLayer1;
                                     ctx.beginPath();
                                     ctx.moveTo(0, 0);
                                     ctx.lineTo(width, 0);
@@ -291,10 +291,10 @@ Scope {
                         Layout.fillHeight: true
                         
                         ClockWidget {
-                            showDate: (ConfigOptions.bar.verbose && barRoot.useShortenedForm < 2)
+                            showDate: (Config.options.bar.verbose && barRoot.useShortenedForm < 2)
                             Layout.alignment: Qt.AlignVCenter
                             Layout.fillWidth: true
-                            visible: ConfigOptions.bar.showClock
+                            visible: Config.options.bar.showClock
                         }
                     }
 
@@ -397,7 +397,7 @@ Scope {
                             anchors.fill: parent
                             spacing: 5
                             layoutDirection: Qt.RightToLeft
-                            visible: ConfigOptions.bar.showTrayAndIcons
+                            visible: Config.options.bar.showTrayAndIcons
                             
                     
                             RippleButton { // Right sidebar button

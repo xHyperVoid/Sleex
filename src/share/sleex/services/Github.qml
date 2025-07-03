@@ -9,7 +9,7 @@ pragma ComponentBehavior: Bound
 Singleton {
     id: root
     property int contribution_number
-    property string author: ConfigOptions.dashboard.ghUsername
+    property string author: Config.options.dashboard.ghUsername
     property var contributions: []
 
     Timer {

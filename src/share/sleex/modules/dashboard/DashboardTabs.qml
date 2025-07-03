@@ -113,7 +113,6 @@ Item {
             }
 
             HomeWidgetGroup {
-                focus: sidebarRoot.visible
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -121,9 +120,8 @@ Item {
 
             TodoWidgetGroup {
                 Layout.alignment: Qt.AlignHCenter
-                Layout.fillHeight: false
+                Layout.fillHeight: true
                 Layout.fillWidth: true
-                Layout.preferredHeight: implicitHeight
             }
 
             SettingsWidgetGroup {

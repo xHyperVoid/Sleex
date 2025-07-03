@@ -18,7 +18,7 @@ Singleton {
     readonly property string interfaceRole: "interface"
     readonly property string apiKeyEnvVarName: "API_KEY"
     property Component aiMessageComponent: AiMessageData {}
-    property string systemPrompt: ConfigOptions?.ai?.systemPrompt ?? ""
+    property string systemPrompt: Config.options?.ai?.systemPrompt ?? ""
     property var messages: []
     property var messageIDs: []
     property var messageByID: ({})
@@ -299,7 +299,7 @@ Singleton {
         if (modelList.indexOf(modelId) !== -1) {
             const model = models[modelId]
             // See if policy prevents online models
-            if (ConfigOptions.policies.ai === 2 && !model.endpoint.includes("localhost")) {
+            if (Config.options.policies.ai === 2 && !model.endpoint.includes("localhost")) {
                 root.addMessage(StringUtils.format(StringUtils.format("Online models disallowed\n\nControlled by `policies.ai` config option"), model.name), root.interfaceRole);
                 return;
             }
@@ -705,7 +705,7 @@ Singleton {
             addFunctionOutputMessage(name, qsTr("Switched to search mode. Continue with the user's request."))
             requester.makeRequest();
         } else if (name === "get_shell_config") {
-            const configJson = ObjectUtils.toPlainObject(ConfigOptions)
+            const configJson = ObjectUtils.toPlainObject(Config.options)
             addFunctionOutputMessage(name, JSON.stringify(configJson));
             requester.makeRequest();
         } else if (name === "set_shell_config") {
@@ -715,8 +715,7 @@ Singleton {
             }
             const key = args.key;
             const value = args.value;
-            ConfigLoader.setLiveConfigValue(key, value);
-            ConfigLoader.saveConfig();
+            Config.setNestedValue(key, value);
         }
         else root.addMessage(qsTr("Unknown function call: {0}"), "assistant");
     }

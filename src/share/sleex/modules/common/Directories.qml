@@ -9,7 +9,7 @@ import Quickshell.Hyprland
 
 Singleton {
     // XDG Dirs, with "file://"
-    readonly property string config: StandardPaths.standardLocations(StandardPaths.ConfigLocation)[0]
+    readonly property string config: StandardPaths.standardLocations(StandardPaths.GenericConfigLocation)[0]
     readonly property string state: StandardPaths.standardLocations(StandardPaths.GenericStateLocation)[0]
     readonly property string cache: StandardPaths.writableLocation(StandardPaths.GenericCacheLocation)
     readonly property string pictures: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]

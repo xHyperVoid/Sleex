@@ -6,7 +6,7 @@ import Quickshell
 import Quickshell.Io
 
 /**
- * Provides some system info: distro, username.
+ * Provides some system info: distro, username etc...
  */
 Singleton {
     property string distroName: "Unknown"
@@ -50,6 +50,7 @@ Singleton {
         stdout: SplitParser {
             onRead: data => {
                 username = data.trim();
+                console.log("test")
             }
         }
     }
