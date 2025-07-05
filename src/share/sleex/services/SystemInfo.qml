@@ -50,7 +50,6 @@ Singleton {
         stdout: SplitParser {
             onRead: data => {
                 username = data.trim();
-                console.log("test")
             }
         }
     }

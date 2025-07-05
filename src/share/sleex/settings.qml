@@ -38,6 +38,11 @@ ApplicationWindow {
             component: "modules/settings/BehaviorConfig.qml"
         },
         {
+            name: "Sound",
+            icon: "brand_awareness",
+            component: "modules/settings/Sound.qml"
+        },
+        {
             name: "About",
             icon: "info",
             component: "modules/settings/About.qml"

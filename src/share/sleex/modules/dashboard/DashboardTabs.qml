@@ -13,7 +13,7 @@ Item {
     property var tabButtonList: [
         {"icon": "rocket_launch", "name": qsTr("Home")}, 
         {"name": qsTr("Todo"), "icon": "checklist_rtl"},
-        {"name": qsTr("Quick settings"), "icon": "settings"},
+        // {"name": qsTr("Quick settings"), "icon": "settings"},
     ]
     property int dialogMargins: 20
     property int fabSize: 48
@@ -124,11 +124,11 @@ Item {
                 Layout.fillWidth: true
             }
 
-            SettingsWidgetGroup {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
+            // SettingsWidgetGroup {
+            //     Layout.alignment: Qt.AlignHCenter
+            //     Layout.fillHeight: true
+            //     Layout.fillWidth: true
+            // }
         }
     }
 }
