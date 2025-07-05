@@ -26,7 +26,7 @@ Singleton {
     })
     property var regexSubstitutions: [
         {
-            "regex": /^steam_app_(\\d+)$/,
+            "regex": /^steam_app_(\d+)$/,
             "replace": "steam_icon_$1"
         },
         {
@@ -71,6 +71,7 @@ Singleton {
     }
 
     function iconExists(iconName) {
+        if (!iconName || iconName.length == 0) return false;
         return (Quickshell.iconPath(iconName, true).length > 0) 
             && !iconName.includes("image-missing");
     }

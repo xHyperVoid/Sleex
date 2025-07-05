@@ -39,6 +39,7 @@ ContentPage {
             configOptionName: "appearance.palette.type"
             onSelected: (newValue) => {
                 Config.options.appearance.palette.type = newValue;
+                Hyprland.dispatch(`exec ${Directories.wallpaperSwitchScriptPath} --noswitch --type ${newValue}`)
             }
             options: [
                 {"value": "auto", "displayName": "Auto"},

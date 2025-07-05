@@ -214,6 +214,7 @@ Item {
                             }
                         }
                         Rectangle { // Dot instead of ws number
+                            id: wsDot
                             opacity: (Config.options?.bar.workspaces.alwaysShowNumbers
                                 || GlobalStates.workspaceShowNumbers
                                 || (Config.options?.bar.workspaces.showAppIcons && workspaceButtonBackground.biggestWindow)
@@ -264,11 +265,11 @@ Item {
                                 Behavior on implicitSize {
                                     animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
                                 }
+
                             }
                         }
                     }
                     
-
                 }
 
             }

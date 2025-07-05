@@ -97,6 +97,27 @@ ContentPage {
             }
         }
 
+        MaterialTextField {
+            id: avatarPath
+            Layout.fillWidth: true
+            placeholderText: "Avatar path"
+            text: Config.options.dashboard.avatarPath
+            onTextChanged: {
+                Config.options.dashboard.avatarPath = text;
+            }
+        }
+
+        MaterialTextField {
+            id: userDesc
+            Layout.fillWidth: true
+            placeholderText: "User description"
+            text: Config.options.dashboard.userDesc
+            onTextChanged: {
+                Config.options.dashboard.userDesc = text;
+            }
+        }
+
+
     }
 
     ContentSection {

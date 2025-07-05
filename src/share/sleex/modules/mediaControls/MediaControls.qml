@@ -81,6 +81,12 @@ Item {
         }
     }
 
+    Component.onDestruction: {
+        if (cavaProc.running) {
+            cavaProc.running = false
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
         radius: Appearance.rounding.normal

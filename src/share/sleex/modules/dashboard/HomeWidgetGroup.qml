@@ -41,6 +41,7 @@ Rectangle {
                         height: 120
                         radius: 99
                         anchors.horizontalCenter: parent.horizontalCenter
+                        color: Appearance.colors.colLayer2
 
                         layer.enabled: true
                         layer.effect: OpacityMask {
@@ -54,7 +55,7 @@ Rectangle {
                         Image {
                             id: userAvatarImage
                             anchors.fill: parent
-                            source: `/var/lib/AccountsService/icons/${SystemInfo.username}`
+                            source: Config.options.dashboard.avatarPath
                             fillMode: Image.PreserveAspectCrop
                             cache: false
                             antialiasing: true
@@ -71,7 +72,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
                     Text {
-                        text: qsTr("Today is a good day to have a good day!")
+                        text: Config.options.dashboard.userDesc
                         color: Appearance.colors.colOnLayer1
                         font.pixelSize: 20
                         anchors.horizontalCenter: parent.horizontalCenter
