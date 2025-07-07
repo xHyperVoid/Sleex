@@ -23,7 +23,6 @@ Scope {
 
         anchors {
             top: true
-            right: true
             bottom: true
         }
 

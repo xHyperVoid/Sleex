@@ -140,7 +140,7 @@ ApplicationWindow {
                             Qt.openUrlExternally(`${Directories.config}/illogical-impulse/config.json`);
                         }
 
-                        StyledToolTip {
+                        StyledToolTip { 
                             extraVisibleCondition: !navRail.expanded
                             content: "Edit shell config file"
                         }

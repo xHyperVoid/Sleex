@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "root:/modules/common"
+import "root:/modules/common/widgets/"
 import "root:/services/"
 
 Item {
@@ -48,10 +49,13 @@ Item {
                             color: contributionColor(contribs[realIndex]?.level || 0)
 
                             MouseArea {
+                                id: infoMouseArea
                                 anchors.fill: parent
                                 hoverEnabled: true
-                                ToolTip.visible: containsMouse
-                                ToolTip.text: `${contribs[realIndex]?.count || 0} commits on ${contribs[realIndex]?.date || "unknown"}`
+                                StyledToolTip {
+                                    content: `${contribs[realIndex]?.count || 0} commits on ${contribs[realIndex]?.date || "unknown"}`
+                                    extraVisibleCondition: infoMouseArea.containsMouse
+                                }
                             }
                         }
                     }
