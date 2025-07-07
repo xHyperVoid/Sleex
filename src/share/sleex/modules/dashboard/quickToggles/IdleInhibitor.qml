@@ -12,10 +12,10 @@ QuickToggleButton {
     onClicked: {
         if (toggled) {
             root.toggled = false
-            Hyprland.dispatch("exec pkill wayland-idle") // pkill doesn't accept too long names
+            Hyprland.dispatch("exec pkill wayland-idle")
         } else {
             root.toggled = true
-            Hyprland.dispatch('exec /usr/share/sleex/scripts/wayland-idle-inhibitor.py')
+            Hyprland.dispatch('exec python /usr/share/sleex/scripts/wayland-idle-inhibitor.py')
         }
     }
     Process {
