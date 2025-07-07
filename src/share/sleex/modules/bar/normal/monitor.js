@@ -191,7 +191,7 @@ export default () => {
                   BarResourceTemp(
                     "CPU Temp",
                     "device_thermostat",
-                    `LANG=C sensors | awk '/^Package id 0/ {printf("%.2f\\n", $4)}'`,
+                    `LANG=C sensors | awk '/^Package id 0:/ {gsub(/\+|°C/, "", $4); print $4; found=1} END {if (!found) {while (("LANG=C sensors" | getline l) > 0) if (l ~ /^Tctl:/) {match(l, /\+([0-9.]+)/, a); print a[1]; break}}}'`,
                     "bar-cpu-circprog",
                     "bar-cpu-txt",
                     "bar-cpu-icon"
