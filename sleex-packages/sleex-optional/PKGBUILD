@@ -1,38 +1,32 @@
 pkgname=sleex-optional
-pkgver=1.2
+pkgver=1.3
 pkgrel=1
 pkgdesc='Sleex Optional Packages'
 arch=(any)
 license=(None)
-depends=(
-	"hyprwayland-scanner-git" 
-	"neofetch" 
-	"firefox" 
-	"bash-completion" 
-	"pipewire-pulse" 
-	"papirus-icon-theme" 
-	"inxi" 
-	"power-profiles-daemon" 
-	"fwupd" "gnome-autoar" 
-	"gnome-bluetooth" 
-	"gnome-color-manager" 
-	# "gnome-disk-utility" 
-	"gnome-keybindings" 
-	"gnome-power-manager" 
-	"gnome-settings-daemon" 
-	"gnome-system-monitor" 
-	"gnome-themes-extra" 
-	# "gnome-tweaks" 
-	"baobab" 
-	"gparted" 
-	"gnome-calculator" 
-	# "plasma-browser-integration" 
-	# "nautilus"
-	"thunar" 
-	"loupe"
-	"axuralis"
-        "nwg-displays"
-	)
+depends=()
+optdepends=(
+	"hyprwayland-scanner: Wayland protocol scanner for Hyprland"
+	"neofetch: Fancy system info in your terminal"
+	"firefox: Web browser"
+	"pipewire-pulse: PulseAudio replacement via PipeWire"
+	"papirus-icon-theme: Pretty icons"
+	"inxi: Show system info like a nerd"
+	"power-profiles-daemon: Manage power profiles"
+	"fwupd: Firmware updater for Linux"
+	"gnome-autoar: Automatic archive handling in GNOME"
+	"gnome-bluetooth: Bluetooth stuff"
+	"gnome-color-manager: Color profiles (for the artsy people)"
+	"gnome-power-manager: Power management UI"
+	"gnome-system-monitor: Task manager but GNOMEy"
+	"gnome-themes-extra: Extra themes"
+	"baobab: Disk usage analyzer"
+	"gparted: Partition editor"
+	"gnome-calculator: Yep, a calculator"
+	"thunar: XFCE file manager"
+	"loupe: Image viewer"
+	"nwg-displays: Display arrangement tool"
+)
 provides=('illogical-impulse-optional')
 replaces=('illogical-impulse-optional')
 conflicts=('illogical-impulse-optional')
