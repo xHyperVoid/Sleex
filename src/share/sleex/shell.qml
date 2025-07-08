@@ -42,7 +42,7 @@ ShellRoot {
     property bool enableSession: true
     property bool enableSidebarLeft: true
     property bool enableDashboard: true
-    property bool enableWallSelector: true
+    property bool enableWallSelector: false
 
     // Force initialization of some singletons
     Component.onCompleted: {
