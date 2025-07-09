@@ -7,6 +7,32 @@ import "root:/modules/common/widgets/"
 
 ContentPage {
     forceWidth: true
+
+    ContentSection {
+        title: "General"
+        MaterialTextField {
+            id: timeFormat
+            Layout.fillWidth: true
+            placeholderText: "Time format"
+            text: Config.options.time.format
+            wrapMode: TextEdit.Wrap
+            onTextChanged: {
+                Config.options.time.format = text;
+            }
+        }
+        MaterialTextField {
+            id: dateFormat
+            Layout.fillWidth: true
+            placeholderText: "Date format"
+            text: Config.options.time.dateFormat
+            wrapMode: TextEdit.Wrap
+            onTextChanged: {
+                Config.options.time.dateFormat = text;
+            }
+        }
+
+    }
+
     ContentSection {
         title: "Audio"
         ConfigSwitch {

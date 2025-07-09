@@ -43,6 +43,16 @@ ApplicationWindow {
             component: "modules/settings/Sound.qml"
         },
         {
+            name: "Bluetooth",
+            icon: "bluetooth",
+            component: "modules/settings/Bluetooth.qml"
+        },
+        {
+            name: "Wifi",
+            icon: "wifi",
+            component: "modules/settings/Wifi.qml"
+        },
+        {
             name: "About",
             icon: "info",
             component: "modules/settings/About.qml"
