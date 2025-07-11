@@ -55,6 +55,11 @@ export const languages = [
         flag: '🇻🇳',
     },
     {
+        layout: 'el',
+        name: 'Greek',
+        flag: '🇬🇷',
+    },
+    {
         layout: 'undef',
         name: 'Undefined',
         flag: '🧐',
