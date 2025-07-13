@@ -1,22 +1,31 @@
-# Sleex
+# Sleex QS
 
-Sleex is the third desktop environement of AxOS. It is based on Hyprland with Quickshell.
+This branch is the testing branch of Sleex. Sleex is being completely rewritten with a new widget system (AGS -> Quickshell). 
 
-## Features
-- Fast and lightweight
-- AI chat integration with external providers (Gemini, OpenAI...)
-- Smooth animations
-- Tiling window management for seamless multitasking
-- Adaptative color scheme based on the wallpaper
+**ESTIMATED RELESE**: For the 25.08 release (early august)
 
-## Screenshots
+|     | |
+|-----|-|
+|preview | ![preview](.github/sleex1.png) |
 
-| Description | Image |
-|--------------------------|-----------------------------------------|
-| Main desktop, adaptative colors according to wallpaper | ![Sleex 1](https://github.com/user-attachments/assets/1b02defa-ebb7-4303-8092-449cf57137b2) |
-| Dashboard with numerous widgets | ![Sleex Dashboard](https://github.com/user-attachments/assets/60157f6d-5d90-4f24-8f25-520ea274116d) |
-| Left panel with LLM APIs and Sleex update center | ![Sleex Side Left](https://github.com/user-attachments/assets/e70b36c0-56d0-43bc-b406-06c6c437524f) |
-| Workspace overviews with search bar | ![Sleex Overview](https://github.com/user-attachments/assets/df850f3e-2103-4325-9047-398f0de8a2d9) |
+## Todo
+
+- [ ] Desktop widgets with movable clock + possibility to disable them in the settings
+- [ ] Fix workspace script
+- [ ] Wifi and Bluetooth tab in the settings (idk if I'll really do it, there are good alternatives)
+- [ ] Fullscreen music display mod
+- [x] Move apps keybinds from the general hypr config to a dedicated file (to prevent overwriting)
+- [ ] Update axctl to exclude this new app file
+
+## Todo (but after the release)
+- [ ] Lockscreen
+- [ ] Full screen music mode
+- [ ] Plugin system for the dashboard
+- [ ] Update the docs and READMEs
+- [ ] Better looking weather widget
+- [ ] Color scheme widget
+- [ ] App launcher (?)
+- [ ] Wallpaper selector in the settings app
 
 ## Installation
 
@@ -25,8 +34,25 @@ Sleex is the third desktop environement of AxOS. It is based on Hyprland with Qu
 
 To try this branch of Sleex, here is what you should do:
 
+Note: update `axos-hooks` and `axctl` before.
+
+# From mirrors
+
+- edit `/etc/pacman.conf` and add the following lines **above** the main axos repo:
+  ```
+  [axos-testing]
+  Server = https://www.axos-project.com/AxMirrors/testing/$arch
+  SigLevel = Optional TrustAll
+  ```
+
+- sync the repos with Epsilon: `epsi sync`
+- Do a full update: `epsi`
+
+# From source
+
+- Clone this repo
 - Build every sleex meta-packages in `sleex-packages` then install them
-- Build the user configuration and copy the content from `/etc/skel/.config` to your own .config folder
+- Build the user configuration in the `sleex-user-config` and execute `sudo axctl load-sleex-user-config`
 - Build and install the main package
 
 Then, you can start sleex by selecting the sleex session on your greeter
