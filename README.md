@@ -2,7 +2,7 @@
 
 This branch is the testing branch of Sleex. Sleex is being completely rewritten with a new widget system (AGS -> Quickshell). 
 
-**ESTIMATED RELESE**: For the 25.08 release (early august)
+**ESTIMATED RELEASE**: For the 25.08 release (early august)
 
 |     | |
 |-----|-|
