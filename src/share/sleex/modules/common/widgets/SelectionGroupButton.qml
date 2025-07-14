@@ -14,8 +14,8 @@ GroupButton {
     bounce: false
     property bool leftmost: false
     property bool rightmost: false
-    leftRadius: (toggled || leftmost) ? (height / 2) : Appearance.rounding.unsharpenmore
-    rightRadius: (toggled || rightmost) ? (height / 2) : Appearance.rounding.unsharpenmore
+    leftRadius: (leftmost) ? (height / 2) : Appearance.rounding.unsharpenmore
+    rightRadius: (rightmost) ? (height / 2) : Appearance.rounding.unsharpenmore
     colBackground: Appearance.colors.colSecondaryContainer
     contentItem: StyledText {
         color: parent.toggled ? Appearance.colors.colOnPrimary : Appearance.colors.colOnSecondaryContainer

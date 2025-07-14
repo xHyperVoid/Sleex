@@ -18,6 +18,7 @@ import "./modules/session/"
 import "./modules/dashboard/"
 import "./modules/sidebarLeft/"
 import "./modules/wallpaperSelector/"
+import "./modules/background/"
 
 import QtQuick
 import QtQuick.Controls
@@ -43,6 +44,7 @@ ShellRoot {
     property bool enableSidebarLeft: true
     property bool enableDashboard: true
     property bool enableWallSelector: false
+    property bool enableBackground: true
 
     // Force initialization of some singletons
     Component.onCompleted: {
@@ -66,5 +68,6 @@ ShellRoot {
     LazyLoader { active: enableSidebarLeft; component: SidebarLeft {} }
     LazyLoader { active: enableDashboard; component: Dashboard {} }
     LazyLoader { active: enableWallSelector; component: WallpaperSelector {} }
+    LazyLoader { active: enableBackground; component: Background {} }
 }
 

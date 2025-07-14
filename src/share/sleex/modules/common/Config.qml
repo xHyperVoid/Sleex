@@ -111,6 +111,13 @@ Singleton {
                 property bool showTrayAndIcons: true
             }
 
+            property JsonObject background: JsonObject {
+                property real clockX: 0
+                property real clockY: 0
+                property bool fixedClockPosition: false // If true, clock position is not updated when the screen resolution changes
+                property string wallpaperPath: "/usr/share/sleex/wallpapers/sakura.png"
+            }
+
             property JsonObject dashboard: JsonObject {
                 property string ghUsername: "levraiardox"
                 property string avatarPath: ""

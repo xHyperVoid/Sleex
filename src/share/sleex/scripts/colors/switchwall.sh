@@ -6,6 +6,7 @@ XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 CONFIG_DIR="/usr/share/sleex"
 CACHE_DIR="$XDG_CACHE_HOME/sleex"
 STATE_DIR="$XDG_STATE_HOME/sleex"
+SHELL_CONFIG="$HOME/.sleex/settings.json"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MATUGEN_DIR="$XDG_CONFIG_HOME/matugen"
 terminalscheme="$CONFIG_DIR/scripts/terminal/scheme-base.json"
@@ -216,10 +217,10 @@ switch() {
         else
             matugen_args=(image "$imgpath")
             generate_colors_material_args=(--path "$imgpath")
-            # Set wallpaper with swww
-            swww img "$imgpath" --transition-step 100 --transition-fps 120 \
-                --transition-type grow --transition-angle 30 --transition-duration 1 \
-                --transition-pos "$cursorposx, $cursorposy_inverted" &
+
+            if [ -f "$SHELL_CONFIG" ]; then
+                jq --arg path "$imgpath" '.background.wallpaperPath = $path' "$SHELL_CONFIG" > "$SHELL_CONFIG.tmp" && mv "$SHELL_CONFIG.tmp" "$SHELL_CONFIG"                
+            fi
             remove_restore
         fi
     fi
@@ -263,7 +264,7 @@ main() {
     noswitch_flag=""
 
     get_type_from_config() {
-        jq -r '.appearance.palette.type' "$XDG_CONFIG_HOME/illogical-impulse/config.json" 2>/dev/null || echo "auto"
+        jq -r '.appearance.palette.type' "$SHELL_CONFIG" 2>/dev/null || echo "auto"
     }
 
     detect_scheme_type_from_image() {
@@ -297,7 +298,7 @@ main() {
                 ;;
             --noswitch)
                 noswitch_flag="1"
-                imgpath=$(swww query | awk -F 'image: ' '{print $2}')
+                imgpath=$(jq -r '.background.wallpaperPath' "$SHELL_CONFIG_FILE" 2>/dev/null || echo "")
                 shift
                 ;;
             *)
