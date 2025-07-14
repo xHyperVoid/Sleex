@@ -11,11 +11,10 @@ This branch is the testing branch of Sleex. Sleex is being completely rewritten 
 ## Todo
 
 - [ ] Desktop widgets with movable clock + possibility to disable them in the settings
-- [ ] Fix workspace script
+- [x] Fix workspace script
 - [ ] Wifi and Bluetooth tab in the settings (idk if I'll really do it, there are good alternatives)
-- [ ] Fullscreen music display mod
 - [x] Move apps keybinds from the general hypr config to a dedicated file (to prevent overwriting)
-- [ ] Update axctl to exclude this new app file
+- [x] Update axctl to exclude this new app file
 
 ## Todo (but after the release)
 - [ ] Lockscreen
