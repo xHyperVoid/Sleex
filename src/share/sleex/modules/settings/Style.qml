@@ -212,4 +212,48 @@ ContentPage {
             }
         }
     }
+
+    ContentSection {
+        title: "Background"
+
+        RowLayout {
+            spacing: 10
+            uniformCellSizes: true
+
+
+            ConfigSwitch {
+                text: "Show clock"
+                checked: Config.options.background.enableClock
+                onClicked: checked = !checked;
+                onCheckedChanged: {
+                    Config.options.background.enableClock = checked;
+                }
+            }
+
+            ConfigSwitch {
+                text: "Fixed clock position"
+                checked: Config.options.background.fixedClockPosition
+                onClicked: checked = !checked;
+                onCheckedChanged: {
+                    Config.options.background.fixedClockPosition = checked;
+                }
+            }
+        }
+
+        StyledText {
+            text: "Clock mode"
+            color: Appearance.colors.colSubtext
+        }
+        ConfigSelectionArray {
+            currentValue: Config.options.background.clockMode
+            configOptionName: "background.clockMode"
+            onSelected: (newValue) => {
+                Config.options.background.clockMode = newValue;
+            }
+            options: [
+                {"value": "dark", "displayName": "Dark"},
+                {"value": "light", "displayName": "Light"}
+            ]
+        }
+    }
 }

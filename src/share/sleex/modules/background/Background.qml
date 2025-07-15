@@ -36,7 +36,7 @@ Scope {
             // Colors
             property color dominantColor: Appearance.colors.colPrimary
             property bool dominantColorIsDark: dominantColor.hslLightness < 0.5
-            property color colText: ColorUtils.colorWithLightness(Appearance.colors.colPrimary, (dominantColorIsDark ? 0.8 : 0.12))
+            property color colText: Config.options.background.clockMode == "light" ? Appearance.colors.colPrimary : ColorUtils.colorWithLightness(Appearance.colors.colPrimary, 0.12)
 
             screen: modelData
             WlrLayershell.layer: WlrLayer.Bottom
@@ -64,6 +64,7 @@ Scope {
             Item {
                 id: clock
                 z: 1
+                visible: Config.options.background.enableClock ?? true
 
                 property real startClockX: 0
                 property real startClockY: 0
