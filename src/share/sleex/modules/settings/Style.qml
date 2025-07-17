@@ -240,6 +240,15 @@ ContentPage {
             }
         }
 
+        ConfigSwitch {
+            text: "Show watermark"
+            checked: Config.options.background.showWatermark
+            onClicked: checked = !checked;
+            onCheckedChanged: {
+                Config.options.background.showWatermark = checked;
+            }
+        }
+
         StyledText {
             text: "Clock mode"
             color: Appearance.colors.colSubtext

@@ -8,7 +8,7 @@ import "root:/services"
 // System version watermark display
 Item {
     id: watermarkItem
-    property bool visibleWatermark: false
+    property bool visibleWatermark: true
     property int marginRight: 40
     property int marginBottom: 10
     

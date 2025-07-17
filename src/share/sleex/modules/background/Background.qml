@@ -86,7 +86,7 @@ Scope {
             }
 
             Watermark {
-                visibleWatermark: true // or bind to a config property
+                visibleWatermark: Config.options.background.showWatermark
             }
         }
     }
