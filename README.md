@@ -10,7 +10,7 @@ This branch is the testing branch of Sleex. Sleex is being completely rewritten 
 
 ## Todo
 
-- [ ] Desktop widgets with movable clock + possibility to disable them in the settings
+- [x] Desktop widgets with movable clock + possibility to disable them in the settings
 - [x] Fix workspace script
 - [ ] Wifi and Bluetooth tab in the settings (idk if I'll really do it, there are good alternatives)
 - [x] Move apps keybinds from the general hypr config to a dedicated file (to prevent overwriting)
