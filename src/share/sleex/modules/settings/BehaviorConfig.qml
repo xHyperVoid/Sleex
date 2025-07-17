@@ -16,26 +16,41 @@ ContentPage {
             ContentSubsectionLabel {
                 text: "Time format"
             }
-            ConfigSelectionArray {
-                currentValue: Config.options.time.format
-                configOptionName: "time.format"
-                onSelected: newValue => {
-                    Config.options.time.format = newValue;
-                }
-                options: [
-                    {
-                        displayName: "24h",
-                        value: "hh:mm"
-                    },
-                    {
-                        displayName: "12h am/pm",
-                        value: "h:mm ap"
-                    },
-                    {
-                        displayName: "12h AM/PM",
-                        value: "h:mm AP"
-                    },
+            StyledComboBox {
+                id: timeFormatComboBox
+                Layout.fillWidth: true
+                Layout.preferredHeight: 56
+                model: [
+                    "24h",
+                    "12h AM/PM",
+                    "24h alt",
+                    "12h alt AM/PM"
                 ]
+                currentIndex: model.indexOf(
+                    (() => {
+                        switch (Config.options.time.format) {
+                            case "hh:mm": return "24h";
+                            case "h:mm AP": return "12h AM/PM";
+                            case "HH:mm": return "24h alt";
+                            case "h:mm ap alt": return "12h alt AM/PM";
+                            default: return "24h";
+                        }
+                    })()
+                )
+                onCurrentIndexChanged: {
+                    const valueMap = {
+                        "24h": "hh:mm",
+                        "12h AM/PM": "h:mm AP",
+                        "24h alt": "hh:mm",
+                        "12h alt AM/PM": "hh:mm"
+                    }
+                    const currentIndex = timeFormatComboBox.currentIndex
+                    if (currentIndex === -1) return;
+                    const selectedValue = valueMap[model[currentIndex]]
+                    if (Config.options.time.format !== selectedValue) {
+                        Config.options.time.format = selectedValue;
+                    }
+                }
             }
         }
     }

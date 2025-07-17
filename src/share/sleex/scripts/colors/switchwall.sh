@@ -288,7 +288,7 @@ main() {
                 ;;
             --noswitch)
                 noswitch_flag="1"
-                imgpath=$(jq -r '.background.wallpaperPath' "$SHELL_CONFIG_FILE" 2>/dev/null || echo "")
+                imgpath=$(jq -r '.background.wallpaperPath' "$SHELL_CONFIG" 2>/dev/null || echo "")
                 shift
                 ;;
             *)
