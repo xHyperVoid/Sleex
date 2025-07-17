@@ -15,6 +15,8 @@ Singleton {
     property string username: "user"
     property string axosVersion: ""
 
+    property string sleexVersion: "Unknown"
+
     Timer {
         triggeredOnStart: true
         interval: 10
@@ -22,6 +24,7 @@ Singleton {
         repeat: false
         onTriggered: {
             getUsername.running = true
+            getSleexVersion.running = true
             fileOsRelease.reload()
             const textOsRelease = fileOsRelease.text()
 
@@ -50,6 +53,17 @@ Singleton {
         stdout: SplitParser {
             onRead: data => {
                 username = data.trim();
+            }
+        }
+    }
+
+    Process {
+        id: getSleexVersion
+        command: ["pacman", "-Q", "sleex"]
+        stdout: SplitParser {
+            onRead: data => {
+                const versionMatch = data.match(/^sleex\s+(\S+)/);
+                sleexVersion = versionMatch ? versionMatch[1].trim() : "Unknown";
             }
         }
     }

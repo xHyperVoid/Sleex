@@ -61,110 +61,32 @@ Scope {
                 }
             }
 
-            Item {
+            Clock {
                 id: clock
                 z: 1
-                visible: Config.options.background.enableClock ?? true
-
-                property real startClockX: 0
-                property real startClockY: 0
-
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    leftMargin: root.fixedClockPosition
-                        ? root.fixedClockX - implicitWidth / 2
-                        : bgRoot.clockX - implicitWidth / 2
-
-                    topMargin: root.fixedClockPosition
-                        ? root.fixedClockY - implicitHeight / 2
-                        : bgRoot.clockY - implicitHeight / 2
+                
+                // Pass required properties
+                screenWidth: bgRoot.screen.width
+                screenHeight: bgRoot.screen.height
+                clockX: bgRoot.clockX
+                clockY: bgRoot.clockY
+                fixedClockPosition: root.fixedClockPosition
+                textColor: bgRoot.colText
+                textHorizontalAlignment: bgRoot.textHorizontalAlignment
+                
+                // Handle signals
+                onClockPositionChanged: function(newX, newY) {
+                    bgRoot.clockX = newX
+                    bgRoot.clockY = newY
                 }
-
-                implicitWidth: clockColumn.implicitWidth
-                implicitHeight: clockColumn.implicitHeight
-
-                DragHandler {
-                    enabled: !root.fixedClockPosition
-                    id: dragHandler
-                    cursorShape: active ? Qt.ClosedHandCursor : Qt.OpenHandCursor
-                    
-                    onActiveChanged: {
-                        if (active) {
-                            // Store starting position when drag begins
-                            clock.startClockX = bgRoot.clockX
-                            clock.startClockY = bgRoot.clockY
-                        } else {
-                            // Save position when drag ends
-                            Config.options.background.clockX = bgRoot.clockX
-                            Config.options.background.clockY = bgRoot.clockY
-                        }
-                    }
-                    
-                    onTranslationChanged: {
-                        // Calculate new position with bounds checking
-                        let newX = clock.startClockX + translation.x
-                        let newY = clock.startClockY + translation.y
-                        
-                        // Constrain to screen bounds
-                        let halfWidth = clock.implicitWidth / 2
-                        let halfHeight = clock.implicitHeight / 2
-                        
-                        newX = Math.max(halfWidth, Math.min(bgRoot.screen.width - halfWidth, newX))
-                        newY = Math.max(halfHeight, Math.min(bgRoot.screen.height - halfHeight, newY))
-                        
-                        bgRoot.clockX = newX
-                        bgRoot.clockY = newY
-                    }
+                
+                onFixedPositionToggled: {
+                    Config.options.background.fixedClockPosition = !root.fixedClockPosition
                 }
+            }
 
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.RightButton
-                    onClicked: {
-                        if (mouse.button === Qt.RightButton) {
-                            Config.options.background.fixedClockPosition = !root.fixedClockPosition
-                        }
-                    }
-                    cursorShape: Qt.ArrowCursor
-                    // Prevent interfering with drag
-                    propagateComposedEvents: true
-                }
-
-                ColumnLayout {
-                    id: clockColumn
-                    anchors.centerIn: parent
-                    spacing: -5
-
-                    Rectangle {
-                        visible: root.fixedClockPosition == false
-                        anchors.fill: parent
-                        color: "transparent"
-                        border.color: "red"
-                        border.width: 3
-                        radius: Appearance.rounding.normal
-                        z: 100
-                    }
-
-                    StyledText {
-                        Layout.fillWidth: true
-                        horizontalAlignment: bgRoot.textHorizontalAlignment
-                        font.pixelSize: 95
-                        color: bgRoot.colText
-                        style: Text.Raised
-                        styleColor: Appearance.colors.colShadow
-                        text: DateTime.time
-                    }
-                    StyledText {
-                        Layout.fillWidth: true
-                        horizontalAlignment: bgRoot.textHorizontalAlignment
-                        font.pixelSize: 25
-                        color: bgRoot.colText
-                        style: Text.Raised
-                        styleColor: Appearance.colors.colShadow
-                        text: DateTime.date
-                    }
-                }
+            Watermark {
+                visibleWatermark: true // or bind to a config property
             }
         }
     }

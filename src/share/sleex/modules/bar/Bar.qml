@@ -49,6 +49,7 @@ Scope {
                     Appearance.sizes.barCenterSideModuleWidth
 
             WlrLayershell.namespace: "quickshell:bar"
+            WlrLayershell.layer: WlrLayer.Top
             implicitHeight: barHeight + Appearance.rounding.screenRounding
             exclusiveZone: barHeight
             mask: Region {

@@ -78,9 +78,10 @@ Scope {
             color: "transparent"
 
             anchors {
-                top: !Config.options.bar.bottom
-                bottom: Config.options.bar.bottom
+                top: true
+                right: true
             }
+            
             mask: Region {
                 item: osdValuesWrapper
             }
