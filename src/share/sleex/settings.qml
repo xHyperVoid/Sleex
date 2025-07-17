@@ -37,21 +37,21 @@ ApplicationWindow {
             icon: "settings",
             component: "modules/settings/BehaviorConfig.qml"
         },
-        {
-            name: "Sound",
-            icon: "brand_awareness",
-            component: "modules/settings/Sound.qml"
-        },
-        {
-            name: "Bluetooth",
-            icon: "bluetooth",
-            component: "modules/settings/Bluetooth.qml"
-        },
-        {
-            name: "Wifi",
-            icon: "wifi",
-            component: "modules/settings/Wifi.qml"
-        },
+        // {
+        //     name: "Sound",
+        //     icon: "brand_awareness",
+        //     component: "modules/settings/Sound.qml"
+        // },
+        // {
+        //     name: "Bluetooth",
+        //     icon: "bluetooth",
+        //     component: "modules/settings/Bluetooth.qml"
+        // },
+        // {
+        //     name: "Wifi",
+        //     icon: "wifi",
+        //     component: "modules/settings/Wifi.qml"
+        // },
         {
             name: "About",
             icon: "info",
