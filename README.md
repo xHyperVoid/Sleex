@@ -4,9 +4,9 @@ This branch is the testing branch of Sleex. Sleex is being completely rewritten 
 
 **ESTIMATED RELEASE**: For the 25.08 release (early august)
 
-|     | |
-|-----|-|
-|preview | ![preview](.github/sleex1.png) |
+|      |
+|------|
+| ![preview](.github/sleex1.png) |
 
 ## Todo
 
