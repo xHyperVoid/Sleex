@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick.Layouts 
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
@@ -17,24 +17,19 @@ ContentPage {
     ContentSection {
         title: "Colors & Wallpaper"
 
-        // Light/Dark mode preference
         ButtonGroup {
             id: lightDarkButtonGroup
             Layout.fillWidth: true
-            LightDarkPreferenceButton {
-                dark: false
-            }
-            LightDarkPreferenceButton {
-                dark: true
-            }
+            LightDarkPreferenceButton { dark: false }
+            LightDarkPreferenceButton { dark: true }
         }
 
-        // Material palette selection
         StyledText {
             text: "Material palette"
             color: Appearance.colors.colSubtext
         }
-         ConfigSelectionArray {
+
+        ConfigSelectionArray {
             currentValue: Config.options.appearance.palette.type
             configOptionName: "appearance.palette.type"
             onSelected: (newValue) => {
@@ -50,26 +45,25 @@ ContentPage {
                 {"value": "scheme-monochrome", "displayName": "Monochrome"},
                 {"value": "scheme-neutral", "displayName": "Neutral"},
                 {"value": "scheme-rainbow", "displayName": "Rainbow"},
-                {"value": "scheme-tonal-spot", "displayName": "Tonal Spot"},
+                {"value": "scheme-tonal-spot", "displayName": "Tonal Spot"}
             ]
-
         }
 
-        // Wallpaper selection
         StyledText {
             text: "Wallpaper"
             color: Appearance.colors.colSubtext
         }
+
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
             RippleButtonWithIcon {
                 materialIcon: "wallpaper"
-                StyledToolTip {
-                    content: "Pick wallpaper image on your system"
-                }
+                StyledToolTip { content: "Pick wallpaper image on your system" }
+
                 onClicked: {
                     Hyprland.dispatch(`exec ${Directories.wallpaperSwitchScriptPath}`)
                 }
+
                 mainContentComponent: Component {
                     RowLayout {
                         spacing: 10
@@ -80,19 +74,10 @@ ContentPage {
                         }
                         RowLayout {
                             spacing: 3
-                            KeyboardKey {
-                                key: "Ctrl"
-                            }
-                            KeyboardKey {
-                                key: "󰖳"
-                            }
-                            StyledText {
-                                Layout.alignment: Qt.AlignVCenter
-                                text: "+"
-                            }
-                            KeyboardKey {
-                                key: "T"
-                            }
+                            KeyboardKey { key: "Ctrl" }
+                            KeyboardKey { key: "󰖳" }
+                            StyledText { Layout.alignment: Qt.AlignVCenter; text: "+" }
+                            KeyboardKey { key: "T" }
                         }
                     }
                 }
@@ -105,7 +90,6 @@ ContentPage {
             font.pixelSize: Appearance.font.pixelSize.smaller
             color: Appearance.colors.colSubtext
         }
-    
     }
 
     ContentSection {
@@ -115,15 +99,9 @@ ContentPage {
             text: "Transparency"
             checked: Config.options.appearance.transparency
             onClicked: checked = !checked;
-            // onCheckedChanged: {
-            //     Config.options.appearance.transparency = checked;
-            // }
-            StyledToolTip {
-                content: "Not yet implemented."
-            }
+            StyledToolTip { content: "Not yet implemented." }
         }
     }
-    
 
     ContentSection {
         title: "Shell windows"
@@ -137,18 +115,14 @@ ContentPage {
                 text: "Title bar"
                 checked: Config.options.windows.showTitlebar
                 onClicked: checked = !checked;
-                onCheckedChanged: {
-                    Config.options.windows.showTitlebar = checked;
-                }
+                onCheckedChanged: Config.options.windows.showTitlebar = checked;
             }
 
             ConfigSwitch {
                 text: "Center title"
                 checked: Config.options.windows.centerTitle
                 onClicked: checked = !checked;
-                onCheckedChanged: {
-                    Config.options.windows.centerTitle = checked;
-                }
+                onCheckedChanged: Config.options.windows.centerTitle = checked;
             }
         }
     }
@@ -160,23 +134,18 @@ ContentPage {
             spacing: 10
             uniformCellSizes: true
 
-
             ConfigSwitch {
                 text: "Show app name"
                 checked: Config.options.bar.showTitle
                 onClicked: checked = !checked;
-                onCheckedChanged: {
-                    Config.options.bar.showTitle = checked;
-                }
+                onCheckedChanged: Config.options.bar.showTitle = checked;
             }
 
             ConfigSwitch {
-                text: "Show ressources usage"
+                text: "Show resources usage"
                 checked: Config.options.bar.showRessources
                 onClicked: checked = !checked;
-                onCheckedChanged: {
-                    Config.options.bar.showRessources = checked;
-                }
+                onCheckedChanged: Config.options.bar.showRessources = checked;
             }
         }
 
@@ -188,18 +157,14 @@ ContentPage {
                 text: "Show Workspaces"
                 checked: Config.options.bar.showWorkspaces
                 onClicked: checked = !checked;
-                onCheckedChanged: {
-                    Config.options.bar.showWorkspaces = checked;
-                }
+                onCheckedChanged: Config.options.bar.showWorkspaces = checked;
             }
 
             ConfigSwitch {
                 text: "Show clock"
                 checked: Config.options.bar.showClock
                 onClicked: checked = !checked;
-                onCheckedChanged: {
-                    Config.options.bar.showClock = checked;
-                }
+                onCheckedChanged: Config.options.bar.showClock = checked;
             }
         }
 
@@ -207,9 +172,7 @@ ContentPage {
             text: "Show tray and system icons"
             checked: Config.options.bar.showTrayAndIcons
             onClicked: checked = !checked;
-            onCheckedChanged: {
-                Config.options.bar.showTrayAndIcons = checked;
-            }
+            onCheckedChanged: Config.options.bar.showTrayAndIcons = checked;
         }
     }
 
@@ -220,23 +183,18 @@ ContentPage {
             spacing: 10
             uniformCellSizes: true
 
-
             ConfigSwitch {
                 text: "Show clock"
                 checked: Config.options.background.enableClock
                 onClicked: checked = !checked;
-                onCheckedChanged: {
-                    Config.options.background.enableClock = checked;
-                }
+                onCheckedChanged: Config.options.background.enableClock = checked;
             }
 
             ConfigSwitch {
                 text: "Fixed clock position"
                 checked: Config.options.background.fixedClockPosition
                 onClicked: checked = !checked;
-                onCheckedChanged: {
-                    Config.options.background.fixedClockPosition = checked;
-                }
+                onCheckedChanged: Config.options.background.fixedClockPosition = checked;
             }
         }
 
@@ -244,25 +202,43 @@ ContentPage {
             text: "Show watermark"
             checked: Config.options.background.showWatermark
             onClicked: checked = !checked;
-            onCheckedChanged: {
-                Config.options.background.showWatermark = checked;
-            }
+            onCheckedChanged: Config.options.background.showWatermark = checked;
         }
 
         StyledText {
             text: "Clock mode"
             color: Appearance.colors.colSubtext
         }
+
         ConfigSelectionArray {
             currentValue: Config.options.background.clockMode
             configOptionName: "background.clockMode"
-            onSelected: (newValue) => {
-                Config.options.background.clockMode = newValue;
-            }
+            onSelected: newValue => Config.options.background.clockMode = newValue
             options: [
                 {"value": "dark", "displayName": "Dark"},
                 {"value": "light", "displayName": "Light"}
             ]
+        }
+
+        StyledText {
+            text: "Clock Font"
+            color: Appearance.colors.colSubtext
+        }
+
+        ComboBox {
+            id: fontComboBox
+            Layout.fillWidth: true
+
+            model: Qt.fontFamilies().length > 0
+                ? Qt.fontFamilies()
+                : ["Sans Serif", "Arial", "Monospace"]
+
+            currentIndex: model.indexOf(Config.options.background.fontFamily || "Sans Serif")
+
+            onActivated: {
+                Config.options.background.fontFamily = currentText;
+                console.log("Font chosen:", currentText);
+            }
         }
     }
 }
