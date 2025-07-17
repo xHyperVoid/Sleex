@@ -1,6 +1,6 @@
 pkgname=sleex-python
 pkgver=2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Sleex Python Dependencies'
 arch=(any)
 license=(None)
@@ -13,5 +13,4 @@ depends=(
   'libportal-gtk4'
   'gobject-introspection'
   'sassc'
-  'python-opencv'
 )

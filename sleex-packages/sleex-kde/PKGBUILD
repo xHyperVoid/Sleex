@@ -1,6 +1,6 @@
 pkgname=sleex-kde
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Sleex KDE Dependencies'
 arch=(any)
 license=(None)
@@ -11,5 +11,5 @@ depends=(
 	plasma-nm
 	polkit-kde-agent
 	dolphin
-	systemsettings
+	kwrite
 )
