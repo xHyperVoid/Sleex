@@ -1,3 +1,5 @@
+pragma Singleton
+
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts 
@@ -179,9 +181,9 @@ ContentPage {
     ContentSection {
         title: "Background"
 
-        RowLayout {
+        ColumnLayout {
+            Layout.fillWidth: true
             spacing: 10
-            uniformCellSizes: true
 
             ConfigSwitch {
                 text: "Show clock"
@@ -196,48 +198,49 @@ ContentPage {
                 onClicked: checked = !checked;
                 onCheckedChanged: Config.options.background.fixedClockPosition = checked;
             }
-        }
 
-        ConfigSwitch {
-            text: "Show watermark"
-            checked: Config.options.background.showWatermark
-            onClicked: checked = !checked;
-            onCheckedChanged: Config.options.background.showWatermark = checked;
-        }
+            ConfigSwitch {
+                text: "Show watermark"
+                checked: Config.options.background.showWatermark
+                onClicked: checked = !checked;
+                onCheckedChanged: Config.options.background.showWatermark = checked;
+            }
 
-        StyledText {
-            text: "Clock mode"
-            color: Appearance.colors.colSubtext
-        }
+            StyledText {
+                text: "Clock mode"
+                color: Appearance.colors.colSubtext
+            }
 
-        ConfigSelectionArray {
-            currentValue: Config.options.background.clockMode
-            configOptionName: "background.clockMode"
-            onSelected: newValue => Config.options.background.clockMode = newValue
-            options: [
-                {"value": "dark", "displayName": "Dark"},
-                {"value": "light", "displayName": "Light"}
-            ]
-        }
+            ConfigSelectionArray {
+                currentValue: Config.options.background.clockMode
+                configOptionName: "background.clockMode"
+                onSelected: (newValue) => {
+                    Config.options.background.clockMode = newValue;
+                }
+                options: [
+                    {"value": "dark", "displayName": "Dark"},
+                    {"value": "light", "displayName": "Light"}
+                ]
+            }
 
-        StyledText {
-            text: "Clock Font"
-            color: Appearance.colors.colSubtext
-        }
+            StyledText {
+                text: "Clock Font"
+                color: Appearance.colors.colSubtext
+            }
 
-        ComboBox {
-            id: fontComboBox
-            Layout.fillWidth: true
+            StyledComboBox {
+                id: fontComboBox
+                model: Qt.fontFamilies()
+                currentIndex: model.indexOf(Config.options.background.fontFamily ?? "Sans Serif")
 
-            model: Qt.fontFamilies().length > 0
-                ? Qt.fontFamilies()
-                : ["Sans Serif", "Arial", "Monospace"]
+                onCurrentTextChanged: {
+                    Config.options.background.fontFamily = currentText;
+                }
+            }
 
-            currentIndex: model.indexOf(Config.options.background.fontFamily || "Sans Serif")
-
-            onActivated: {
-                Config.options.background.fontFamily = currentText;
-                console.log("Font chosen:", currentText);
+            Component.onCompleted: {
+                console.log("Available fonts:", Qt.fontFamilies())
+                console.log("Currently configured font:", Config.options.background.fontFamily)
             }
         }
     }
