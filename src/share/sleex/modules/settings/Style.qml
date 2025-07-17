@@ -231,16 +231,22 @@ ContentPage {
             StyledComboBox {
                 id: fontComboBox
                 model: Qt.fontFamilies()
-                currentIndex: model.indexOf(Config.options.background.fontFamily ?? "Sans Serif")
 
-                onCurrentTextChanged: {
-                    Config.options.background.fontFamily = currentText;
+                onCurrentIndexChanged: {
+                    const selectedFont = model[currentIndex]
+                    if (Config.options.background.fontFamily !== selectedFont) {
+                        Config.options.background.fontFamily = selectedFont
+                    }
                 }
-            }
 
-            Component.onCompleted: {
-                console.log("Available fonts:", Qt.fontFamilies())
-                console.log("Currently configured font:", Config.options.background.fontFamily)
+                Component.onCompleted: {
+                    const currentFont = Config.options.background.fontFamily
+                    const index = model.indexOf(currentFont)
+                    fontComboBox.currentIndex = index >= 0 ? index : 0
+
+                    console.log("Available fonts:", model)
+                    console.log("Configured font:", currentFont)
+                }
             }
         }
     }

@@ -30,8 +30,8 @@ Item {
     anchors {
         left: parent.left
         top: parent.top
-        leftMargin: fixedClockPosition ? clockX - implicitWidth / 2 : clockX - implicitWidth / 2
-        topMargin: fixedClockPosition ? clockY - implicitHeight / 2 : clockY - implicitHeight / 2
+        leftMargin: clockX - implicitWidth / 2
+        topMargin: clockY - implicitHeight / 2
     }
 
     implicitWidth: clockColumn.implicitWidth
@@ -44,19 +44,19 @@ Item {
 
         onActiveChanged: {
             if (active) {
-                clockWidget.startClockX = clockWidget.clockX
-                clockWidget.startClockY = clockWidget.clockY
+                startClockX = clockX
+                startClockY = clockY
             } else {
-                Config.options.background.clockX = clockWidget.clockX
-                Config.options.background.clockY = clockWidget.clockY
+                Config.options.background.clockX = clockX
+                Config.options.background.clockY = clockY
             }
         }
 
         onTranslationChanged: {
-            let newX = clockWidget.startClockX + translation.x
-            let newY = clockWidget.startClockY + translation.y
-            let halfWidth = clockWidget.implicitWidth / 2
-            let halfHeight = clockWidget.implicitHeight / 2
+            let newX = startClockX + translation.x
+            let newY = startClockY + translation.y
+            let halfWidth = implicitWidth / 2
+            let halfHeight = implicitHeight / 2
 
             newX = Math.max(halfWidth, Math.min(screenWidth - halfWidth, newX))
             newY = Math.max(halfHeight, Math.min(screenHeight - halfHeight, newY))
@@ -96,8 +96,8 @@ Item {
         StyledText {
             Layout.fillWidth: true
             horizontalAlignment: textHorizontalAlignment
-            font.pixelSize: 95
             font.family: Config.options.background.fontFamily ?? "Sans Serif"
+            font.pixelSize: 95
             color: Config.options.background.textColor ?? textColor
             style: Text.Raised
             styleColor: Appearance.colors.colShadow
@@ -107,8 +107,8 @@ Item {
         StyledText {
             Layout.fillWidth: true
             horizontalAlignment: textHorizontalAlignment
-            font.pixelSize: 25
             font.family: Config.options.background.fontFamily ?? "Sans Serif"
+            font.pixelSize: 25
             color: Config.options.background.textColor ?? textColor
             style: Text.Raised
             styleColor: Appearance.colors.colShadow
@@ -119,7 +119,16 @@ Item {
     Connections {
         target: Config.options.background
         function onFontFamilyChanged() {
+            console.log("Clock: font changed to", Config.options.background.fontFamily)
             clockWidget.forceLayout()
         }
+    }
+
+    Component.onCompleted: {
+        if (!Config.options.background.fontFamily) {
+            Config.options.background.fontFamily = "Sans Serif"
+        }
+
+        console.log("Clock font on start:", Config.options.background.fontFamily)
     }
 }
