@@ -96,7 +96,7 @@ Item {
         StyledText {
             Layout.fillWidth: true
             horizontalAlignment: textHorizontalAlignment
-            font.family: Config.options.background.fontFamily ?? "Sans Serif"
+            font.family: Config.options.background.clockFontFamily ?? "Sans Serif"
             font.pixelSize: 95
             color: Config.options.background.textColor ?? textColor
             style: Text.Raised
@@ -107,7 +107,7 @@ Item {
         StyledText {
             Layout.fillWidth: true
             horizontalAlignment: textHorizontalAlignment
-            font.family: Config.options.background.fontFamily ?? "Sans Serif"
+            font.family: Config.options.background.clockFontFamily ?? "Sans Serif"
             font.pixelSize: 25
             color: Config.options.background.textColor ?? textColor
             style: Text.Raised
@@ -116,19 +116,4 @@ Item {
         }
     }
 
-    Connections {
-        target: Config.options.background
-        function onFontFamilyChanged() {
-            console.log("Clock: font changed to", Config.options.background.fontFamily)
-            clockWidget.forceLayout()
-        }
-    }
-
-    Component.onCompleted: {
-        if (!Config.options.background.fontFamily) {
-            Config.options.background.fontFamily = "Sans Serif"
-        }
-
-        console.log("Clock font on start:", Config.options.background.fontFamily)
-    }
 }

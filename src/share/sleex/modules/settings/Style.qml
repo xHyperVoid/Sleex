@@ -1,5 +1,3 @@
-pragma Singleton
-
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts 
@@ -231,21 +229,13 @@ ContentPage {
             StyledComboBox {
                 id: fontComboBox
                 model: Qt.fontFamilies()
+                currentIndex: model.indexOf(Config.options.background.clockFontFamily)
 
                 onCurrentIndexChanged: {
                     const selectedFont = model[currentIndex]
-                    if (Config.options.background.fontFamily !== selectedFont) {
-                        Config.options.background.fontFamily = selectedFont
+                    if (Config.options.background.clockFontFamily !== selectedFont) {
+                        Config.options.background.clockFontFamily = selectedFont
                     }
-                }
-
-                Component.onCompleted: {
-                    const currentFont = Config.options.background.fontFamily
-                    const index = model.indexOf(currentFont)
-                    fontComboBox.currentIndex = index >= 0 ? index : 0
-
-                    console.log("Available fonts:", model)
-                    console.log("Configured font:", currentFont)
                 }
             }
         }
