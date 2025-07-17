@@ -12,7 +12,6 @@ This branch is the testing branch of Sleex. Sleex is being completely rewritten 
 
 - [x] Desktop widgets with movable clock + possibility to disable them in the settings
 - [x] Fix workspace script
-- [ ] Wifi and Bluetooth tab in the settings (idk if I'll really do it, there are good alternatives)
 - [x] Move apps keybinds from the general hypr config to a dedicated file (to prevent overwriting)
 - [x] Update axctl to exclude this new app file
 
@@ -51,7 +50,7 @@ Note: update `axos-hooks` and `axctl` before.
 
 - Clone this repo
 - Build every sleex meta-packages in `sleex-packages` then install them
-- Build the user configuration in the `sleex-user-config` and execute `sudo axctl load-sleex-user-config`
+- Build the user configuration in the `sleex-user-config` and execute `sudo axctl load-sleex-user-config` (or if you don't have AxOS, `cp -r /etc/skel/.config/* ~/.config`)
 - Build and install the main package
 
 Then, you can start sleex by selecting the sleex session on your greeter
