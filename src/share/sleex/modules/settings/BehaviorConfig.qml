@@ -55,6 +55,55 @@ ContentPage {
         }
     }
 
+    ContentSection {
+        title: "Date"
+
+        ColumnLayout {
+            // Format
+            ContentSubsectionLabel {
+                text: "Date format"
+            }
+            StyledComboBox {
+                id: dateFormatComboBox
+                Layout.fillWidth: true
+                Layout.preferredHeight: 56
+                model: [
+                    "DD/MM/YYYY",
+                    "MM/DD/YYYY",
+                    "YYYY-MM-DD",
+                    "DDDD, DD/MM/YYYY",
+                    "DDDD, DD/MM"
+                ]
+                currentIndex: model.indexOf(
+                    (() => {
+                        switch (Config.options.time.dateFormat) {
+                            case "dddd, dd/mm": return "DDDD, DD/MM";
+                            case "dddd, dd/mm/yyyy": return "DDDD, DD/MM/YYYY";
+                            case "mm/dd/yyyy": return "MM/DD/YYYY";
+                            case "yyyy-mm-dd": return "YYYY-MM-DD";
+                            default: return "DDDD, DD/MM";
+                        }
+                    })()
+                )
+                onCurrentIndexChanged: {
+                    const valueMap = {
+                        "DD/MM/YYYY": "dddd, dd/MM/yyyy",
+                        "MM/DD/YYYY": "mm/dd/yyyy",
+                        "YYYY-MM-DD": "yyyy-mm-dd",
+                        "DDDD, DD/MM": "dddd, dd/MM",
+                        "DDDD, DD/MM/YYYY": "dddd, dd/MM/yyyy"
+                    }
+                    const currentIndex = dateFormatComboBox.currentIndex
+                    if (currentIndex === -1) return;
+                    const selectedValue = valueMap[model[currentIndex]]
+                    if (Config.options.time.dateFormat !== selectedValue) {
+                        Config.options.time.dateFormat = selectedValue;
+                    }
+                }
+            }
+        }       
+    }
+
 
     ContentSection {
         title: "Audio"
@@ -68,7 +117,22 @@ ContentPage {
                 content: "Prevents abrupt increments and restricts volume limit"
             }
         }
+
+        ConfigSpinBox {
+            text: "Earbang limit"
+            value: Config.options.audio.protection.maxAllowed
+            from: 0
+            to: 100
+            stepSize: 1
+            onValueChanged: {
+                Config.options.audio.protection.maxAllowed = value;
+            }
+            StyledToolTip {
+                content: "Maximum volume level allowed by earbang protection"
+            }
+        }
     }
+
     ContentSection {
         title: "AI"
         MaterialTextField {

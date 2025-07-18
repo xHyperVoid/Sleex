@@ -50,16 +50,16 @@ Scope {
             }
             color: "transparent"
 
-            AnimatedImage {
-                z: 0
-                anchors.fill: parent
-                source: bgRoot.wallpaperPath
-                fillMode: Image.PreserveAspectCrop
-                sourceSize {
-                    width: bgRoot.screen.width
-                    height: bgRoot.screen.height
-                }
-            }
+            // AnimatedImage {
+            //     z: 0
+            //     anchors.fill: parent
+            //     source: bgRoot.wallpaperPath
+            //     fillMode: Image.PreserveAspectCrop
+            //     sourceSize {
+            //         width: bgRoot.screen.width
+            //         height: bgRoot.screen.height
+            //     }
+            // }
 
             Clock {
                 id: clock
