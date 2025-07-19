@@ -50,6 +50,7 @@ Scope {
             }
             color: "transparent"
 
+            //// Disabled because it has exclusivity issues
             // AnimatedImage {
             //     z: 0
             //     anchors.fill: parent
