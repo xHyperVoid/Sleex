@@ -3,10 +3,10 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/services"
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
+import qs.modules.common
+import qs.modules.common.widgets
+import qs.services
+import qs.modules.common.functions
 
 Item {
     id: clockWidget

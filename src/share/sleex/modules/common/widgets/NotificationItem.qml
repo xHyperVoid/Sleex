@@ -1,7 +1,7 @@
-import "root:/modules/common"
-import "root:/services"
-import "root:/modules/common/functions/string_utils.js" as StringUtils
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
+import qs.modules.common
+import qs.services
+import qs.modules.common.functions
+import qs.modules.common.functions
 import "./notification_utils.js" as NotificationUtils
 import Qt5Compat.GraphicalEffects
 import QtQuick

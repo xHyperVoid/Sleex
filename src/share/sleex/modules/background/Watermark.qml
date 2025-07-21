@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
-import "root:/services"
+import qs.services
 
 // System version watermark display
 Item {
