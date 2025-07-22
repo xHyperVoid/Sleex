@@ -9,12 +9,14 @@ pragma ComponentBehavior: Bound
 
 Singleton {
     id: root
-        property bool sidebarLeftOpen: false
-        property bool dashboardOpen: false
-        property bool overviewOpen: false
-        property bool workspaceShowNumbers: false
-        property bool superReleaseMightTrigger: true
-        property bool wppselectorOpen: false
+
+    property bool sidebarLeftOpen: false
+    property bool dashboardOpen: false
+    property bool overviewOpen: false
+    property bool workspaceShowNumbers: false
+    property bool superReleaseMightTrigger: true
+    property bool wppselectorOpen: false
+    property bool screenLocked: false
 
     property real screenZoom: 1
     onScreenZoomChanged: {
@@ -63,4 +65,14 @@ Singleton {
             screenZoom = Math.max(screenZoom - 0.4, 1)
         } 
 	}
+
+
+    IpcHandler {
+        target: "lock"
+
+        function lock() {
+            root.screenLocked = true;
+        }
+    }
+
 }

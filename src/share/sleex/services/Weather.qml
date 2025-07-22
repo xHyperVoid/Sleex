@@ -13,7 +13,9 @@ Singleton {
     property string loc
     property string temperature
     property string condition
-    
+    property string raw
+    property string weatherCode
+
         Timer {
         id: weatherTimer
         interval: 3600000 // 1 hour
@@ -42,8 +44,10 @@ Singleton {
         stdout: StdioCollector {
             onStreamFinished: {
                 const json = JSON.parse(text).current_condition[0];
+                root.raw = text;
                 root.condition = json.weatherDesc[0].value;
                 root.temperature = json.temp_C + "°C";
+                root.weatherCode = json.weatherCode;
             }
         }
     }

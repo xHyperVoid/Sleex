@@ -2,6 +2,7 @@ pragma Singleton
 
 import qs.modules.common
 import qs.modules.common.functions
+import "../modules/common/functions/fuzzysort.js" as Fuzzy
 import Quickshell
 import Quickshell.Io
 

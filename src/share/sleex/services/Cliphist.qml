@@ -4,6 +4,7 @@ pragma ComponentBehavior: Bound
 import qs.modules.common.functions
 import qs.modules.common
 import qs
+import "../modules/common/functions/fuzzysort.js" as Fuzzy
 import QtQuick
 import Quickshell
 import Quickshell.Io

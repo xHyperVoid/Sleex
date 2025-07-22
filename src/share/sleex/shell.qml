@@ -69,5 +69,6 @@ ShellRoot {
     LazyLoader { active: enableDashboard; component: Dashboard {} }
     LazyLoader { active: enableWallSelector; component: WallpaperSelector {} }
     LazyLoader { active: enableBackground; component: Background {} }
+    LazyLoader { active: GlobalStates.screenLocked; component: Lock {}}
 }
 
