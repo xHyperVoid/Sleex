@@ -74,5 +74,13 @@ Singleton {
             root.screenLocked = true;
         }
     }
+    GlobalShortcut {
+        name: "lockScreen"
+        description: qsTr("Lock screen (obviously)")
+
+        onPressed: {
+            root.screenLocked = true;
+        }
+    }
 
 }

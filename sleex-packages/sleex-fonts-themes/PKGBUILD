@@ -1,6 +1,6 @@
 pkgname=sleex-fonts-themes
 pkgver=2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Sleex Fonts and Theming Dependencies'
 arch=(any)
 license=(None)
@@ -16,6 +16,7 @@ depends=(
   'starship'
   'ttf-gabarito-git'
   'ttf-jetbrains-mono-nerd'
+  'ttf-material-design-icons-extended'
   'ttf-material-symbols-variable'
   'ttf-readex-pro'
   'ttf-rubik-vf'
