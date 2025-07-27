@@ -78,20 +78,22 @@ Item {
         }
     }
 
+    Rectangle {
+        visible: !fixedClockPosition
+        anchors.centerIn: parent
+        width: clockColumn.width
+        height: clockColumn.height
+        color: "transparent"
+        border.color: "red"
+        border.width: 3
+        radius: Appearance.rounding.normal
+        z: -1  // Put it behind the text
+    }
+    
     ColumnLayout {
         id: clockColumn
         anchors.centerIn: parent
         spacing: -5
-
-        Rectangle {
-            visible: !fixedClockPosition
-            anchors.fill: parent
-            color: "transparent"
-            border.color: "red"
-            border.width: 3
-            radius: Appearance.rounding.normal
-            z: 100
-        }
 
         StyledText {
             Layout.fillWidth: true

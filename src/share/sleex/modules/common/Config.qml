@@ -113,7 +113,7 @@ Singleton {
 
             property JsonObject background: JsonObject {
                 property bool enableClock: true // Whether to show the clock
-                property string clockMode: "dark" // "dark" or "light"
+                property string clockMode: "light" // "dark" or "light"
                 property real clockX: 0
                 property real clockY: 0
                 property bool fixedClockPosition: false // If true, clock position is not updated when the screen resolution changes
