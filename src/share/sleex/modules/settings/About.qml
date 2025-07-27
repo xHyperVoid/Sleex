@@ -79,10 +79,10 @@ ContentPage {
             spacing: 20
             Layout.topMargin: 10
             Layout.bottomMargin: 10
-            // IconImage {
-            //     implicitSize: 100
-            //     source: ""
-            // }
+            IconImage {
+                implicitSize: 100
+                source: "file:///home/ardox/Téléchargements/image.png"
+            }
             ColumnLayout {
                 Layout.alignment: Qt.AlignVCenter
                 // spacing: 10

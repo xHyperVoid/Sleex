@@ -6,7 +6,7 @@ Item {
     id: root
     
     property string source: ""
-    property string iconFolder: Qt.resolvedUrl(Quickshell.configPath("assets/icons"))  // The folder to check first
+    property string iconFolder: Qt.resolvedUrl(Quickshell.shellPath("assets/icons"))  // The folder to check first
     width: 30
     height: 30
     

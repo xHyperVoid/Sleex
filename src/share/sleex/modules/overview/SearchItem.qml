@@ -16,12 +16,12 @@ RippleButton {
     property var entry
     property string query
     property bool entryShown: entry?.shown ?? true
-    property string itemType: entry?.type
+    property string itemType: entry?.type || qsTr("App")
     property string itemName: entry?.name
     property string itemIcon: entry?.icon ?? ""
     property var itemExecute: entry?.execute
     property string fontType: entry?.fontType ?? "main"
-    property string itemClickActionName: entry?.clickActionName
+    property string itemClickActionName: entry?.clickActionName ?? qsTr("Click to open")
     property string bigText: entry?.bigText ?? ""
     property string materialSymbol: entry?.materialSymbol ?? ""
     property string cliphistRawString: entry?.cliphistRawString ?? ""

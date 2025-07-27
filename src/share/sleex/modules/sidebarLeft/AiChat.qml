@@ -92,7 +92,7 @@ Mowe uwu wem ipsum!
 ### Formatting
 
 - *Italic*, \`Monospace\`, **Bold**, [Link](https://example.com)
-- Arch lincox icon <img src="/usr/share/sleex/assets/icons/arch-symbolic.svg" height="${Appearance.font.pixelSize.small}"/>
+- Arch lincox icon <img src="/home/ardox/.config/quickshell/assets/icons/arch-symbolic.svg" height="${Appearance.font.pixelSize.small}"/>
 
 ### Table
 

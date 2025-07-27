@@ -1,3 +1,4 @@
+import qs
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
@@ -26,7 +27,6 @@ Scope {
             function hide() {
                 sessionLoader.active = false
             }
-    
 
             exclusionMode: ExclusionMode.Ignore
             WlrLayershell.namespace: "quickshell:session"
@@ -92,7 +92,7 @@ Scope {
                         focus: sessionRoot.visible
                         buttonIcon: "lock"
                         buttonText: qsTr("Lock")
-                        onClicked:  { Hyprland.dispatch("exec loginctl lock-session"); sessionRoot.hide() }
+                        onClicked:  GlobalStates.screenLocked = true; 
                         onFocusChanged: { if (focus) sessionRoot.subtitle = buttonText }
                         KeyNavigation.right: sessionSleep
                         KeyNavigation.down: sessionHibernate

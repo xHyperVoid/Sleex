@@ -16,7 +16,6 @@ import qs.modules.mediaControls
 
 WlSessionLock {
     id: lock
-
     property string errorMessage: ""
     property bool authenticating: false
     property string password: ""
