@@ -1,9 +1,8 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-import qs.modules.common.functions
 import qs.modules.common
-import qs
+import qs.modules.common.functions
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -39,6 +38,28 @@ Singleton {
     function refresh() {
         readProc.buffer = []
         readProc.running = true
+    }
+
+    function copy(entry) {
+        Quickshell.execDetached(["bash", "-c", `echo '${StringUtils.shellSingleQuoteEscape(entry)}' | cliphist decode | wl-copy`]);
+    }
+
+    Process {
+        id: deleteProc
+        property string entry: ""
+        command: ["bash", "-c", `echo '${StringUtils.shellSingleQuoteEscape(deleteProc.entry)}' | cliphist delete`]
+        function deleteEntry(entry) {
+            deleteProc.entry = entry;
+            deleteProc.running = true;
+            deleteProc.entry = "";
+        }
+        onExited: (exitCode, exitStatus) => {
+            root.refresh();
+        }
+    }
+
+    function deleteEntry(entry) {
+        deleteProc.deleteEntry(entry);
     }
 
     Connections {
