@@ -1,6 +1,6 @@
 pkgname=sleex-basic
 pkgver=2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Sleex Basic Dependencies'
 arch=(any)
 license=(None)
