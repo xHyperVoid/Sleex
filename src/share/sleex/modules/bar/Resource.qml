@@ -6,6 +6,7 @@ import Quickshell
 import Quickshell.Io
 
 Item {
+    id: root
     required property string iconName
     required property double percentage
     property bool shown: true
@@ -13,6 +14,8 @@ Item {
     visible: width > 0 && height > 0
     implicitWidth: resourceRowLayout.x < 0 ? 0 : childrenRect.width
     implicitHeight: childrenRect.height
+
+    property string warningColor: "#feb36c"
 
     RowLayout {
         spacing: 4
@@ -26,21 +29,21 @@ Item {
             value: percentage
             size: 26
             secondaryColor: Appearance.colors.colSecondaryContainer
-            primaryColor: Appearance.m3colors.m3onSecondaryContainer
+            primaryColor: percentage >= 0.9 ? root.warningColor : Appearance.m3colors.m3onSecondaryContainer
 
             MaterialSymbol {
                 anchors.centerIn: parent
                 fill: 1
                 text: iconName
                 iconSize: Appearance.font.pixelSize.normal
-                color: Appearance.m3colors.m3onSecondaryContainer
+                color: percentage >= 0.9 ? root.warningColor : Appearance.m3colors.m3onSecondaryContainer
             }
 
         }
 
         StyledText {
             Layout.alignment: Qt.AlignVCenter
-            color: Appearance.colors.colOnLayer1
+            color: percentage >= 0.9 ? root.warningColor : Appearance.m3colors.m3onSecondaryContainer
             text: `${Math.round(percentage * 100)}%`
         }
 

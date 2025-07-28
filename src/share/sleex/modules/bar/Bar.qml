@@ -99,6 +99,7 @@ Scope {
                             Hyprland.dispatch('global quickshell:sidebarLeftOpen')
                         }
                     }
+
                     // Scroll to change brightness
                     WheelHandler {
                         onWheel: (event) => {
@@ -472,16 +473,17 @@ Scope {
                                         color: rightSidebarButton.colText
                                     }
                                     MaterialSymbol {
+                                        Layout.rightMargin: indicatorsRowLayout.realSpacing
                                         text: Bluetooth.bluetoothConnected ? "bluetooth_connected" : Bluetooth.bluetoothEnabled ? "bluetooth" : "bluetooth_disabled"
                                         iconSize: Appearance.font.pixelSize.larger
                                         color: rightSidebarButton.colText
                                     }
-                                }
-                            }
 
-                            BatteryIndicator {
-                                visible: (barRoot.useShortenedForm < 2 && UPower.displayDevice.isLaptopBattery)
-                                Layout.alignment: Qt.AlignVCenter
+                                    BatteryIndicator {
+                                        visible: (barRoot.useShortenedForm < 2 && UPower.displayDevice.isLaptopBattery)
+                                        Layout.alignment: Qt.AlignVCenter
+                                    }
+                                }
                             }
 
                             SysTray {

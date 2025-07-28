@@ -6,6 +6,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.UPower
+import Quickshell.Widgets
 
 Item {
     id: root
@@ -18,81 +19,76 @@ Item {
     readonly property color batteryLowBackground: Appearance.m3colors.darkmode ? Appearance.m3colors.m3error : Appearance.m3colors.m3errorContainer
     readonly property color batteryLowOnBackground: Appearance.m3colors.darkmode ? Appearance.m3colors.m3errorContainer : Appearance.m3colors.m3error
 
-    implicitWidth: rowLayout.implicitWidth + rowLayout.spacing * 2
-    implicitHeight: 32
+    implicitWidth: 75
+    implicitHeight: 23
 
-    RowLayout {
-        id: rowLayout
-
-        spacing: 4
-        anchors.centerIn: parent
-
-        Rectangle {
-            implicitWidth: (isCharging ? (boltIconLoader?.item?.width ?? 0) : 0)
-
-            Behavior on implicitWidth {
-                animation: Appearance.animation.elementMove.numberAnimation.createObject(this)
-            }
-        }
-
-        StyledText {
-            Layout.alignment: Qt.AlignVCenter
-            color: Appearance.colors.colOnLayer1
-            text: `${Math.round(percentage * 100)}`
-        }
-
-        CircularProgress {
-            enableAnimation: false
-            Layout.alignment: Qt.AlignVCenter
-            lineWidth: 2
-            value: percentage
-            size: 26
-            secondaryColor: (isLow && !isCharging) ? batteryLowBackground : Appearance.colors.colSecondaryContainer
-            primaryColor: (isLow && !isCharging) ? batteryLowOnBackground : Appearance.m3colors.m3onSecondaryContainer
-            fill: (isLow && !isCharging)
+    ClippingRectangle {
+        id: background
+        anchors.fill: parent
+        radius: 100
+        color: root.isLow ? "#350000" : Appearance.colors.colLayer2
+        // border {
+        //     width: 1
+        //     color: root.isLow ? Appearance.m3colors.m3error : "#747474"
+        // }
+        RowLayout {
+            id: textLayer
+            anchors.centerIn: parent
+            spacing: 4
 
             MaterialSymbol {
-                anchors.centerIn: parent
-                fill: 1
-                text: "battery_full"
-                iconSize: Appearance.font.pixelSize.normal
-                color: (isLow && !isCharging) ? batteryLowOnBackground : Appearance.m3colors.m3onSecondaryContainer
+                text: "bolt"
+                visible: root.isCharging
+                font.pixelSize: 18
+                color: root.isLow ? Appearance.m3colors.m3error : Appearance.colors.colOnLayer1
             }
 
+            Text {
+                id: batteryText
+                text: `${Math.round(percentage * 100)}%`
+                font.pixelSize: 13
+                color: root.isLow ? Appearance.m3colors.m3error : Appearance.colors.colOnLayer1
+                font {
+                    bold: root.isLow
+                }
+            }
         }
 
+        Rectangle {
+            id: bar
+            clip: true
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            width: root.width * Math.min(Math.max(parseFloat(percentage * 100), 0), 100) / 100
+            color: root.isLow ? Appearance.m3colors.m3error : Appearance.colors.colOnLayer1
+
+            Behavior on width {
+                NumberAnimation {
+                    duration: 300
+                    easing.type: Easing.InOutQuad
+                }
+            }
+
+            RowLayout {
+                id: textLayer2
+                x: (root.width - width) / 2
+                y: (root.height - height) / 2
+                spacing: 4
+
+                MaterialSymbol {
+                    text: "bolt"
+                    visible: root.isCharging
+                    font.pixelSize: 16
+                    color: Appearance.colors.colLayer0
+                }
+
+                Text {
+                    text: `${Math.round(percentage * 100)}%`
+                    font.pixelSize: 13
+                    color: Appearance.colors.colLayer0
+                }
+            }
+        }
     }
-
-    Loader {
-        id: boltIconLoader
-        active: true
-        anchors.left: rowLayout.left
-        anchors.verticalCenter: rowLayout.verticalCenter
-
-        Connections {
-            target: root
-            function onIsChargingChanged() {
-                if (isCharging) boltIconLoader.active = true
-            }
-        }
-
-        sourceComponent: MaterialSymbol {
-            id: boltIcon
-
-            text: "bolt"
-            iconSize: Appearance.font.pixelSize.large
-            color: Appearance.m3colors.m3onSecondaryContainer
-            visible: opacity > 0 // Only show when charging
-            opacity: isCharging ? 1 : 0 // Keep opacity for visibility
-            onVisibleChanged: {
-                if (!visible) boltIconLoader.active = false
-            }
-
-            Behavior on opacity {
-                animation: Appearance.animation.elementMove.numberAnimation.createObject(this)
-            }
-
-        }
-    }
-
 }
