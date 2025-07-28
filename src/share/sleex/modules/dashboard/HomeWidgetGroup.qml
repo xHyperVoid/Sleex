@@ -168,7 +168,10 @@ Rectangle {
                 Layout.fillHeight: true
 
                 Column {
-                    anchors.centerIn: parent
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.margins: 20
                     spacing: 10
                     
                     Text {
@@ -180,11 +183,14 @@ Rectangle {
                     }
 
                     Text {
-                        //text: Weather.condition
                         text: Weather.condition || qsTr("Loading...")
-                        font.pixelSize: 30
+                        font.pixelSize: 20
                         color: Appearance.colors.colOnLayer1
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        maximumLineCount: 2
+                        elide: Text.ElideRight
                     }
                 }
 
