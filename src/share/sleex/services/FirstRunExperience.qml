@@ -46,7 +46,7 @@ Singleton {
 
     Process {
         id: setFirstWpp
-        command: ["bash", "-c", `${Directories.wallpaperSwitchScriptPath} ${root.defaultWallpaperPath}`]
+        command: ["bash", "-c", `${Directories.wallpaperSwitchScriptPath} ${root.defaultWallpaperPath}`, "--mode", "dark"]
     }
     Process {
         id: execFirstRunScript
