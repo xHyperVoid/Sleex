@@ -134,6 +134,7 @@ ContentPage {
                             KeyboardKey { key: "T" }
                         }
                     }
+
                 }
             }
         }
@@ -154,20 +155,20 @@ ContentPage {
             checked: Config.options.appearance.transparency
             onClicked: checked = !checked;
             StyledToolTip { content: "Enable the blur effect on the shell." }
-            onCheckedChanged: Config.options.appearance.transparency.enable = checked;
+            onCheckedChanged: Config.options.appearance.transparency = checked;
         }
 
-        ConfigSpinBox {
-            id: transparencySpinBox
-            text: "Opacity"
-            value: Config.options.appearance.transparency ? Config.options.appearance.transparency.opacity * 100 : 0
-            from: 0
-            to: 100
-            stepSize: 5
-            onValueChanged: {
-                Config.options.appearance.transparency.opacity = value / 100;
-            }
-        }
+        // ConfigSpinBox {
+        //     id: transparencySpinBox
+        //     text: "Opacity"
+        //     value: Config.options.appearance.opacity
+        //     from: 0
+        //     to: 100
+        //     stepSize: 5
+        //     onValueChanged: {
+        //         Config.options.appearance.opacity = value / 100;
+        //     }
+        // }
     }
 
     ContentSection {

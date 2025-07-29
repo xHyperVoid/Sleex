@@ -73,7 +73,7 @@ Scope {
 
                 StyledRectangularShadow {
                     target: dashboardBackground
-                    visible: Config.options.appearance.transparency.enable
+                    visible: Config.options.appearance.transparency
                 }
                 Rectangle {
                     id: dashboardBackground

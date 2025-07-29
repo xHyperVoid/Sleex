@@ -430,6 +430,22 @@ Scope {
                                     anchors.centerIn: parent
                                     property real realSpacing: 15
                                     spacing: 0
+
+                                    Revealer {
+                                        reveal: Notifications.list.length > 0
+                                        Layout.fillHeight: true
+                                        Layout.rightMargin: reveal ? indicatorsRowLayout.realSpacing : 0
+                                        Behavior on Layout.rightMargin {
+                                            NumberAnimation {
+                                                duration: Appearance.animation.elementMoveFast.duration
+                                                easing.type: Appearance.animation.elementMoveFast.type
+                                                easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                                            }
+                                        }
+                                        NotifIndicator {
+                                            width: indicatorsRowLayout.realSpacing * 2
+                                        }
+                                    }
                                     
                                     Revealer {
                                         reveal: Audio.sink?.audio?.muted ?? false

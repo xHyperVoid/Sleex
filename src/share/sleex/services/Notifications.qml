@@ -16,6 +16,7 @@ import Quickshell.Services.Notifications
  */
 Singleton {
 	id: root
+
     component Notif: QtObject {
         id: wrapper
         required property int notificationId // Could just be `id` but it conflicts with the default prop in QtObject

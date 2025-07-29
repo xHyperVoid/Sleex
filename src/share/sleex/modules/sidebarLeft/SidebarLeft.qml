@@ -87,7 +87,7 @@ Scope { // Scope
             StyledRectangularShadow {
                 target: sidebarLeftBackground
                 radius: sidebarLeftBackground.radius
-                visible: Config.options.appearance.transparency.enable
+                visible: Config.options.appearance.transparency
             }
             Rectangle {
                 id: sidebarLeftBackground
