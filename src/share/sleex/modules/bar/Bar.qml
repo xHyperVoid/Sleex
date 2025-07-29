@@ -147,21 +147,9 @@ Scope {
                             spacing: 10
                             visible: Config.options.bar.showTitle
                             
-
-                            RippleButton { // Left sidebar button
-                                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                                Layout.fillWidth: false
-                                property real buttonPadding: 5
-                                implicitHeight: barHeight
-                                
-                                onPressed: {
-                                    Hyprland.dispatch('global quickshell:sidebarLeftToggle')
-                                }
-
-                            }
-
                             ActiveWindow {
                                 visible: barRoot.useShortenedForm === 0
+                                Layout.leftMargin: Appearance.rounding.screenRounding
                                 Layout.rightMargin: Appearance.rounding.screenRounding
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
