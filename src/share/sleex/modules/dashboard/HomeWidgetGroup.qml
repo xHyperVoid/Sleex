@@ -13,7 +13,7 @@ import Quickshell
 
 Rectangle {
     id: root
-    color: Appearance.colors.colLayer0
+    color: "transparent"
     
 
     RowLayout {

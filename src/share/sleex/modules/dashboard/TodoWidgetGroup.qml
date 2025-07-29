@@ -10,8 +10,7 @@ import Quickshell
 
 Rectangle {
     id: root
-    radius: Appearance.rounding.normal
-    color: Appearance.colors.colLayer0
+    color: "transparent"
     clip: true
 
     

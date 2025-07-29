@@ -4,7 +4,7 @@ Item {
     id: root
 
     property int size: 25
-    property color color: "#000000"
+    property color color
 
     onColorChanged: {
         canvas.requestPaint();

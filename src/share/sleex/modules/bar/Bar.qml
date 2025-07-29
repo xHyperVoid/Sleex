@@ -179,8 +179,7 @@ Scope {
                     anchors.verticalCenter: middleSection.verticalCenter
                     width: middleSection.width
                     height: middleSection.height
-                    color: Appearance.colors.colLayer0
-                    radius: Appearance.rounding.screenRounding
+                    color: "transparent"
                     antialiasing: true
                     z: -1
 
@@ -202,7 +201,7 @@ Scope {
                             ctx.quadraticCurveTo(0, height, 0, height - middleBg.bottomRadius);
                             ctx.lineTo(0, 0);
                             ctx.closePath();
-                            ctx.fillStyle = middleBg.color;
+                            ctx.fillStyle = Appearance.colors.colLayer0;
                             ctx.fill();
                         }
                     }
