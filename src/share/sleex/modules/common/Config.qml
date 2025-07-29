@@ -64,7 +64,7 @@ Singleton {
 
             property JsonObject appearance: JsonObject {
                 property JsonObject transparency: JsonObject {
-                    property bool enable: true // Whether to enable the blur effect
+                    property bool enable: false // Whether to enable the blur effect
                     property real opacity: 0.5 // Opacity of the blur effect
                 }
                 property JsonObject palette: JsonObject {
