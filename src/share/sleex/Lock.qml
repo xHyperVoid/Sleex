@@ -9,10 +9,12 @@ import Quickshell.Wayland
 import Quickshell
 import Quickshell.Services.Pam
 import Quickshell.Io
+import Quickshell.Services.UPower
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.mediaControls
+import qs.modules.bar
 
 WlSessionLock {
     id: lock
@@ -350,6 +352,18 @@ WlSessionLock {
                     verticalAlignment: Text.AlignVCenter
                 }
             }
+        }
+
+        // Top Right corner (Battery Indicator)
+        BatteryIndicator {
+            Layout.alignment: Qt.AlignTop | Qt.AlignRight
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins: 16
+            implicitWidth: 75
+            implicitHeight: 23
+            borderless: true // Use borderless style
+            visible: UPower.displayDevice.isLaptopBattery
         }
 
         // System control buttons (bottom right)

@@ -15,6 +15,8 @@ Item {
     readonly property bool isCharging: Battery.isCharging
     readonly property bool isPluggedIn: Battery.isPluggedIn
     readonly property real percentage: Battery.percentage
+    readonly property string remainingTime: Battery.remainingTime
+    readonly property string timeToEmpty: Battery.timeToEmpty
     readonly property bool isLow: percentage <= Config.options.battery.low / 100
     readonly property color batteryLowBackground: Appearance.m3colors.darkmode ? Appearance.m3colors.m3error : Appearance.m3colors.m3errorContainer
     readonly property color batteryLowOnBackground: Appearance.m3colors.darkmode ? Appearance.m3colors.m3errorContainer : Appearance.m3colors.m3error
@@ -91,4 +93,15 @@ Item {
             }
         }
     }
+
+    MouseArea {
+        id: infoMouseArea
+        anchors.fill: parent
+        hoverEnabled: true
+        StyledToolTip {
+            content: root.isCharging ? `${root.percentage * 100}% charged, ${root.remainingTime} remaining` : `${root.percentage * 100}% remaining, ${root.timeToEmpty} to empty`
+            extraVisibleCondition: infoMouseArea.containsMouse
+        }
+    }
+        
 }
