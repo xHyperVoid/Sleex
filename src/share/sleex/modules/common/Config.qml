@@ -135,7 +135,7 @@ Singleton {
                 property bool pinnedOnStartup: false
                 property bool hoverToReveal: false // When false, only reveals on empty workspace
                 property list<string> pinnedApps: [ // IDs of pinned entries
-                    "org.kde.dolphin", "foot",
+                    "pcmanfm-qt", "foot",
                 ]
             }
 
