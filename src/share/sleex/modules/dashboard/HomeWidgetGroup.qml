@@ -4,6 +4,7 @@ import qs.services
 import "./notifications"
 import "./calendar"
 import "../mediaControls"
+import "./weather"
 import Qt5Compat.GraphicalEffects
 import QtQuick
 import Quickshell.Io
@@ -167,31 +168,36 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                Column {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: 20
-                    spacing: 10
+                // Column {
+                //     anchors.left: parent.left
+                //     anchors.right: parent.right
+                //     anchors.verticalCenter: parent.verticalCenter
+                //     anchors.margins: 20
+                //     spacing: 10
                     
-                    Text {
-                        text: Weather.temperature || qsTr("--")
-                        font.bold: true
-                        color: Appearance.colors.colPrimary
-                        font.pixelSize: 60
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
+                //     Text {
+                //         text: Weather.temperature || qsTr("--")
+                //         font.bold: true
+                //         color: Appearance.colors.colPrimary
+                //         font.pixelSize: 60
+                //         anchors.horizontalCenter: parent.horizontalCenter
+                //     }
 
-                    Text {
-                        text: Weather.condition || qsTr("Loading...")
-                        font.pixelSize: 20
-                        color: Appearance.colors.colOnLayer1
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        maximumLineCount: 2
-                        elide: Text.ElideRight
-                    }
+                //     Text {
+                //         text: Weather.condition || qsTr("Loading...")
+                //         font.pixelSize: 20
+                //         color: Appearance.colors.colOnLayer1
+                //         width: parent.width
+                //         wrapMode: Text.WordWrap
+                //         horizontalAlignment: Text.AlignHCenter
+                //         maximumLineCount: 2
+                //         elide: Text.ElideRight
+                //     }
+                // }
+
+                Weather {
+                    id: weatherWidget
+                    anchors.fill: parent
                 }
 
             }
@@ -200,7 +206,7 @@ Rectangle {
                 color: Appearance.colors.colLayer1
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
-                Layout.preferredHeight: 400
+                Layout.preferredHeight: 375
 
                 CalendarWidget {}
             }
