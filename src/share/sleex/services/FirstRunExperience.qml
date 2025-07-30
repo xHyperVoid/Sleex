@@ -30,6 +30,7 @@ Singleton {
         setFirstWpp.running = true
         execFirstRunScript.running = true
         firstNotify.running = true
+        Quickshell.reload(true)
     }
 
 
