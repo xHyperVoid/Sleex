@@ -90,7 +90,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: Appearance.rounding.normal
-        color: Appearance.colors.colLayer0
+        color: Appearance.colors.colLayer1
 
         PlayerControlBlank {
             anchors.fill: parent

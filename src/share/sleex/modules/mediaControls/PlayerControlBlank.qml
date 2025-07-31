@@ -63,8 +63,7 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Appearance.colors.colLayer1
-        radius: Appearance.rounding.normal
+        color: "transparent"
 
         layer.enabled: true
 
