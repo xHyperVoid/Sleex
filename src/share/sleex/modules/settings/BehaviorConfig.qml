@@ -77,19 +77,20 @@ ContentPage {
                 currentIndex: model.indexOf(
                     (() => {
                         switch (Config.options.time.dateFormat) {
-                            case "dddd, dd/mm": return "DDDD, DD/MM";
-                            case "dddd, dd/mm/yyyy": return "DDDD, DD/MM/YYYY";
+                            case "dd/mm/yyyy": return "DD/MM/YYYY"
                             case "mm/dd/yyyy": return "MM/DD/YYYY";
                             case "yyyy-mm-dd": return "YYYY-MM-DD";
+                            case "dddd, dd/mm/yyyy": return "DDDD, DD/MM/YYYY";
+                            case "dddd, dd/mm": return "DDDD, DD/MM";
                             default: return "DDDD, DD/MM";
                         }
                     })()
                 )
                 onCurrentIndexChanged: {
                     const valueMap = {
-                        "DD/MM/YYYY": "dddd, dd/MM/yyyy",
-                        "MM/DD/YYYY": "mm/dd/yyyy",
-                        "YYYY-MM-DD": "yyyy-mm-dd",
+                        "DD/MM/YYYY": "dd/MM/yyyy",
+                        "MM/DD/YYYY": "MM/dd/yyyy",
+                        "YYYY-MM-DD": "yyyy-MM-dd",
                         "DDDD, DD/MM": "dddd, dd/MM",
                         "DDDD, DD/MM/YYYY": "dddd, dd/MM/yyyy"
                     }
