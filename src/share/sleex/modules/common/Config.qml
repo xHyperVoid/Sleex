@@ -95,6 +95,7 @@ Singleton {
 
             property JsonObject bar: JsonObject {
                 property bool bottom: false // Instead of top
+                property bool background: false
                 property bool borderless: false // true for no grouping of items
                 property bool verbose: true
                 property list<string> screenList: [] // List of names, like "eDP-1", find out with 'hyprctl monitors' command

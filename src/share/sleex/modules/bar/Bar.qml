@@ -19,6 +19,8 @@ Scope {
     readonly property int barHeight: Appearance.sizes.barHeight
     readonly property int osdHideMouseMoveThreshold: 20
 
+    property bool barBackground: Config.options.bar.background
+
     component VerticalBarSeparator: Rectangle {
         Layout.topMargin: barHeight / 3
         Layout.bottomMargin: barHeight / 3
@@ -73,7 +75,7 @@ Scope {
                     top: !Config.options.bar.bottom ? parent.top : undefined
                     bottom: Config.options.bar.bottom ? parent.bottom : undefined
                 }
-                color: "transparent"
+                color: barBackground ? Appearance.colors.colLayer2 : "transparent"
                 height: barHeight
                 
                 MouseArea { // Left side | scroll to change brightness
@@ -348,6 +350,7 @@ Scope {
                     color: Appearance.colors.colLayer0
                     z: 1000
                     anchors.margins: -Appearance.rounding.screenRounding
+                    visible: barBackground ? Config.options.appearance.transparency ? true : false : !barBackground ? true : false
                 }
 
                 RoundCorner {
@@ -358,6 +361,7 @@ Scope {
                     color: Appearance.colors.colLayer0
                     z: 1000
                     anchors.margins: -Appearance.rounding.screenRounding
+                    visible: barBackground ? Config.options.appearance.transparency ? true : false : !barBackground ? true : false
                 }
 
 

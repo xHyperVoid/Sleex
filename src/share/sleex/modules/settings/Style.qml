@@ -236,11 +236,24 @@ ContentPage {
             }
         }
 
-        ConfigSwitch {
-            text: "Show tray and system icons"
-            checked: Config.options.bar.showTrayAndIcons
-            onClicked: checked = !checked;
-            onCheckedChanged: Config.options.bar.showTrayAndIcons = checked;
+        RowLayout {
+            spacing: 10
+            uniformCellSizes: true
+
+            ConfigSwitch {
+                text: "Show system icons"
+                checked: Config.options.bar.showTrayAndIcons
+                onClicked: checked = !checked;
+                onCheckedChanged: Config.options.bar.showTrayAndIcons = checked;
+            }
+
+            ConfigSwitch {
+                text: "Enable bar background"
+                checked: Config.options.bar.background
+                onClicked: checked = !checked;
+                onCheckedChanged: Config.options.bar.background = checked;
+            }
+
         }
     }
 
