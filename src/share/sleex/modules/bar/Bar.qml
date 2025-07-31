@@ -11,6 +11,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import Quickshell.Services.UPower
+import Quickshell.Bluetooth
 
 Scope {
     id: bar
@@ -201,18 +202,42 @@ Scope {
                     anchors.centerIn: parent
                     spacing: 0
 
-
-                    BarGroupL {
-                        id: leftCenterGroup
+                    Revealer {
+                        reveal: Config.options.bar.showRessources
                         Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignVCenter
 
-                        Resources {
-                            alwaysShowAllResources: barRoot.useShortenedForm === 2
-                            Layout.fillWidth: barRoot.useShortenedForm === 2
-                            visible: Config.options.bar.showRessources
+                        BarGroupL {
+                            id: leftCenterGroup
+                            Layout.fillHeight: true
+
+                            Resources {
+                                alwaysShowAllResources: barRoot.useShortenedForm === 2
+                                Layout.fillWidth: barRoot.useShortenedForm === 2
+                            }
                         }
                     }
 
+                    MaterialSymbol {
+                        text: Config.options.bar.showRessources ? "chevron_right" : "chevron_left"
+                        iconSize: Appearance.font.pixelSize.larger
+                        color: Appearance.colors.colOnLayer0
+                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.leftMargin: Config.options.bar.showRessources ? 0 : Appearance.rounding.screenRounding
+
+                        MouseArea {
+                            anchors.fill: parent
+                            acceptedButtons: Qt.LeftButton
+                            hoverEnabled: true
+                            onClicked: (event) => {
+                                if (event.button === Qt.LeftButton) {
+                                    Config.options.bar.showRessources = !Config.options.bar.showRessources;
+                                }
+                            }
+                        }
+                    }
 
                     BarGroupCenter {
                         id: middleCenterGroup
@@ -275,18 +300,44 @@ Scope {
 
                     }
 
-                    BarGroupR {
-                        id: rightCenterGroup
+                    MaterialSymbol {
+                        text: Config.options.bar.showClock ? "chevron_left" : "chevron_right"
+                        iconSize: Appearance.font.pixelSize.larger
+                        color: Appearance.colors.colOnLayer0
                         Layout.fillHeight: true
-                        
-                        ClockWidget {
-                            showDate: (Config.options.bar.verbose && barRoot.useShortenedForm < 2)
-                            Layout.alignment: Qt.AlignVCenter
-                            Layout.fillWidth: true
-                            visible: Config.options.bar.showClock
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.rightMargin: Config.options.bar.showClock ? 0 : Appearance.rounding.screenRounding
+
+                        MouseArea {
+                            anchors.fill: parent
+                            acceptedButtons: Qt.LeftButton
+                            hoverEnabled: true
+                            onClicked: (event) => {
+                                if (event.button === Qt.LeftButton) {
+                                    Config.options.bar.showClock = !Config.options.bar.showClock;
+                                }
+                            }
                         }
                     }
 
+                    Revealer {
+                        reveal: Config.options.bar.showClock
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignVCenter
+
+                        BarGroupR {
+                            id: rightCenterGroup
+                            Layout.fillHeight: true
+
+                            ClockWidget {
+                                showDate: (Config.options.bar.verbose && barRoot.useShortenedForm < 2)
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.fillWidth: true
+                            }
+                        }
+
+                    }
                 }
 
                 RoundCorner {
@@ -474,14 +525,10 @@ Scope {
                                         text: Network.materialSymbol
                                         iconSize: Appearance.font.pixelSize.larger
                                         color: rightSidebarButton.colText
-                                    }
-                                    MaterialSymbol {
+				                    }
+                                    BluetoothIndicator {
                                         Layout.rightMargin: indicatorsRowLayout.realSpacing
-                                        text: Bluetooth.bluetoothConnected ? "bluetooth_connected" : Bluetooth.bluetoothEnabled ? "bluetooth" : "bluetooth_disabled"
-                                        iconSize: Appearance.font.pixelSize.larger
-                                        color: rightSidebarButton.colText
                                     }
-
                                     BatteryIndicator {
                                         visible: (barRoot.useShortenedForm < 2 && UPower.displayDevice.isLaptopBattery)
                                         Layout.alignment: Qt.AlignVCenter
