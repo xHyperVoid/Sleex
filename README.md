@@ -6,7 +6,7 @@ This branch is the testing branch of Sleex. Sleex is being completely rewritten 
 
 |      |
 |------|
-| ![preview](.github/sleex1.png) |
+| ![preview](preview.mp4) |
 
 ## Todo
 
