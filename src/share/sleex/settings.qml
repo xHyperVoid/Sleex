@@ -33,6 +33,11 @@ ApplicationWindow {
             component: "modules/settings/Style.qml"
         },
         {
+            name: "Interface",
+            icon: "space_dashboard",
+            component: "modules/settings/Interface.qml"
+        },
+        {
             name: "Behavior",
             icon: "settings",
             component: "modules/settings/BehaviorConfig.qml"
