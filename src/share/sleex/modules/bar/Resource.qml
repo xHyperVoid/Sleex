@@ -9,10 +9,12 @@ Item {
     id: root
     required property string iconName
     required property double percentage
-    required property string tooltipText    
+    required property string tooltipText
     property bool shown: true
+
     clip: true
     visible: width > 0 && height > 0
+
     implicitWidth: resourceRowLayout.x < 0 ? 0 : childrenRect.width
     implicitHeight: childrenRect.height
 
@@ -39,7 +41,6 @@ Item {
                 iconSize: Appearance.font.pixelSize.normal
                 color: percentage >= 0.9 ? root.warningColor : Appearance.m3colors.m3onSecondaryContainer
             }
-
         }
 
         StyledText {
@@ -53,22 +54,26 @@ Item {
         }
     }
 
-    MouseArea {
-        id: infoMouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-
-        StyledToolTip {
-            extraVisibleCondition: infoMouseArea.containsMouse
-            content: tooltipText
-        }
-    }
-
     Behavior on implicitWidth {
         NumberAnimation {
             duration: Appearance.animation.elementMove.duration
             easing.type: Appearance.animation.elementMove.type
             easing.bezierCurve: Appearance.animation.elementMove.bezierCurve
+        }
+    }
+
+    // Fix: Use explicit size instead of anchors.fill to break circular dependency
+    MouseArea {
+        id: infoMouseArea
+        x: resourceRowLayout.x
+        y: resourceRowLayout.y
+        width: resourceRowLayout.width
+        height: resourceRowLayout.height
+        hoverEnabled: true
+
+        StyledToolTip {
+            extraVisibleCondition: infoMouseArea.containsMouse
+            content: tooltipText
         }
     }
 }

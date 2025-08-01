@@ -30,7 +30,6 @@ Item {
         Resource {
             iconName: "swap_horiz"
             percentage: ResourceUsage.swapUsedPercentage
-            Layout.leftMargin: shown ? 4 : 0
             tooltipText: `Swap usage: ${Math.round(ResourceUsage.swapUsedPercentage * 100)}%`
         }
 
