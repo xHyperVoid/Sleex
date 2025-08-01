@@ -106,9 +106,9 @@ Singleton {
                     property int showNumberDelay: 300 // milliseconds
                 }
                 property bool showTitle: true
-                property bool showRessources: true
+                property bool showRessources: false
                 property bool showWorkspaces: true
-                property bool showClock: true
+                property bool showClock: false
                 property bool showTrayAndIcons: true
             }
 
