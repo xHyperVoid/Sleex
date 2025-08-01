@@ -16,11 +16,11 @@ This branch is the testing branch of Sleex. Sleex is being completely rewritten 
 - [x] Update axctl to exclude this new app file
 
 ## Todo (but after the release)
-- [ ] Lockscreen
+- [x] Lockscreen
 - [ ] Full screen music mode
 - [ ] Plugin system for the dashboard
 - [ ] Update the docs and READMEs
-- [ ] Better looking weather widget
+- [x] Better looking weather widget
 - [ ] Color scheme widget
 - [ ] App launcher (?)
 - [ ] Wallpaper selector in the settings app
