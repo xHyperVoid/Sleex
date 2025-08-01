@@ -9,6 +9,7 @@ Item {
     id: root
     required property string iconName
     required property double percentage
+    required property string tooltipText    
     property bool shown: true
     clip: true
     visible: width > 0 && height > 0
@@ -51,6 +52,17 @@ Item {
             animation: Appearance.animation.elementMove.numberAnimation.createObject(this)
         }
 
+
+        MouseArea {
+        id: infoMouseArea
+        anchors.fill: parent
+        hoverEnabled: true
+
+            StyledToolTip {
+                extraVisibleCondition: infoMouseArea.containsMouse
+                content: tooltipText
+            }
+        }
     }
 
     Behavior on implicitWidth {

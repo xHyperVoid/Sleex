@@ -44,6 +44,7 @@ Scope {
             }
         }
 
+
         Loader {
             id: dashboardContentLoader
             active: GlobalStates.dashboardOpen

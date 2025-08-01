@@ -24,18 +24,21 @@ Item {
         Resource {
             iconName: "memory"
             percentage: ResourceUsage.memoryUsedPercentage
+            tooltipText: `Memory usage: ${Math.round(ResourceUsage.memoryUsedPercentage * 100)}%`
         }
 
         Resource {
             iconName: "swap_horiz"
             percentage: ResourceUsage.swapUsedPercentage
             Layout.leftMargin: shown ? 4 : 0
+            tooltipText: `Swap usage: ${Math.round(ResourceUsage.swapUsedPercentage * 100)}%`
         }
 
         Resource {
             iconName: "settings_slow_motion"
             percentage: ResourceUsage.cpuUsage
             Layout.leftMargin: shown ? 4 : 0
+            tooltipText: `CPU usage: ${Math.round(ResourceUsage.cpuUsage * 100)}%`
         }
 
     }
