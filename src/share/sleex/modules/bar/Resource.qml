@@ -51,17 +51,16 @@ Item {
         Behavior on x {
             animation: Appearance.animation.elementMove.numberAnimation.createObject(this)
         }
+    }
 
-
-        MouseArea {
+    MouseArea {
         id: infoMouseArea
         anchors.fill: parent
         hoverEnabled: true
 
-            StyledToolTip {
-                extraVisibleCondition: infoMouseArea.containsMouse
-                content: tooltipText
-            }
+        StyledToolTip {
+            extraVisibleCondition: infoMouseArea.containsMouse
+            content: tooltipText
         }
     }
 

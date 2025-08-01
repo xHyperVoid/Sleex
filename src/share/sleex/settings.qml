@@ -235,4 +235,19 @@ ApplicationWindow {
             }
         }
     }
+    IpcHandler {
+        target: "settings"
+
+        function openBluetoothPage() {
+            root.currentPage = 3
+        }
+    }
+    GlobalShortcut {
+        name: "openBluetoothPage"
+        description: qsTr("Open bluetooth page (obviously)")
+
+        onPressed: {
+            root.currentPage = 3;
+        }
+    }
 }
