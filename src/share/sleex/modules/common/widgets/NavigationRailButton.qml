@@ -37,7 +37,7 @@ TabButton {
             top: parent.top
             bottom: parent.bottom
             left: parent.left
-            right: undefined
+            right: parent.right
         }
         
         implicitWidth: root.visualWidth
@@ -48,8 +48,8 @@ TabButton {
             anchors.top: itemIconBackground.top
             anchors.left: itemIconBackground.left
             anchors.bottom: itemIconBackground.bottom
-            implicitWidth: root.visualWidth
-            radius: Appearance.rounding.full
+            width: root.width  // Default width for collapsed state
+            radius: Appearance.rounding.normal
             color: toggled ? 
                 root.showToggledHighlight ?
                     (root.down ? Appearance.colors.colSecondaryContainerActive : root.hovered ? Appearance.colors.colSecondaryContainerHover : Appearance.colors.colSecondaryContainer)
@@ -65,10 +65,7 @@ TabButton {
                     anchors.left: buttonContent.left
                     anchors.bottom: buttonContent.bottom
                 }
-                PropertyChanges {
-                    target: itemBackground
-                    implicitWidth: root.visualWidth
-                }
+                // Remove PropertyChanges for itemBackground width - let it always use root.width
             }
             transitions: Transition {
                 AnchorAnimation {
@@ -76,20 +73,12 @@ TabButton {
                     easing.type: Appearance.animation.elementMoveFast.type
                     easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
                 }
-                PropertyAnimation {
-                    target: itemBackground
-                    property: "implicitWidth"
-                    duration: Appearance.animation.elementMove.duration
-                    easing.type: Appearance.animation.elementMove.type
-                    easing.bezierCurve: Appearance.animation.elementMove.bezierCurve
-                }
             }
 
             Behavior on color {
                 animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)
             }
         }
-
         Item {
             id: itemIconBackground
             implicitWidth: root.baseSize

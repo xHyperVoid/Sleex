@@ -13,7 +13,7 @@ RippleButton {
     onClicked: {
         parent.expanded = !parent.expanded;
     }
-    buttonRadius: Appearance.rounding.full
+    buttonRadius: Appearance.rounding.normal
     contentItem: MaterialSymbol {
         id: icon
         anchors.centerIn: parent

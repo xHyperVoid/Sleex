@@ -110,85 +110,85 @@ ContentPage {
         }
     }
 
+    ContentSection {
 
-    Repeater {
-        model: ScriptModel {
-            values: [...Bluetooth.devices.values].sort((a, b) => (b.connected - a.connected) || (b.paired - a.paired)).slice(0, 5)
-        }
+        Repeater {
+            model: ScriptModel {
+                values: [...Bluetooth.devices.values].sort((a, b) => (b.connected - a.connected) || (b.paired - a.paired)).slice(0, 5)
+            }
 
-        RowLayout {
-            id: device
+            RowLayout {
+                id: device
 
-            required property BluetoothDevice modelData
-            readonly property bool loading: modelData.state === BluetoothDeviceState.Connecting || modelData.state === BluetoothDeviceState.Disconnecting
+                required property BluetoothDevice modelData
+                readonly property bool loading: modelData.state === BluetoothDeviceState.Connecting || modelData.state === BluetoothDeviceState.Disconnecting
 
-            Layout.fillWidth: true
-            spacing: 10
-
-            RippleButton {
-                id: deviceCard
                 Layout.fillWidth: true
-                implicitHeight: contentItem.implicitHeight + 8 * 2
+                spacing: 10
 
-                contentItem: RowLayout {
-                    spacing: 10
+                RippleButton {
+                    id: deviceCard
+                    Layout.fillWidth: true
+                    implicitHeight: contentItem.implicitHeight + 8 * 2
 
-                    Rectangle {
-                        width: cardTexts.height
-                        height: cardTexts.height
-                        radius: 8
-                        color: Appearance.colors.colSecondaryContainer
-                        Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                    contentItem: RowLayout {
+                        spacing: 10
+
+                        Rectangle {
+                            width: cardTexts.height
+                            height: cardTexts.height
+                            radius: 8
+                            color: Appearance.colors.colSecondaryContainer
+                            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+
+                            MaterialSymbol {
+                                anchors.centerIn: parent
+                                text: getDeviceIcon(device.modelData)
+                                font.pixelSize: Appearance.font.pixelSize.title
+                                color: Appearance.colors.colOnSecondaryContainer
+                            }
+                        }
+
+                        ColumnLayout {
+                            id: cardTexts
+
+                            StyledText {
+                                Layout.fillWidth: true
+                                text: device.modelData.name
+                                font.pixelSize: Appearance.font.pixelSize.huge
+                                color: Appearance.colors.colOnSecondaryContainer
+                            }
+                            StyledText {
+                                text: device.modelData.address + (device.modelData.connected ? qsTr(" (Connected)") : device.modelData.bonded ? qsTr(" (Paired)") : "")
+                                font.pixelSize: Appearance.font.pixelSize.small
+                                color: Appearance.colors.colSubtext
+                            }
+                        }
+
+                        StyledSwitch {
+                            scale: 0.80
+                            Layout.fillWidth: false
+                            checked: device.modelData.connected
+                            onClicked: device.modelData.connected = !device.modelData.connected
+                        }
+                    }
+                }
+
+
+                Loader {
+                    asynchronous: true
+                    active: device.modelData.bonded
+                    sourceComponent: Item {
+                        implicitWidth: connectBtn.implicitWidth
+                        implicitHeight: connectBtn.implicitHeight
 
                         MaterialSymbol {
                             anchors.centerIn: parent
-                            text: getDeviceIcon(device.modelData)
-                            font.pixelSize: Appearance.font.pixelSize.title
-                            color: Appearance.colors.colOnSecondaryContainer
+                            text: "delete"
                         }
-                    }
-
-                    ColumnLayout {
-                        id: cardTexts
-
-                        StyledText {
-                            Layout.fillWidth: true
-                            text: device.modelData.name
-                            font.pixelSize: Appearance.font.pixelSize.huge
-                            color: Appearance.colors.colOnSecondaryContainer
-                        }
-                        StyledText {
-                            text: device.modelData.address + (device.modelData.connected ? qsTr(" (Connected)") : device.modelData.bonded ? qsTr(" (Paired)") : "")
-                            font.pixelSize: Appearance.font.pixelSize.small
-                            color: Appearance.colors.colSubtext
-                        }
-                    }
-
-                    StyledSwitch {
-                        scale: 0.80
-                        Layout.fillWidth: false
-                        checked: device.modelData.connected
-                        onClicked: device.modelData.connected = !device.modelData.connected
-                    }
-                }
-            }
-
-
-            Loader {
-                asynchronous: true
-                active: device.modelData.bonded
-                sourceComponent: Item {
-                    implicitWidth: connectBtn.implicitWidth
-                    implicitHeight: connectBtn.implicitHeight
-
-                    MaterialSymbol {
-                        anchors.centerIn: parent
-                        text: "delete"
                     }
                 }
             }
         }
     }
-
-
 }

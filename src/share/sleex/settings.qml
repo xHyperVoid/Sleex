@@ -77,7 +77,7 @@ ApplicationWindow {
     minimumHeight: 400
     width: 900
     height: 650
-    color: Appearance.m3colors.m3background
+    color: Appearance.colors.colLayer1
 
     ColumnLayout {
         anchors {
@@ -187,7 +187,7 @@ ApplicationWindow {
             Rectangle { // Content container
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                color: Appearance.m3colors.m3surfaceContainerLow
+                color: Appearance.colors.colLayer0
                 radius: Appearance.rounding.windowRounding - root.contentPadding
 
                 Loader {
