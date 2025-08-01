@@ -47,11 +47,11 @@ ApplicationWindow {
         //     icon: "brand_awareness",
         //     component: "modules/settings/Sound.qml"
         // },
-        // {
-        //     name: "Bluetooth",
-        //     icon: "bluetooth",
-        //     component: "modules/settings/Bluetooth.qml"
-        // },
+        {
+            name: "Bluetooth",
+            icon: "bluetooth",
+            component: "modules/settings/Bluetooth.qml"
+        },
         // {
         //     name: "Wifi",
         //     icon: "wifi",
