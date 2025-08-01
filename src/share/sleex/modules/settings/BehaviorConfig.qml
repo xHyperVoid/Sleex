@@ -9,7 +9,7 @@ ContentPage {
     forceWidth: true
 
     ContentSection {
-        title: "Time"
+        title: "Time and date"
 
         ColumnLayout {
             // Format
@@ -52,57 +52,54 @@ ContentPage {
                     }
                 }
             }
-        }
-    }
 
-    ContentSection {
-        title: "Date"
-
-        ColumnLayout {
-            // Format
-            ContentSubsectionLabel {
-                text: "Date format"
-            }
-            StyledComboBox {
-                id: dateFormatComboBox
-                Layout.fillWidth: true
-                Layout.preferredHeight: 56
-                model: [
-                    "DD/MM/YYYY",
-                    "MM/DD/YYYY",
-                    "YYYY-MM-DD",
-                    "DDDD, DD/MM/YYYY",
-                    "DDDD, DD/MM"
-                ]
-                currentIndex: model.indexOf(
-                    (() => {
-                        switch (Config.options.time.dateFormat) {
-                            case "dd/mm/yyyy": return "DD/MM/YYYY"
-                            case "mm/dd/yyyy": return "MM/DD/YYYY";
-                            case "yyyy-mm-dd": return "YYYY-MM-DD";
-                            case "dddd, dd/mm/yyyy": return "DDDD, DD/MM/YYYY";
-                            case "dddd, dd/mm": return "DDDD, DD/MM";
-                            default: return "DDDD, DD/MM";
+            ColumnLayout {
+                // Format
+                ContentSubsectionLabel {
+                    text: "Date format"
+                }
+                StyledComboBox {
+                    id: dateFormatComboBox
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 56
+                    model: [
+                        "DD/MM/YYYY",
+                        "MM/DD/YYYY",
+                        "YYYY-MM-DD",
+                        "DDDD, DD/MM/YYYY",
+                        "DDDD, DD/MM"
+                    ]
+                    currentIndex: model.indexOf(
+                        (() => {
+                            switch (Config.options.time.dateFormat) {
+                                case "dd/mm/yyyy": return "DD/MM/YYYY"
+                                case "mm/dd/yyyy": return "MM/DD/YYYY";
+                                case "yyyy-mm-dd": return "YYYY-MM-DD";
+                                case "dddd, dd/mm/yyyy": return "DDDD, DD/MM/YYYY";
+                                case "dddd, dd/mm": return "DDDD, DD/MM";
+                                default: return "DDDD, DD/MM";
+                            }
+                        })()
+                    )
+                    onCurrentIndexChanged: {
+                        const valueMap = {
+                            "DD/MM/YYYY": "dd/MM/yyyy",
+                            "MM/DD/YYYY": "MM/dd/yyyy",
+                            "YYYY-MM-DD": "yyyy-MM-dd",
+                            "DDDD, DD/MM": "dddd, dd/MM",
+                            "DDDD, DD/MM/YYYY": "dddd, dd/MM/yyyy"
                         }
-                    })()
-                )
-                onCurrentIndexChanged: {
-                    const valueMap = {
-                        "DD/MM/YYYY": "dd/MM/yyyy",
-                        "MM/DD/YYYY": "MM/dd/yyyy",
-                        "YYYY-MM-DD": "yyyy-MM-dd",
-                        "DDDD, DD/MM": "dddd, dd/MM",
-                        "DDDD, DD/MM/YYYY": "dddd, dd/MM/yyyy"
-                    }
-                    const currentIndex = dateFormatComboBox.currentIndex
-                    if (currentIndex === -1) return;
-                    const selectedValue = valueMap[model[currentIndex]]
-                    if (Config.options.time.dateFormat !== selectedValue) {
-                        Config.options.time.dateFormat = selectedValue;
+                        const currentIndex = dateFormatComboBox.currentIndex
+                        if (currentIndex === -1) return;
+                        const selectedValue = valueMap[model[currentIndex]]
+                        if (Config.options.time.dateFormat !== selectedValue) {
+                            Config.options.time.dateFormat = selectedValue;
+                        }
                     }
                 }
-            }
-        }       
+            }       
+
+        }
     }
 
 
