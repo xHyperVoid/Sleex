@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
+import Quickshell.Hyprland // Ensure Hyprland is imported
 
 ContentPage {
     forceWidth: true
@@ -112,7 +113,10 @@ ContentPage {
             text: "Earbang protection"
             checked: Config.options.audio.protection.enable
             onCheckedChanged: {
-                Config.options.audio.protection.enable = checked;
+                // Clone and replace to trigger automatic save
+                let newOptions = Object.assign({}, Config.options);
+                newOptions.audio.protection.enable = checked;
+                Config.options = newOptions;
             }
             StyledToolTip {
                 content: "Prevents abrupt increments and restricts volume limit"
@@ -151,12 +155,14 @@ ContentPage {
     ContentSection {
         title: "Battery"
 
-        //Added Toggle for battery notification sounds
         ConfigSwitch {
             text: "Enable battery notification sounds"
-            checked: Config.options.battery.sound !== false
+            checked: Config.options.battery.sound
             onCheckedChanged: {
-                Config.options.battery.sound = checked;
+                // Clone and replace to trigger automatic save
+                let newOptions = Object.assign({}, Config.options);
+                newOptions.battery.sound = checked;
+                Config.options = newOptions;
             }
         }
         ConfigRow {
