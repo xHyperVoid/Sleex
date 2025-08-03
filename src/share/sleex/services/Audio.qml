@@ -1,10 +1,11 @@
 import qs.modules.common
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
 import Quickshell.Services.Pipewire
+import Quickshell.Hyprland
 pragma Singleton
 pragma ComponentBehavior: Bound
+
 
 /**
  * A nice wrapper for default Pipewire audio sink and source.
@@ -28,26 +29,6 @@ Singleton {
         property real lastVolume: 0
         function onVolumeChanged() {
             if (!Config.options.audio.protection.enable) return;
-    property real volume: sink?.audio.volume ?? 0.0
-    property bool muted: sink?.audio.muted ?? false
-
-    Connections {
-        target: Pipewire
-        function onDefaultNodesChanged() {
-            root.sink = Pipewire.defaultAudioSink
-            root.source = Pipewire.defaultAudioSource
-        }
-    }
-
-    Connections {
-        target: sink?.audio ?? null
-        property bool lastReady: false
-        property real lastVolume: 0
-        function onReadyChanged() {
-            if (!sink.audio.ready) {
-                lastReady = false;
-                return;
-            }
             if (!lastReady) {
                 lastVolume = sink.audio.volume;
                 lastReady = true;
@@ -66,24 +47,12 @@ Singleton {
             }
             lastVolume = sink.audio.volume;
         }
-        
-    }
-            const maxAllowedIncrease = Config.options.audio.protection.maxAllowedIncrease / 100;
-            const maxAllowed = Config.options.audio.protection.maxAllowed / 100;
 
-            if (newVolume - lastVolume > maxAllowedIncrease) {
-                sink.audio.volume = lastVolume + maxAllowedIncrease;
-            } else if (newVolume > maxAllowed) {
-                sink.audio.volume = maxAllowed;
-            }
-            lastVolume = sink.audio.volume;
+        // New function to play event sounds.
+        function playSound(relativeSoundPath) {
+            const fullPath = "/usr/share/sleex/" + relativeSoundPath;
+            const command = `exec paplay ${fullPath}`;
+            Hyprland.dispatch(command);
         }
-    }
-
-    // New function to play event sounds.
-    function playSound(relativeSoundPath) {
-        const fullPath = "/usr/share/sleex/" + relativeSoundPath;
-        const command = `exec paplay ${fullPath}`;
-        Hyprland.dispatch(command);
     }
 }
