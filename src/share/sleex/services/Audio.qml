@@ -2,6 +2,7 @@ import qs.modules.common
 import QtQuick
 import Quickshell
 import Quickshell.Services.Pipewire
+import Quickshell.Hyprland
 pragma Singleton
 pragma ComponentBehavior: Bound
 
@@ -45,7 +46,12 @@ Singleton {
             }
             lastVolume = sink.audio.volume;
         }
-        
-    }
 
+        // New function to play event sounds.
+        function playSound(relativeSoundPath) {
+            const fullPath = "/usr/share/sleex/" + relativeSoundPath;
+            const command = `exec paplay ${fullPath}`;
+            Hyprland.dispatch(command);
+        }
+    }
 }
