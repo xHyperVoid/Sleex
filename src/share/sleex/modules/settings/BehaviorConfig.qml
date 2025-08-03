@@ -68,7 +68,6 @@ ContentPage {
                         "MM/DD/YYYY",
                         "YYYY-MM-DD",
                         "DDDD, DD/MM/YYYY",
-                        "DDDD, DD/MM",
                         "DDDD, DD/MM"
                     ]
                     currentIndex: model.indexOf(
