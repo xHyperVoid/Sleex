@@ -63,16 +63,19 @@ ContentPage {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 56
                     model: [
+                        "ddd, MMM dd",
                         "DD/MM/YYYY",
                         "MM/DD/YYYY",
                         "YYYY-MM-DD",
                         "DDDD, DD/MM/YYYY",
+                        "DDDD, DD/MM",
                         "DDDD, DD/MM"
                     ]
                     currentIndex: model.indexOf(
                         (() => {
                             switch (Config.options.time.dateFormat) {
-                                case "dd/mm/yyyy": return "DD/MM/YYYY"
+                                case "ddd, MMM dd": return "ddd, MMM dd";
+                                case "dd/mm/yyyy": return "DD/MM/YYYY";
                                 case "mm/dd/yyyy": return "MM/DD/YYYY";
                                 case "yyyy-mm-dd": return "YYYY-MM-DD";
                                 case "dddd, dd/mm/yyyy": return "DDDD, DD/MM/YYYY";
@@ -83,6 +86,7 @@ ContentPage {
                     )
                     onCurrentIndexChanged: {
                         const valueMap = {
+                            "ddd, MMM dd": "ddd, MMM dd",
                             "DD/MM/YYYY": "dd/MM/yyyy",
                             "MM/DD/YYYY": "MM/dd/yyyy",
                             "YYYY-MM-DD": "yyyy-MM-dd",
@@ -148,6 +152,14 @@ ContentPage {
     ContentSection {
         title: "Battery"
 
+        //Added Toggle for battery notification sounds
+        ConfigSwitch {
+            text: "Enable battery notification sounds"
+            checked: Config.options.battery.sound !== false
+            onCheckedChanged: {
+                Config.options.battery.sound = checked;
+            }
+        }
         ConfigRow {
             uniform: true
             ConfigSpinBox {
