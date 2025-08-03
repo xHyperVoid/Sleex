@@ -18,6 +18,13 @@ Singleton {
 
     signal sinkProtectionTriggered(string reason);
 
+    // New function to play event sounds.
+    function playSound(relativeSoundPath) {
+        const fullPath = "/usr/share/sleex/" + relativeSoundPath;
+        const command = `exec paplay ${fullPath}`;
+        Hyprland.dispatch(command);
+    }
+
     PwObjectTracker {
         objects: [sink, source]
     }
@@ -47,11 +54,5 @@ Singleton {
             lastVolume = sink.audio.volume;
         }
 
-        // New function to play event sounds.
-        function playSound(relativeSoundPath) {
-            const fullPath = "/usr/share/sleex/" + relativeSoundPath;
-            const command = `exec paplay ${fullPath}`;
-            Hyprland.dispatch(command);
-        }
     }
 }
