@@ -3,12 +3,15 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Io
-
 Singleton {
     id: root
+    signal loaded()
     property string filePath: Directories.shellConfigPath
     property alias options: configOptionsJsonAdapter
 
+    // NOTE: The manual save() function was removed. The original design of using
+    // onAdapterUpdated is more reliable. The key is to correctly mark the
+    // adapter as "dirty" from the UI, which is handled in BehaviorConfig.qml.
     function setNestedValue(nestedKey, value) {
         let keys = nestedKey.split(".");
         let obj = root.options;
@@ -44,7 +47,14 @@ Singleton {
 
         watchChanges: true
         onFileChanged: reload()
+        // NOTE: Restored to original behavior. This automatically saves the file
+        // whenever the adapter detects a change.
         onAdapterUpdated: writeAdapter()
+        onLoadedChanged: {
+            if (loaded) {
+                root.loaded()
+            }
+        }
         onLoadFailed: error => {
             if (error == FileViewError.FileNotFound) {
                 writeAdapter();
@@ -91,6 +101,7 @@ Singleton {
                 property int low: 20
                 property int critical: 5
                 property int suspend: 2
+                property bool sound: true
             }
 
             property JsonObject bar: JsonObject {
