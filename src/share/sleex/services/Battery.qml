@@ -41,16 +41,18 @@ Singleton {
     onIsPluggedInChanged: {
         if (!available) return;
 
-        if (isPluggedIn) {
-            if (Config.options.battery.sound !== false) {
+        if (Config.options.battery.sound) {
+            if (isPluggedIn) {
                 Audio.playSound("assets/sounds/battery/02_plug.wav");
+            } else {
+                Audio.playSound("assets/sounds/battery/02_unplug.wav");
             }
+        }
+
+        if (isPluggedIn) {
             _wasLow = false;
             _wasCritical = false;
         } else {
-            if (Config.options.battery.sound !== false) {
-                Audio.playSound("assets/sounds/battery/02_unplug.wav");
-            }
             checkBatteryState();
         }
     }
@@ -60,22 +62,31 @@ Singleton {
         checkBatteryState();
     }
 
+    Component.onCompleted: {
+        if (Config.options) { // Ensure config is somewhat ready
+            checkBatteryState()
+        }
+        Config.loaded.connect(checkBatteryState)
+    }
+
     // Rewritten for stateful, more intelligent notifications.
     function checkBatteryState() {
+        const soundEnabled = Config.options.battery.sound;
+
         if (isDischarging) {
             _wasFull = false;
 
             if (batteryService.percentageInt <= criticalThreshold && !_wasCritical) {
                 _wasCritical = true;
                 _wasLow = true;
-                if (Config.options.battery.sound !== false) {
+                if (soundEnabled) {
                     Audio.playSound("assets/sounds/battery/05_critical.wav");
                 }
                 sendNotification("Critical Battery Level", `Power level has reached ${batteryService.percentageInt}%. Please connect your charger immediately.`);
             }
             else if (batteryService.percentageInt <= warningThreshold && !_wasLow) {
                 _wasLow = true;
-                if (Config.options.battery.sound !== false) {
+                if (soundEnabled) {
                     Audio.playSound("assets/sounds/battery/04_warn.wav");
                 }
                 sendNotification("Low Battery Warning", `Power level has dropped to ${batteryService.percentageInt}%. Consider connecting your charger.`);
@@ -88,7 +99,7 @@ Singleton {
 
             if (batteryService.percentageInt >= 100 && !_wasFull) {
                 _wasFull = true;
-                if (Config.options.battery.sound !== false) {
+                if (soundEnabled) {
                     Audio.playSound("assets/sounds/battery/01_full.wav");
                 }
                 sendNotification("Battery Full", "The battery is fully charged.");
