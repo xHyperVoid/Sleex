@@ -3,6 +3,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.Pipewire
 import Quickshell.Hyprland
+
 pragma Singleton
 pragma ComponentBehavior: Bound
 
@@ -17,13 +18,6 @@ Singleton {
     property PwNode source: Pipewire.defaultAudioSource
 
     signal sinkProtectionTriggered(string reason);
-
-    // New function to play event sounds.
-    function playSound(relativeSoundPath) {
-        const fullPath = "/usr/share/sleex/" + relativeSoundPath;
-        const command = `exec paplay ${fullPath}`;
-        Hyprland.dispatch(command);
-    }
 
     PwObjectTracker {
         objects: [sink, source]
@@ -53,6 +47,13 @@ Singleton {
             }
             lastVolume = sink.audio.volume;
         }
+    }
 
+    // Reverted to Hyprland.dispatch, which is the idiomatic method for this shell.
+    function playSound(relativeSoundPath) {
+        const fullPath = "/usr/share/sleex/" + relativeSoundPath;
+        // Use the absolute path to paplay to be safe.
+        const command = `exec /usr/bin/paplay ${fullPath}`;
+        Hyprland.dispatch(command);
     }
 }
