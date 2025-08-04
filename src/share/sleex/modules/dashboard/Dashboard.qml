@@ -102,8 +102,8 @@ Scope {
                                 implicitHeight: distroIcon.height
                                 CustomIcon {
                                     id: distroIcon
-                                    width: 25
-                                    height: 25
+                                    width: 30
+                                    height: 30
                                     source: SystemInfo.distroIcon
                                 }
                                 ColorOverlay {

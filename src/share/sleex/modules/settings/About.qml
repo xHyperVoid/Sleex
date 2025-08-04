@@ -67,7 +67,15 @@ ContentPage {
                 onClicked: {
                     Qt.openUrlExternally("https://github.com/axos-project")
                 }
-            }            
+            }
+            RippleButtonWithIcon {
+                materialIcon: "favorite"
+                mainText: "Donate"
+                onClicked: {
+                    Qt.openUrlExternally("https://github.com/sponsors/axos-project")
+                }
+            }
+
         }
 
     }
@@ -79,10 +87,10 @@ ContentPage {
             spacing: 20
             Layout.topMargin: 10
             Layout.bottomMargin: 10
-            //IconImage {
-            //    implicitSize: 100
-            //    source: ""
-            //}
+            IconImage {
+               implicitSize: 100
+               source: "file:///usr/share/sleex/assets/logo/svg/dark.svg"
+            }
             ColumnLayout {
                 Layout.alignment: Qt.AlignVCenter
                 // spacing: 10
@@ -127,15 +135,6 @@ ContentPage {
                     Qt.openUrlExternally("https://github.com/axos-project/sleex/discussions")
                 }
             }
-            RippleButtonWithIcon {
-                materialIcon: "favorite"
-                mainText: "Donate"
-                onClicked: {
-                    Qt.openUrlExternally("https://github.com/sponsors/axos-project")
-                }
-            }
-
-            
         }
     }
 }
