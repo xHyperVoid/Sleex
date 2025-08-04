@@ -13,6 +13,7 @@ Singleton {
 
     property int warningThreshold: Config.options.battery.low
     property int criticalThreshold: Config.options.battery.critical
+    property int suspendThreshold: Config.options.battery.suspend
 
     property bool available: UPower.displayDevice.isLaptopBattery
     property var chargeState: UPower.displayDevice.state
@@ -36,6 +37,7 @@ Singleton {
 
     property bool _wasLow: false
     property bool _wasCritical: false
+    property bool _wasSuspendWarned: false
     property bool _wasFull: false
 
     onIsPluggedInChanged: {
@@ -52,6 +54,7 @@ Singleton {
         if (isPluggedIn) {
             _wasLow = false;
             _wasCritical = false;
+            _wasSuspendWarned = false;
         } else {
             checkBatteryState();
         }
@@ -76,7 +79,15 @@ Singleton {
         if (isDischarging) {
             _wasFull = false;
 
-            if (batteryService.percentageInt <= criticalThreshold && !_wasCritical) {
+            if (batteryService.percentageInt <= suspendThreshold + 1 && !_wasSuspendWarned) {
+                _wasSuspendWarned = true;
+                if (soundEnabled) {
+                    Audio.playSound("assets/sounds/battery/05_critical.wav");
+                    soundDelayTimer.start();
+                }
+                sendNotification("Critical Battery Level", "Suspending system soon. Please connect to a power source.");
+            }
+            else if (batteryService.percentageInt <= criticalThreshold && !_wasCritical) {
                 _wasCritical = true;
                 _wasLow = true;
                 if (soundEnabled) {
@@ -95,7 +106,10 @@ Singleton {
 
         if (isPluggedIn) {
             if (batteryService.percentageInt > warningThreshold) _wasLow = false;
-            if (batteryService.percentageInt > criticalThreshold) _wasCritical = false;
+            if (batteryService.percentageInt > criticalThreshold) {
+                _wasCritical = false;
+                _wasSuspendWarned = false;
+            }
 
             if (batteryService.percentageInt >= 100 && !_wasFull) {
                 _wasFull = true;
@@ -109,5 +123,12 @@ Singleton {
 
     function sendNotification(title, body) {
         Hyprland.dispatch(`exec notify-send "${title}" "${body}" -u critical -a "System"`);
+    }
+
+    Timer {
+        id: soundDelayTimer
+        interval: 850 // Add delay
+        repeat: false
+        onTriggered: Audio.playSound("assets/sounds/battery/04_warn.wav")
     }
 }
