@@ -27,9 +27,9 @@ Singleton {
     }
 
     function handleFirstRun() {
-        setFirstWpp.running = true
-        execFirstRunScript.running = true
-        firstNotify.running = true
+        Quickshell.execDetached(["bash", "-c", `${Directories.wallpaperSwitchScriptPath} ${root.defaultWallpaperPath} --mode dark`])
+        Quickshell.execDetached(["bash", "-c", `${root.firstRunScriptPath}`])
+        Quickshell.execDetached(['bash', '-c', `sleep 0.5; notify-send '${root.welcomeNotifTitle}' '${root.welcomeNotifBody}' -a 'Sleex' &`])
         Quickshell.reload(true)
     }
 
@@ -45,17 +45,4 @@ Singleton {
         }
     }
 
-    Process {
-        id: setFirstWpp
-        command: ["bash", "-c", `${Directories.wallpaperSwitchScriptPath} ${root.defaultWallpaperPath}`, "--mode", "dark"]
-    }
-    Process {
-        id: execFirstRunScript
-        command: ["bash", "-c", `${root.firstRunScriptPath}`]
-    }
-    Process {
-        id: firstNotify
-        command: ['bash', '-c', `sleep 0.5; notify-send '${root.welcomeNotifTitle}' '${root.welcomeNotifBody}' -a 'Sleex' &`]
-    }
-    
 }
