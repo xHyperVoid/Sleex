@@ -126,7 +126,7 @@ Singleton {
 
             property JsonObject dashboard: JsonObject {
                 property string ghUsername: "levraiardox"
-                property string avatarPath: ""
+                property string avatarPath: "file:///usr/share/sleex/assets/logo/1024px/white.png"
                 property string userDesc: "Today is a good day to have a good day!"
             }
 
