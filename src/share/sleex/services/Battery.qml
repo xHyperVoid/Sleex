@@ -13,6 +13,7 @@ Singleton {
 
     property int warningThreshold: Config.options.battery.low
     property int criticalThreshold: Config.options.battery.critical
+    property int suspendThreshold: Config.options.battery.suspend
 
     property bool available: UPower.displayDevice.isLaptopBattery
     property var chargeState: UPower.displayDevice.state
@@ -36,21 +37,25 @@ Singleton {
 
     property bool _wasLow: false
     property bool _wasCritical: false
+    property bool _wasSuspendWarned: false
     property bool _wasFull: false
 
     onIsPluggedInChanged: {
         if (!available) return;
 
-        if (isPluggedIn) {
-            if (Config.options.battery.sound !== false) {
+        if (Config.options.battery.sound) {
+            if (isPluggedIn) {
                 Audio.playSound("assets/sounds/battery/02_plug.wav");
-            }
-            _wasLow = false;
-            _wasCritical = false;
-        } else {
-            if (Config.options.battery.sound !== false) {
+            } else {
                 Audio.playSound("assets/sounds/battery/02_unplug.wav");
             }
+        }
+
+        if (isPluggedIn) {
+            _wasLow = false;
+            _wasCritical = false;
+            _wasSuspendWarned = false;
+        } else {
             checkBatteryState();
         }
     }
@@ -60,22 +65,39 @@ Singleton {
         checkBatteryState();
     }
 
+    Component.onCompleted: {
+        if (Config.options) { // Ensure config is somewhat ready
+            checkBatteryState()
+        }
+        Config.loaded.connect(checkBatteryState)
+    }
+
     // Rewritten for stateful, more intelligent notifications.
     function checkBatteryState() {
+        const soundEnabled = Config.options.battery.sound;
+
         if (isDischarging) {
             _wasFull = false;
 
-            if (batteryService.percentageInt <= criticalThreshold && !_wasCritical) {
+            if (batteryService.percentageInt <= suspendThreshold + 1 && !_wasSuspendWarned) {
+                _wasSuspendWarned = true;
+                if (soundEnabled) {
+                    Audio.playSound("assets/sounds/battery/05_critical.wav");
+                    soundDelayTimer.start();
+                }
+                sendNotification("Critical Battery Level", "Suspending system soon. Please connect to a power source.");
+            }
+            else if (batteryService.percentageInt <= criticalThreshold && !_wasCritical) {
                 _wasCritical = true;
                 _wasLow = true;
-                if (Config.options.battery.sound !== false) {
+                if (soundEnabled) {
                     Audio.playSound("assets/sounds/battery/05_critical.wav");
                 }
                 sendNotification("Critical Battery Level", `Power level has reached ${batteryService.percentageInt}%. Please connect your charger immediately.`);
             }
             else if (batteryService.percentageInt <= warningThreshold && !_wasLow) {
                 _wasLow = true;
-                if (Config.options.battery.sound !== false) {
+                if (soundEnabled) {
                     Audio.playSound("assets/sounds/battery/04_warn.wav");
                 }
                 sendNotification("Low Battery Warning", `Power level has dropped to ${batteryService.percentageInt}%. Consider connecting your charger.`);
@@ -84,11 +106,14 @@ Singleton {
 
         if (isPluggedIn) {
             if (batteryService.percentageInt > warningThreshold) _wasLow = false;
-            if (batteryService.percentageInt > criticalThreshold) _wasCritical = false;
+            if (batteryService.percentageInt > criticalThreshold) {
+                _wasCritical = false;
+                _wasSuspendWarned = false;
+            }
 
             if (batteryService.percentageInt >= 100 && !_wasFull) {
                 _wasFull = true;
-                if (Config.options.battery.sound !== false) {
+                if (soundEnabled) {
                     Audio.playSound("assets/sounds/battery/01_full.wav");
                 }
                 sendNotification("Battery Full", "The battery is fully charged.");
@@ -98,5 +123,12 @@ Singleton {
 
     function sendNotification(title, body) {
         Hyprland.dispatch(`exec notify-send "${title}" "${body}" -u critical -a "System"`);
+    }
+
+    Timer {
+        id: soundDelayTimer
+        interval: 850 // Add delay
+        repeat: false
+        onTriggered: Audio.playSound("assets/sounds/battery/04_warn.wav")
     }
 }

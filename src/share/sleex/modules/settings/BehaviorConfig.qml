@@ -104,35 +104,143 @@ ContentPage {
 
         }
     }
-
-
-    ContentSection {
-        title: "Audio"
-        ConfigSwitch {
-            text: "Earbang protection"
-            checked: Config.options.audio.protection.enable
-            onCheckedChanged: {
-                Config.options.audio.protection.enable = checked;
+    
+        ContentSection {
+            title: "Audio"
+            
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: 4
+                Layout.bottomMargin: 8
+    
+                Rectangle {
+                    Layout.fillWidth: true
+                    height: childrenRect.height + 25
+                    color: "#40FF9800"
+                    radius: 6
+    
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.margins: 10
+    
+                        Label {
+                            text: "🐞"
+                            font.pixelSize: 16 // Slightly smaller icon
+                            Layout.alignment: Qt.AlignVCenter
+                            rightPadding: 6
+                        }
+    
+                        Label {
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignVCenter
+                            text: "<b>TOGGLE BUG:</b> Manual edit required in <code>~/.sleex/settings.json</code>"
+                            font.pixelSize: 12
+                            wrapMode: Text.WordWrap
+                            textFormat: Text.RichText
+                            color: "white"
+                        }
+                    }
+                }
             }
-            StyledToolTip {
-                content: "Prevents abrupt increments and restricts volume limit"
+    
+            ConfigSwitch {
+                text: "Earbang protection"
+                checked: Config.options.audio.protection.enable
+                onCheckedChanged: {
+                    Config.options.audio.protection.enable = checked;
+                }
+                StyledToolTip {
+                    content: "Prevents abrupt increments and restricts volume limit"
+                }
+            }
+            ConfigSpinBox {
+                text: "Earbang limit"
+                value: Config.options.audio.protection.maxAllowed
+                from: 0
+                to: 100
+                stepSize: 1
+                onValueChanged: {
+                    Config.options.audio.protection.maxAllowed = value;
+                }
+                StyledToolTip {
+                    content: "Maximum volume level allowed by earbang protection"
+                }
             }
         }
-
-        ConfigSpinBox {
-            text: "Earbang limit"
-            value: Config.options.audio.protection.maxAllowed
-            from: 0
-            to: 100
-            stepSize: 1
-            onValueChanged: {
-                Config.options.audio.protection.maxAllowed = value;
+    
+        ContentSection {
+            title: "Battery"
+    
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: 4
+                Layout.bottomMargin: 8
+    
+                Rectangle {
+                    Layout.fillWidth: true
+                    height: childrenRect.height + 25
+                    color: "#40FF9800"
+                    radius: 6
+    
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.margins: 10
+    
+                        Label {
+                            text: "🐞"
+                            font.pixelSize: 14
+                            Layout.alignment: Qt.AlignVCenter
+                            rightPadding: 6
+                        }
+    
+                        Label {
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignVCenter
+                            text: "<b>TOGGLE BUG:</b> Manual edit required in <code>~/.sleex/settings.json</code>"
+                            font.pixelSize: 12
+                            wrapMode: Text.WordWrap
+                            textFormat: Text.RichText
+                            color: "white"
+                        }
+                    }
+                }
             }
-            StyledToolTip {
-                content: "Maximum volume level allowed by earbang protection"
+    
+            ConfigSwitch {
+                text: "Enable battery notification sounds"
+                checked: Config.options.battery.sound
+                onCheckedChanged: {
+                    // Clone and replace to trigger automatic save
+                    let newOptions = Object.assign({}, Config.options);
+                    newOptions.battery.sound = checked;
+                    Config.options = newOptions;
+                }
+            }
+            ConfigRow {
+                uniform: true
+                ConfigSpinBox {
+                    text: "Low warning"
+                    value: Config.options.battery.low
+                    from: 0
+                    to: 100
+                    stepSize: 5
+                    onValueChanged: {
+                        Config.options.battery.low = value;
+                    }
+                }
+                ConfigSpinBox {
+                    text: "Critical warning"
+                    value: Config.options.battery.critical
+                    from: 0
+                    to: 100
+                    stepSize: 5
+                    onValueChanged: {
+                        Config.options.battery.critical = value;
+                    }
+                }
             }
         }
-    }
+    
 
     ContentSection {
         title: "AI"
@@ -144,42 +252,6 @@ ContentPage {
             wrapMode: TextEdit.Wrap
             onTextChanged: {
                 Config.options.ai.systemPrompt = text;
-            }
-        }
-    }
-
-    ContentSection {
-        title: "Battery"
-
-        //Added Toggle for battery notification sounds
-        ConfigSwitch {
-            text: "Enable battery notification sounds"
-            checked: Config.options.battery.sound !== false
-            onCheckedChanged: {
-                Config.options.battery.sound = checked;
-            }
-        }
-        ConfigRow {
-            uniform: true
-            ConfigSpinBox {
-                text: "Low warning"
-                value: Config.options.battery.low
-                from: 0
-                to: 100
-                stepSize: 5
-                onValueChanged: {
-                    Config.options.battery.low = value;
-                }
-            }
-            ConfigSpinBox {
-                text: "Critical warning"
-                value: Config.options.battery.critical
-                from: 0
-                to: 100
-                stepSize: 5
-                onValueChanged: {
-                    Config.options.battery.critical = value;
-                }
             }
         }
     }
