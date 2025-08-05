@@ -1,11 +1,7 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-<<<<<<< HEAD
 import qs.modules.common
-=======
-import "root:/modules/common"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -57,11 +53,7 @@ Singleton {
 
                 previousCpuStats = { total, idle }
             }
-<<<<<<< HEAD
             interval = Config.options?.resources?.updateInterval ?? 3000
-=======
-            interval = ConfigOptions?.resources?.updateInterval ?? 3000
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         }
 	}
 

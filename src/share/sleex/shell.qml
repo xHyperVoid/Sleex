@@ -17,12 +17,9 @@ import "./modules/screenCorners/"
 import "./modules/session/" 
 import "./modules/dashboard/"
 import "./modules/sidebarLeft/"
-<<<<<<< HEAD
 import "./modules/wallpaperSelector/"
 import "./modules/background/"
 
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -46,19 +43,12 @@ ShellRoot {
     property bool enableSession: true
     property bool enableSidebarLeft: true
     property bool enableDashboard: true
-<<<<<<< HEAD
     property bool enableWallSelector: false
     property bool enableBackground: true
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     // Force initialization of some singletons
     Component.onCompleted: {
         MaterialThemeLoader.reapplyTheme()
-<<<<<<< HEAD
-=======
-        ConfigLoader.loadConfig()
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         PersistentStateManager.loadStates()
         Cliphist.refresh()
         FirstRunExperience.load()
@@ -66,11 +56,7 @@ ShellRoot {
 
     LazyLoader { active: enableBar; component: Bar {} }
     LazyLoader { active: enableCheatsheet; component: Cheatsheet {} }
-<<<<<<< HEAD
     LazyLoader { active: enableDock && Config.options.dock.enabled; component: Dock {} }
-=======
-    LazyLoader { active: enableDock; component: Dock {} }
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     LazyLoader { active: enableMediaControls; component: MediaControls {} }
     LazyLoader { active: enableNotificationPopup; component: NotificationPopup {} }
     LazyLoader { active: enableOnScreenDisplayBrightness; component: OnScreenDisplayBrightness {} }
@@ -81,11 +67,8 @@ ShellRoot {
     LazyLoader { active: enableSession; component: Session {} }
     LazyLoader { active: enableSidebarLeft; component: SidebarLeft {} }
     LazyLoader { active: enableDashboard; component: Dashboard {} }
-<<<<<<< HEAD
     LazyLoader { active: enableWallSelector; component: WallpaperSelector {} }
     LazyLoader { active: enableBackground; component: Background {} }
     LazyLoader { active: GlobalStates.screenLocked; component: Lock {}}
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 }
 

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #!/usr/bin/env -S\_/bin/sh\_-xc\_"source\_\$(eval\_echo\_\$SLEEX_VIRTUAL_ENV)/bin/activate&&exec\_python\_-E\_"\$0"\_"\$@""
-=======
-#!/usr/bin/env -S\_/bin/sh\_-xc\_"source\_\$(eval\_echo\_\$ILLOGICAL_IMPULSE_VIRTUAL_ENV)/bin/activate&&exec\_python\_-E\_"\$0"\_"\$@""
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
 # From https://github.com/stwa/wayland-idle-inhibitor
 # License: WTFPL Version 2

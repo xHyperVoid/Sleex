@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
 import qs.modules.common.functions
 import qs.modules.common.functions
-=======
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/services"
-import "root:/modules/common/functions/string_utils.js" as StringUtils
-import "root:/modules/common/functions/file_utils.js" as FileUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Layouts
@@ -80,11 +72,7 @@ Item {
                 root.visualizerPoints = [];
             }
         }
-<<<<<<< HEAD
         command: ["cava", "-p", `/usr/share/sleex/scripts/cava/raw_output_config.txt`]
-=======
-        command: ["cava", "-p", `${FileUtils.trimFileProtocol(Directories.config)}/quickshell/scripts/cava/raw_output_config.txt`]
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         stdout: SplitParser {
             onRead: data => {
                 let points = data.split(";").map(p => parseFloat(p.trim())).filter(p => !isNaN(p));
@@ -93,7 +81,6 @@ Item {
         }
     }
 
-<<<<<<< HEAD
     Component.onDestruction: {
         if (cavaProc.running) {
             cavaProc.running = false
@@ -104,20 +91,10 @@ Item {
         anchors.fill: parent
         radius: Appearance.rounding.normal
         color: Appearance.colors.colLayer1
-=======
-    Rectangle {
-        anchors.fill: parent
-        radius: Appearance.rounding.normal
-        color: Appearance.colors.colLayer0
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
         PlayerControlBlank {
             anchors.fill: parent
             artDominantColor: Appearance.m3colors.m3secondaryContainer
-<<<<<<< HEAD
-=======
-            visualizerPoints: root.visualizerPoints
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         }
         
         Repeater {

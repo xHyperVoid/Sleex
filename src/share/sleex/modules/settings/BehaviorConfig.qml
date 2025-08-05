@@ -107,45 +107,11 @@ ContentPage {
     
         ContentSection {
             title: "Audio"
-            
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.topMargin: 4
-                Layout.bottomMargin: 8
-    
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: childrenRect.height + 25
-                    color: "#40FF9800"
-                    radius: 6
-    
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.margins: 10
-    
-                        Label {
-                            text: "🐞"
-                            font.pixelSize: 16 // Slightly smaller icon
-                            Layout.alignment: Qt.AlignVCenter
-                            rightPadding: 6
-                        }
-    
-                        Label {
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignVCenter
-                            text: "<b>TOGGLE BUG:</b> Manual edit required in <code>~/.sleex/settings.json</code>"
-                            font.pixelSize: 12
-                            wrapMode: Text.WordWrap
-                            textFormat: Text.RichText
-                            color: "white"
-                        }
-                    }
-                }
-            }
     
             ConfigSwitch {
                 text: "Earbang protection"
                 checked: Config.options.audio.protection.enable
+                onClicked: checked = !checked;
                 onCheckedChanged: {
                     Config.options.audio.protection.enable = checked;
                 }
@@ -171,44 +137,10 @@ ContentPage {
         ContentSection {
             title: "Battery"
     
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.topMargin: 4
-                Layout.bottomMargin: 8
-    
-                Rectangle {
-                    Layout.fillWidth: true
-                    height: childrenRect.height + 25
-                    color: "#40FF9800"
-                    radius: 6
-    
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.margins: 10
-    
-                        Label {
-                            text: "🐞"
-                            font.pixelSize: 14
-                            Layout.alignment: Qt.AlignVCenter
-                            rightPadding: 6
-                        }
-    
-                        Label {
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignVCenter
-                            text: "<b>TOGGLE BUG:</b> Manual edit required in <code>~/.sleex/settings.json</code>"
-                            font.pixelSize: 12
-                            wrapMode: Text.WordWrap
-                            textFormat: Text.RichText
-                            color: "white"
-                        }
-                    }
-                }
-            }
-    
             ConfigSwitch {
                 text: "Enable battery notification sounds"
                 checked: Config.options.battery.sound
+                onClicked: checked = !checked;
                 onCheckedChanged: {
                     // Clone and replace to trigger automatic save
                     let newOptions = Object.assign({}, Config.options);

@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import qs
 import qs.modules.common
-=======
-import "root:/"
-import "root:/modules/common"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

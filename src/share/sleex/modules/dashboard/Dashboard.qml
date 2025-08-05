@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
-=======
-import "root:/"
-import "root:/services"
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/modules/common/functions/string_utils.js" as StringUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import "./quickToggles/"
 import QtQuick
 import QtQuick.Controls
@@ -24,19 +16,11 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 
 Scope {
-<<<<<<< HEAD
     property int dashboardWidth: Appearance.sizes.dashboardWidth
     property int dashboardPadding: 15
 
     PanelWindow {
         id: dashboardRoot
-=======
-    property int sidebarWidth: Appearance.sizes.sidebarWidth
-    property int sidebarPadding: 15
-
-    PanelWindow {
-        id: sidebarRoot
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         visible: GlobalStates.dashboardOpen
 
         function hide() {
@@ -53,7 +37,6 @@ Scope {
 
         HyprlandFocusGrab {
             id: grab
-<<<<<<< HEAD
             windows: [ dashboardRoot ]
             active: GlobalStates.dashboardOpen
             onCleared: () => {
@@ -64,17 +47,6 @@ Scope {
 
         Loader {
             id: dashboardContentLoader
-=======
-            windows: [ sidebarRoot ]
-            active: GlobalStates.dashboardOpen
-            onCleared: () => {
-                if (!active) sidebarRoot.hide()
-            }
-        }
-
-        Loader {
-            id: sidebarContentLoader
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             active: GlobalStates.dashboardOpen
             anchors {
                 top: parent.top
@@ -86,21 +58,13 @@ Scope {
                 bottomMargin: Appearance.sizes.hyprlandGapsOut
                 leftMargin: Appearance.sizes.elevationMargin
             }
-<<<<<<< HEAD
             width: dashboardWidth - Appearance.sizes.hyprlandGapsOut - Appearance.sizes.elevationMargin
-=======
-            width: sidebarWidth - Appearance.sizes.hyprlandGapsOut - Appearance.sizes.elevationMargin
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             height: parent.height - Appearance.sizes.hyprlandGapsOut * 2
 
             focus: GlobalStates.dashboardOpen
             Keys.onPressed: (event) => {
                 if (event.key === Qt.Key_Escape) {
-<<<<<<< HEAD
                     dashboardRoot.hide();
-=======
-                    sidebarRoot.hide();
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 }
             }
 
@@ -110,34 +74,21 @@ Scope {
 
                 StyledRectangularShadow {
                     target: dashboardBackground
-<<<<<<< HEAD
                     visible: Config.options.appearance.transparency
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 }
                 Rectangle {
                     id: dashboardBackground
 
                     anchors.fill: parent
                     implicitHeight: parent.height - Appearance.sizes.hyprlandGapsOut * 2
-<<<<<<< HEAD
                     implicitWidth: dashboardWidth - Appearance.sizes.hyprlandGapsOut * 2
-=======
-                    implicitWidth: sidebarWidth - Appearance.sizes.hyprlandGapsOut * 2
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     color: Appearance.colors.colLayer0
                     radius: Appearance.rounding.screenRounding - Appearance.sizes.hyprlandGapsOut + 1
 
                     ColumnLayout {
-<<<<<<< HEAD
                         spacing: dashboardPadding
                         anchors.fill: parent
                         anchors.margins: dashboardPadding
-=======
-                        spacing: sidebarPadding
-                        anchors.fill: parent
-                        anchors.margins: sidebarPadding
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
                         RowLayout {
                             Layout.fillHeight: false
@@ -151,13 +102,8 @@ Scope {
                                 implicitHeight: distroIcon.height
                                 CustomIcon {
                                     id: distroIcon
-<<<<<<< HEAD
                                     width: 30
                                     height: 30
-=======
-                                    width: 25
-                                    height: 25
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                                     source: SystemInfo.distroIcon
                                 }
                                 ColorOverlay {
@@ -171,10 +117,6 @@ Scope {
                                 font.pixelSize: Appearance.font.pixelSize.normal
                                 color: Appearance.colors.colOnLayer0
                                 text: StringUtils.format(qsTr("Uptime: {0}"), DateTime.uptime)
-<<<<<<< HEAD
-=======
-                                textFormat: Text.MarkdownText
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                             }
 
                             Item {
@@ -197,19 +139,11 @@ Scope {
                                     toggled: false
                                     buttonIcon: "settings"
                                     onClicked: {
-<<<<<<< HEAD
                                         Hyprland.dispatch(`exec qs -p /usr/share/sleex/settings.qml`)
                                         Hyprland.dispatch(`global quickshell:dashboardClose`)
                                     }
                                     StyledToolTip {
                                         content: qsTr("Settings")
-=======
-                                        Hyprland.dispatch(`exec ${ConfigOptions.apps.settings}`)
-                                        Hyprland.dispatch(`global quickshell:dashboardClose`)
-                                    }
-                                    StyledToolTip {
-                                        content: qsTr("Plasma Settings")
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                                     }
                                 }
                                 QuickToggleButton {
@@ -244,11 +178,7 @@ Scope {
                             Layout.fillWidth: true
                             Layout.fillHeight: true
                             Layout.preferredHeight: 600
-<<<<<<< HEAD
                             Layout.preferredWidth: dashboardWidth - dashboardPadding * 2
-=======
-                            Layout.preferredWidth: sidebarWidth - sidebarPadding * 2
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
                             onCurrentTabChanged: {
                                 if (currentTab === "greetings") {
@@ -284,11 +214,7 @@ Scope {
 
     GlobalShortcut {
         name: "dashboardToggle"
-<<<<<<< HEAD
         description: qsTr("Toggles dashboard on press")
-=======
-        description: qsTr("Toggles right sidebar on press")
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
         onPressed: {
             GlobalStates.dashboardOpen = !GlobalStates.dashboardOpen;
@@ -297,11 +223,7 @@ Scope {
     }
     GlobalShortcut {
         name: "dashboardOpen"
-<<<<<<< HEAD
         description: qsTr("Opens dashboard on press")
-=======
-        description: qsTr("Opens right sidebar on press")
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
         onPressed: {
             GlobalStates.dashboardOpen = true;
@@ -310,11 +232,7 @@ Scope {
     }
     GlobalShortcut {
         name: "dashboardClose"
-<<<<<<< HEAD
         description: qsTr("Closes dashboard on press")
-=======
-        description: qsTr("Closes right sidebar on press")
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
         onPressed: {
             GlobalStates.dashboardOpen = false;

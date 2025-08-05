@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
-=======
-import "root:/"
-import "root:/services/"
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Controls
@@ -46,11 +38,7 @@ Item { // Window
     property var iconPath: Quickshell.iconPath(AppSearch.guessIcon(windowData?.class), "image-missing")
     property bool compactMode: Appearance.font.pixelSize.smaller * 4 > targetWindowHeight || Appearance.font.pixelSize.smaller * 4 > targetWindowWidth
 
-<<<<<<< HEAD
     property bool indicateXWayland: (Config.options.overview.showXwaylandIndicator && windowData?.xwayland) ?? false
-=======
-    property bool indicateXWayland: (ConfigOptions.overview.showXwaylandIndicator && windowData?.xwayland) ?? false
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     
     x: initX
     y: initY

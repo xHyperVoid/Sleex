@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
-=======
-import "root:/modules/common"
-import "root:/modules/common/widgets"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import "../"
 import Quickshell
 import Quickshell.Io

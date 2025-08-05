@@ -1,15 +1,8 @@
 import "../"
-<<<<<<< HEAD
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
-=======
-import "root:/services"
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/modules/common/functions/string_utils.js" as StringUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -22,11 +15,7 @@ QuickToggleButton {
         toggleBluetooth.running = true
     }
     altAction: () => {
-<<<<<<< HEAD
         Hyprland.dispatch(`exec ${Config.options.apps.bluetooth}`)
-=======
-        Hyprland.dispatch(`exec ${ConfigOptions.apps.bluetooth}`)
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             Hyprland.dispatch("global quickshell:dashboardClose")
     }
     Process {

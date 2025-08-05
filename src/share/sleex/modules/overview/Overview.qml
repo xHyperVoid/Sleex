@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
-=======
-import "root:/"
-import "root:/services"
-import "root:/modules/common"
-import "root:/modules/common/widgets"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -79,11 +72,7 @@ Scope {
 
             Timer {
                 id: delayedGrabTimer
-<<<<<<< HEAD
                 interval: Config.options.hacks.arbitraryRaceConditionDelay
-=======
-                interval: ConfigOptions.hacks.arbitraryRaceConditionDelay
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 repeat: false
                 onTriggered: {
                     if (!grab.canBeActive) return
@@ -96,10 +85,7 @@ Scope {
 
             function setSearchingText(text) {
                 searchWidget.setSearchingText(text);
-<<<<<<< HEAD
                 searchWidget.focusFirstItem();
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             }
 
             ColumnLayout {
@@ -107,13 +93,8 @@ Scope {
                 visible: GlobalStates.overviewOpen
                 anchors {
                     horizontalCenter: parent.horizontalCenter
-<<<<<<< HEAD
                     top: !Config.options.bar.bottom ? parent.top : undefined
                     bottom: Config.options.bar.bottom ? parent.bottom : undefined
-=======
-                    top: !ConfigOptions.bar.bottom ? parent.top : undefined
-                    bottom: ConfigOptions.bar.bottom ? parent.bottom : undefined
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 }
 
                 Keys.onPressed: (event) => {
@@ -225,11 +206,7 @@ Scope {
                 if (panelWindow.modelData.name == Hyprland.focusedMonitor.name) {
                     overviewScope.dontAutoCancelSearch = true;
                     panelWindow.setSearchingText(
-<<<<<<< HEAD
                         Config.options.search.prefix.clipboard
-=======
-                        ConfigOptions.search.prefix.clipboard
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     );
                     GlobalStates.overviewOpen = true;
                     return
@@ -252,11 +229,7 @@ Scope {
                 if (panelWindow.modelData.name == Hyprland.focusedMonitor.name) {
                     overviewScope.dontAutoCancelSearch = true;
                     panelWindow.setSearchingText(
-<<<<<<< HEAD
                         Config.options.search.prefix.emojis
-=======
-                        ConfigOptions.search.prefix.emojis
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     );
                     GlobalStates.overviewOpen = true;
                     return

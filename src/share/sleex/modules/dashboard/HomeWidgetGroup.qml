@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
@@ -6,14 +5,6 @@ import "./notifications"
 import "./calendar"
 import "../mediaControls"
 import "./weather"
-=======
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/services"
-import "./notifications"
-import "./calendar"
-import "../mediaControls"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Qt5Compat.GraphicalEffects
 import QtQuick
 import Quickshell.Io
@@ -23,11 +14,7 @@ import Quickshell
 
 Rectangle {
     id: root
-<<<<<<< HEAD
     color: "transparent"
-=======
-    color: Appearance.colors.colLayer0
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     
 
     RowLayout {
@@ -49,7 +36,6 @@ Rectangle {
                     anchors.centerIn: parent
                     spacing: 10
                 
-<<<<<<< HEAD
                     Rectangle {
                         id: userAvatar
                         width: 120
@@ -81,30 +67,13 @@ Rectangle {
 
                     Text {
                         text: qsTr("Welcome, %1!").arg(SystemInfo.username)
-=======
-                    AnimatedImage {
-                        id: userAvatar
-                        width: 150
-                        height: 150
-                        source: Directories.home + "/.sleex/user/avatar.gif"
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        fillMode: Image.PreserveAspectCrop
-                    }
-
-                    Text {
-                        text: qsTr("Welcome, %1!").arg(SystemInfo.getUsername)
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                         color: Appearance.colors.colOnLayer1
                         font.pixelSize: 30
                         font.bold: true
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
                     Text {
-<<<<<<< HEAD
                         text: Config.options.dashboard.userDesc
-=======
-                        text: qsTr("Today is a good day to have a good day!")
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                         color: Appearance.colors.colOnLayer1
                         font.pixelSize: 20
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -116,7 +85,6 @@ Rectangle {
                 color: Appearance.colors.colLayer1
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
-<<<<<<< HEAD
                 Layout.preferredHeight: 150
 
                 Column{
@@ -176,16 +144,6 @@ Rectangle {
                     }
                 }
                 
-=======
-                Layout.fillHeight: true
-            }
-
-            Rectangle {
-                color: Appearance.colors.colLayer1
-                radius: Appearance.rounding.normal
-                Layout.fillWidth: true
-                Layout.fillHeight: true
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             }
         }
         
@@ -209,7 +167,6 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-<<<<<<< HEAD
 
                 // Column {
                 //     anchors.left: parent.left
@@ -264,15 +221,4 @@ Rectangle {
         Layout.preferredHeight: 150
     }
 
-=======
-            }
-
-            // CalendarWidget {
-            //     Layout.fillWidth: true
-            //     Layout.fillHeight: true
-            // }
-        }
-    }
-
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 }

@@ -1,13 +1,8 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.functions
-=======
-import "root:/modules/common"
-import "root:/modules/common/functions/file_utils.js" as FileUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -20,11 +15,7 @@ import Quickshell.Hyprland
  */
 Singleton {
     id: root
-<<<<<<< HEAD
     property string keybindParserPath: FileUtils.trimFileProtocol(`/usr/share/sleex/scripts/hyprland/get_keybinds.py`)
-=======
-    property string keybindParserPath: FileUtils.trimFileProtocol(`${Directories.config}/quickshell/scripts/hyprland/get_keybinds.py`)
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property string defaultKeybindConfigPath: FileUtils.trimFileProtocol(`${Directories.config}/hypr/hyprland/keybinds.conf`)
     property string userKeybindConfigPath: FileUtils.trimFileProtocol(`${Directories.config}/hypr/custom/keybinds.conf`)
     property var defaultKeybinds: {"children": []}
@@ -50,11 +41,7 @@ Singleton {
     Process {
         id: getDefaultKeybinds
         running: true
-<<<<<<< HEAD
         command: ["python", root.keybindParserPath, "--path", root.defaultKeybindConfigPath,]
-=======
-        command: [root.keybindParserPath, "--path", root.defaultKeybindConfigPath,]
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         
         stdout: SplitParser {
             onRead: data => {

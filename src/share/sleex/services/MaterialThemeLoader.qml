@@ -1,11 +1,7 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-<<<<<<< HEAD
 import qs.modules.common
-=======
-import "root:/modules/common"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -38,11 +34,7 @@ Singleton {
 
     Timer {
         id: delayedFileRead
-<<<<<<< HEAD
         interval: Config.options?.hacks?.arbitraryRaceConditionDelay ?? 100
-=======
-        interval: ConfigOptions?.hacks?.arbitraryRaceConditionDelay ?? 100
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         repeat: false
         running: false
         onTriggered: {

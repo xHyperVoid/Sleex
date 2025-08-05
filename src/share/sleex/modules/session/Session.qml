@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 import qs
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
-=======
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -33,10 +27,6 @@ Scope {
             function hide() {
                 sessionLoader.active = false
             }
-<<<<<<< HEAD
-=======
-    
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
             exclusionMode: ExclusionMode.Ignore
             WlrLayershell.namespace: "quickshell:session"
@@ -102,11 +92,7 @@ Scope {
                         focus: sessionRoot.visible
                         buttonIcon: "lock"
                         buttonText: qsTr("Lock")
-<<<<<<< HEAD
                         onClicked:  GlobalStates.screenLocked = true; 
-=======
-                        onClicked:  { Hyprland.dispatch("exec loginctl lock-session"); sessionRoot.hide() }
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                         onFocusChanged: { if (focus) sessionRoot.subtitle = buttonText }
                         KeyNavigation.right: sessionSleep
                         KeyNavigation.down: sessionHibernate
@@ -135,11 +121,7 @@ Scope {
                         id: sessionTaskManager
                         buttonIcon: "browse_activity"
                         buttonText: qsTr("Task Manager")
-<<<<<<< HEAD
                         onClicked:  { Hyprland.dispatch(`exec ${Config.options.apps.taskManager}`); sessionRoot.hide() }
-=======
-                        onClicked:  { Hyprland.dispatch(`exec ${ConfigOptions.apps.taskManager}`); sessionRoot.hide() }
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                         onFocusChanged: { if (focus) sessionRoot.subtitle = buttonText }
                         KeyNavigation.left: sessionLogout
                         KeyNavigation.down: sessionFirmwareReboot

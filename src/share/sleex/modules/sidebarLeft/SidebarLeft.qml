@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
-=======
-import "root:/"
-import "root:/services"
-import "root:/modules/common"
-import "root:/modules/common/widgets"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -85,12 +78,6 @@ Scope { // Scope
                 id: grab
                 windows: [ sidebarRoot ]
                 active: sidebarRoot.visible
-<<<<<<< HEAD
-=======
-                onActiveChanged: { // Focus the selected tab
-                    if (active) sidebarLeftBackground.children[0].focusActiveItem()
-                }
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 onCleared: () => {
                     if (!active) sidebarRoot.hide()
                 }
@@ -100,10 +87,7 @@ Scope { // Scope
             StyledRectangularShadow {
                 target: sidebarLeftBackground
                 radius: sidebarLeftBackground.radius
-<<<<<<< HEAD
                 visible: Config.options.appearance.transparency
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             }
             Rectangle {
                 id: sidebarLeftBackground

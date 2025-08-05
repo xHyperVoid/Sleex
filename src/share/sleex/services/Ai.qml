@@ -1,14 +1,8 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-<<<<<<< HEAD
 import qs.modules.common.functions
 import qs.modules.common
-=======
-import "root:/modules/common/functions/string_utils.js" as StringUtils
-import "root:/modules/common/functions/object_utils.js" as ObjectUtils
-import "root:/modules/common"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Quickshell;
 import Quickshell.Io;
 import Qt.labs.platform
@@ -23,11 +17,7 @@ Singleton {
     readonly property string interfaceRole: "interface"
     readonly property string apiKeyEnvVarName: "API_KEY"
     property Component aiMessageComponent: AiMessageData {}
-<<<<<<< HEAD
     property string systemPrompt: Config.options?.ai?.systemPrompt ?? ""
-=======
-    property string systemPrompt: ConfigOptions?.ai?.systemPrompt ?? ""
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property var messages: []
     property var messageIDs: []
     property var messageByID: ({})
@@ -241,11 +231,7 @@ Singleton {
 
     Process {
         id: getOllamaModels
-<<<<<<< HEAD
         command: ["bash", "-c", `/usr/share/sleex/scripts/ai/show-installed-ollama-models.sh`.replace(/file:\/\//, "")]
-=======
-        command: ["bash", "-c", `${Directories.config}/quickshell/scripts/ai/show-installed-ollama-models.sh`.replace(/file:\/\//, "")]
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         stdout: SplitParser {
             onRead: data => {
                 try {
@@ -312,11 +298,7 @@ Singleton {
         if (modelList.indexOf(modelId) !== -1) {
             const model = models[modelId]
             // See if policy prevents online models
-<<<<<<< HEAD
             if (Config.options.policies.ai === 2 && !model.endpoint.includes("localhost")) {
-=======
-            if (ConfigOptions.policies.ai === 2 && !model.endpoint.includes("localhost")) {
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 root.addMessage(StringUtils.format(StringUtils.format("Online models disallowed\n\nControlled by `policies.ai` config option"), model.name), root.interfaceRole);
                 return;
             }
@@ -722,11 +704,7 @@ Singleton {
             addFunctionOutputMessage(name, qsTr("Switched to search mode. Continue with the user's request."))
             requester.makeRequest();
         } else if (name === "get_shell_config") {
-<<<<<<< HEAD
             const configJson = ObjectUtils.toPlainObject(Config.options)
-=======
-            const configJson = ObjectUtils.toPlainObject(ConfigOptions)
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             addFunctionOutputMessage(name, JSON.stringify(configJson));
             requester.makeRequest();
         } else if (name === "set_shell_config") {
@@ -736,12 +714,7 @@ Singleton {
             }
             const key = args.key;
             const value = args.value;
-<<<<<<< HEAD
             Config.setNestedValue(key, value);
-=======
-            ConfigLoader.setLiveConfigValue(key, value);
-            ConfigLoader.saveConfig();
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         }
         else root.addMessage(qsTr("Unknown function call: {0}"), "assistant");
     }

@@ -4,11 +4,7 @@ Item {
     id: root
 
     property int size: 25
-<<<<<<< HEAD
     property color color
-=======
-    property color color: "#000000"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     onColorChanged: {
         canvas.requestPaint();

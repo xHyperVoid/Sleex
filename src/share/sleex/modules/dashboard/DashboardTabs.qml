@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
 import qs.modules.common.functions
-=======
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/services"
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Effects
@@ -20,11 +13,7 @@ Item {
     property var tabButtonList: [
         {"icon": "rocket_launch", "name": qsTr("Home")}, 
         {"name": qsTr("Todo"), "icon": "checklist_rtl"},
-<<<<<<< HEAD
         // {"name": qsTr("Quick settings"), "icon": "settings"},
-=======
-        {"name": qsTr("Quick settings"), "icon": "settings"},
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     ]
     property int dialogMargins: 20
     property int fabSize: 48
@@ -124,10 +113,6 @@ Item {
             }
 
             HomeWidgetGroup {
-<<<<<<< HEAD
-=======
-                focus: sidebarRoot.visible
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -135,7 +120,6 @@ Item {
 
             TodoWidgetGroup {
                 Layout.alignment: Qt.AlignHCenter
-<<<<<<< HEAD
                 Layout.fillHeight: true
                 Layout.fillWidth: true
             }
@@ -145,18 +129,6 @@ Item {
             //     Layout.fillHeight: true
             //     Layout.fillWidth: true
             // }
-=======
-                Layout.fillHeight: false
-                Layout.fillWidth: true
-                Layout.preferredHeight: implicitHeight
-            }
-
-            SettingsWidgetGroup {
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         }
     }
 }

@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
 import qs.modules.common.functions
-=======
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/services"
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Effects
@@ -17,11 +10,7 @@ import QtQuick.Layouts
 Item {
     id: root
     property bool showAddDialog: false
-<<<<<<< HEAD
     property int dialogMargins: 400
-=======
-    property int dialogMargins: 50
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property int fabSize: 48
     property int fabMargins: 14
 

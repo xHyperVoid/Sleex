@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
-=======
-import "root:/"
-import "root:/services/"
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
@@ -25,22 +17,14 @@ Item {
     required property var panelWindow
     readonly property HyprlandMonitor monitor: Hyprland.monitorFor(panelWindow.screen)
     readonly property var toplevels: ToplevelManager.toplevels
-<<<<<<< HEAD
     readonly property int workspacesShown: Config.options.overview.numOfRows * Config.options.overview.numOfCols
-=======
-    readonly property int workspacesShown: ConfigOptions.overview.numOfRows * ConfigOptions.overview.numOfCols
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     readonly property int workspaceGroup: Math.floor((monitor.activeWorkspace?.id - 1) / workspacesShown)
     property bool monitorIsFocused: (Hyprland.focusedMonitor?.id == monitor.id)
     property var windows: HyprlandData.windowList
     property var windowByAddress: HyprlandData.windowByAddress
     property var windowAddresses: HyprlandData.addresses
     property var monitorData: HyprlandData.monitors.find(m => m.id === root.monitor.id)
-<<<<<<< HEAD
     property real scale: Config.options.overview.scale
-=======
-    property real scale: ConfigOptions.overview.scale
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property color activeBorderColor: Appearance.colors.colSecondary
 
     property real workspaceImplicitWidth: (monitorData?.transform % 2 === 1) ? 
@@ -87,30 +71,18 @@ Item {
             anchors.centerIn: parent
             spacing: workspaceSpacing
             Repeater {
-<<<<<<< HEAD
                 model: Config.options.overview.numOfRows
-=======
-                model: ConfigOptions.overview.numOfRows
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 delegate: RowLayout {
                     id: row
                     property int rowIndex: index
                     spacing: workspaceSpacing
 
                     Repeater { // Workspace repeater
-<<<<<<< HEAD
                         model: Config.options.overview.numOfCols
                         Rectangle { // Workspace
                             id: workspace
                             property int colIndex: index
                             property int workspaceValue: root.workspaceGroup * workspacesShown + rowIndex * Config.options.overview.numOfCols + colIndex + 1
-=======
-                        model: ConfigOptions.overview.numOfCols
-                        Rectangle { // Workspace
-                            id: workspace
-                            property int colIndex: index
-                            property int workspaceValue: root.workspaceGroup * workspacesShown + rowIndex * ConfigOptions.overview.numOfCols + colIndex + 1
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                             property color defaultWorkspaceColor: Appearance.colors.colLayer1 // TODO: reconsider this color for a cleaner look
                             property color hoveredWorkspaceColor: ColorUtils.mix(defaultWorkspaceColor, Appearance.colors.colLayer1Hover, 0.1)
                             property color hoveredBorderColor: Appearance.colors.colLayer2Hover
@@ -200,23 +172,14 @@ Item {
                     property bool atInitPosition: (initX == x && initY == y)
                     restrictToWorkspace: Drag.active || atInitPosition
 
-<<<<<<< HEAD
                     property int workspaceColIndex: (windowData?.workspace.id - 1) % Config.options.overview.numOfCols
                     property int workspaceRowIndex: Math.floor((windowData?.workspace.id - 1) % root.workspacesShown / Config.options.overview.numOfCols)
-=======
-                    property int workspaceColIndex: (windowData?.workspace.id - 1) % ConfigOptions.overview.numOfCols
-                    property int workspaceRowIndex: Math.floor((windowData?.workspace.id - 1) % root.workspacesShown / ConfigOptions.overview.numOfCols)
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     xOffset: (root.workspaceImplicitWidth + workspaceSpacing) * workspaceColIndex - (monitor?.x * root.scale)
                     yOffset: (root.workspaceImplicitHeight + workspaceSpacing) * workspaceRowIndex - (monitor?.y * root.scale)
 
                     Timer {
                         id: updateWindowPosition
-<<<<<<< HEAD
                         interval: Config.options.hacks.arbitraryRaceConditionDelay
-=======
-                        interval: ConfigOptions.hacks.arbitraryRaceConditionDelay
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                         repeat: false
                         running: false
                         onTriggered: {
@@ -283,13 +246,8 @@ Item {
             Rectangle { // Focused workspace indicator
                 id: focusedWorkspaceIndicator
                 property int activeWorkspaceInGroup: monitor.activeWorkspace?.id - (root.workspaceGroup * root.workspacesShown)
-<<<<<<< HEAD
                 property int activeWorkspaceRowIndex: Math.floor((activeWorkspaceInGroup - 1) / Config.options.overview.numOfCols)
                 property int activeWorkspaceColIndex: (activeWorkspaceInGroup - 1) % Config.options.overview.numOfCols
-=======
-                property int activeWorkspaceRowIndex: Math.floor((activeWorkspaceInGroup - 1) / ConfigOptions.overview.numOfCols)
-                property int activeWorkspaceColIndex: (activeWorkspaceInGroup - 1) % ConfigOptions.overview.numOfCols
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 x: (root.workspaceImplicitWidth + workspaceSpacing) * activeWorkspaceColIndex
                 y: (root.workspaceImplicitHeight + workspaceSpacing) * activeWorkspaceRowIndex
                 z: root.windowZ

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import qs.modules.common
 import QtQuick
 import QtQuick.Controls
@@ -6,12 +5,6 @@ import QtQuick.Controls
 /**
  * Does not include visual layout, but includes the easily neglected colors.
  */
-=======
-import "root:/modules/common"
-import QtQuick
-import QtQuick.Controls
-
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 TextArea {
     renderType: Text.NativeRendering
     selectedTextColor: Appearance.m3colors.m3onSecondaryContainer

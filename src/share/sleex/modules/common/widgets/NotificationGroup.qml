@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import qs.modules.common
 import qs.services
 import qs.modules.common.functions
 import qs.modules.common.functions
-=======
-import "root:/modules/common"
-import "root:/services"
-import "root:/modules/common/functions/string_utils.js" as StringUtils
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import "./notification_utils.js" as NotificationUtils
 import Qt5Compat.GraphicalEffects
 import QtQuick
@@ -68,11 +61,7 @@ Item { // Notification group area
         onFinished: () => {
             root.notifications.forEach((notif) => {
                 Qt.callLater(() => {
-<<<<<<< HEAD
                     Notifications.discardNotification(notif.notificationId);
-=======
-                    Notifications.discardNotification(notif.id);
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 });
             });
         }

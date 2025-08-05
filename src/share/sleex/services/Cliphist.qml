@@ -1,26 +1,15 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.functions
-=======
-import "root:/modules/common/functions/fuzzysort.js" as Fuzzy
-import "root:/modules/common/functions/levendist.js" as Levendist
-import "root:/modules/common"
-import "root:/"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import Quickshell
 import Quickshell.Io
 
 Singleton {
     id: root
-<<<<<<< HEAD
     property bool sloppySearch: Config.options?.search.sloppy ?? false
-=======
-    property bool sloppySearch: ConfigOptions?.search.sloppy ?? false
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property real scoreThreshold: 0.2
     property list<string> entries: []
     readonly property var preparedEntries: entries.map(a => ({
@@ -51,7 +40,6 @@ Singleton {
         readProc.running = true
     }
 
-<<<<<<< HEAD
     function copy(entry) {
         Quickshell.execDetached(["bash", "-c", `echo '${StringUtils.shellSingleQuoteEscape(entry)}' | cliphist decode | wl-copy`]);
     }
@@ -74,8 +62,6 @@ Singleton {
         deleteProc.deleteEntry(entry);
     }
 
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     Connections {
         target: Quickshell
         function onClipboardTextChanged() {
@@ -85,11 +71,7 @@ Singleton {
 
     Timer {
         id: delayedUpdateTimer
-<<<<<<< HEAD
         interval: Config.options.hacks.arbitraryRaceConditionDelay
-=======
-        interval: ConfigOptions.hacks.arbitraryRaceConditionDelay
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         repeat: false
         onTriggered: {
             root.refresh()
@@ -116,8 +98,4 @@ Singleton {
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fa28d8f (Initial commit of the quickshell migration)

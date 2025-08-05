@@ -1,18 +1,9 @@
-<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import "../"
 import qs.modules.common.functions
-=======
-import "root:/"
-import "root:/services"
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "../"
-import "root:/modules/common/functions/string_utils.js" as StringUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -256,13 +247,7 @@ Rectangle {
 
             spacing: 0
             Repeater {
-<<<<<<< HEAD
                 model: root.messageBlocks.length
-=======
-                model: ScriptModel {
-                    values: root.messageBlocks.map((block, index) => index)
-                }
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 delegate: Loader {
                     required property int index
                     property var thisBlock: root.messageBlocks[index]

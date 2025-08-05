@@ -1,11 +1,7 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
-<<<<<<< HEAD
 import qs.modules.common
-=======
-import "root:/modules/common"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Quickshell;
 import Quickshell.Io;
 import Qt.labs.platform

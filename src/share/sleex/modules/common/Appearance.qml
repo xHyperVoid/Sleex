@@ -1,10 +1,6 @@
 import QtQuick
 import Quickshell
-<<<<<<< HEAD
 import qs.modules.common.functions
-=======
-import "root:/modules/common/functions/color_utils.js" as ColorUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 pragma Singleton
 pragma ComponentBehavior: Bound
 
@@ -20,13 +16,8 @@ Singleton {
     property string syntaxHighlightingTheme
 
     // Extremely conservative transparency values for consistency and readability
-<<<<<<< HEAD
     property real transparency: Config.options?.appearance.transparency ? 0.5 : 0
     property real contentTransparency: Config.options?.appearance.transparency ? 0.55 : 0
-=======
-    property real transparency: ConfigOptions?.appearance.transparency ? (m3colors.darkmode ? 0.1 : 0) : 0
-    property real contentTransparency: ConfigOptions?.appearance.transparency ? (m3colors.darkmode ? 0.55 : 0) : 0
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     m3colors: QtObject {
         property bool darkmode: false
@@ -116,11 +107,7 @@ Singleton {
         property color colLayer1: ColorUtils.transparentize(ColorUtils.mix(m3colors.m3surfaceContainerLow, m3colors.m3background, 0.8), root.contentTransparency);
         property color colOnLayer1: m3colors.m3onSurfaceVariant;
         property color colOnLayer1Inactive: ColorUtils.mix(colOnLayer1, colLayer1, 0.45);
-<<<<<<< HEAD
         property color colLayer2: ColorUtils.transparentize(ColorUtils.mix(m3colors.m3surfaceContainer, m3colors.m3surfaceContainerHigh, 0.1), root.contentTransparency)
-=======
-        property color colLayer2: ColorUtils.transparentize(ColorUtils.mix(m3colors.m3surfaceContainer, m3colors.m3surfaceContainerHigh, 0.7), root.contentTransparency)
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         property color colOnLayer2: m3colors.m3onSurface;
         property color colOnLayer2Disabled: ColorUtils.mix(colOnLayer2, m3colors.m3background, 0.4);
         property color colLayer3: ColorUtils.transparentize(ColorUtils.mix(m3colors.m3surfaceContainerHigh, m3colors.m3onSurface, 0.96), root.contentTransparency)
@@ -139,18 +126,11 @@ Singleton {
         property color colPrimaryContainer: m3colors.m3primaryContainer
         property color colPrimaryContainerHover: ColorUtils.mix(colors.colPrimaryContainer, colLayer1Hover, 0.7)
         property color colPrimaryContainerActive: ColorUtils.mix(colors.colPrimaryContainer, colLayer1Active, 0.6)
-<<<<<<< HEAD
         property color colOnPrimaryContainer: m3colors.m3onPrimaryContainer
         property color colSecondary: m3colors.m3secondary
         property color colSecondaryHover: ColorUtils.mix(m3colors.m3secondary, colLayer1Hover, 0.85)
         property color colSecondaryActive: ColorUtils.mix(m3colors.m3secondary, colLayer1Active, 0.4)
         property color colSecondaryContainer: m3colors.m3secondaryContainer
-=======
-        property color colSecondary: m3colors.m3secondary
-        property color colSecondaryHover: ColorUtils.mix(m3colors.m3secondary, colLayer1Hover, 0.85)
-        property color colSecondaryActive: ColorUtils.mix(m3colors.m3secondary, colLayer1Active, 0.4)
-        property color colSecondaryContainer: ColorUtils.transparentize(m3colors.m3secondaryContainer, root.contentTransparency)
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         property color colSecondaryContainerHover: ColorUtils.mix(m3colors.m3secondaryContainer, colLayer1Hover, 0.6)
         property color colSecondaryContainerActive: ColorUtils.mix(m3colors.m3secondaryContainer, colLayer1Active, 0.54)
         property color colOnSecondaryContainer: m3colors.m3onSecondaryContainer
@@ -160,13 +140,8 @@ Singleton {
         property color colSurfaceContainerHighest: ColorUtils.transparentize(m3colors.m3surfaceContainerHighest, root.contentTransparency)
         property color colSurfaceContainerHighestHover: ColorUtils.mix(m3colors.m3surfaceContainerHighest, m3colors.m3onSurface, 0.95)
         property color colSurfaceContainerHighestActive: ColorUtils.mix(m3colors.m3surfaceContainerHighest, m3colors.m3onSurface, 0.85)
-<<<<<<< HEAD
         property color colTooltip: m3colors.m3inverseSurface
         property color colOnTooltip: m3colors.m3inverseOnSurface
-=======
-        property color colTooltip: m3colors.darkmode ? ColorUtils.mix(m3colors.m3background, "#3C4043", 0.5) : "#3C4043" // m3colors.m3inverseSurface in the specs, but the m3 website actually uses #3C4043
-        property color colOnTooltip: "#F8F9FA" // m3colors.m3inverseOnSurface in the specs, but the m3 website actually uses this color
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         property color colScrim: ColorUtils.transparentize(m3colors.m3scrim, 0.5)
         property color colShadow: ColorUtils.transparentize(m3colors.m3shadow, 0.7)
         property color colOutlineVariant: m3colors.m3outlineVariant
@@ -213,17 +188,13 @@ Singleton {
         readonly property list<real> expressiveSlowSpatial: [0.39, 1.29, 0.35, 0.98, 1, 1] // Default, 650ms
         readonly property list<real> expressiveEffects: [0.34, 0.80, 0.34, 1.00, 1, 1] // Default, 200ms
         readonly property list<real> emphasized: [0.05, 0, 2 / 15, 0.06, 1 / 6, 0.4, 5 / 24, 0.82, 0.25, 1, 1, 1]
-<<<<<<< HEAD
         readonly property list<real> emphasizedFirstHalf: [0.05, 0, 2 / 15, 0.06, 1 / 6, 0.4, 5 / 24, 0.82]
         readonly property list<real> emphasizedLastHalf: [5 / 24, 0.82, 0.25, 1, 1, 1]
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         readonly property list<real> emphasizedAccel: [0.3, 0, 0.8, 0.15, 1, 1]
         readonly property list<real> emphasizedDecel: [0.05, 0.7, 0.1, 1, 1, 1]
         readonly property list<real> standard: [0.2, 0, 0, 1, 1, 1]
         readonly property list<real> standardAccel: [0.3, 0, 1, 1, 1, 1]
         readonly property list<real> standardDecel: [0, 0, 0, 1, 1, 1]
-<<<<<<< HEAD
         readonly property real expressiveFastSpatialDuration: 350
         readonly property real expressiveDefaultSpatialDuration: 500
         readonly property real expressiveSlowSpatialDuration: 650
@@ -234,13 +205,6 @@ Singleton {
     animation: QtObject {
         property QtObject elementMove: QtObject {
             property int duration: animationCurves.expressiveDefaultSpatialDuration
-=======
-    }
-
-    animation: QtObject {
-        property QtObject elementMove: QtObject {
-            property int duration: 500
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             property int type: Easing.BezierSpline
             property list<real> bezierCurve: animationCurves.expressiveDefaultSpatial
             property int velocity: 650
@@ -286,11 +250,7 @@ Singleton {
             }
         }
         property QtObject elementMoveFast: QtObject {
-<<<<<<< HEAD
             property int duration: animationCurves.expressiveEffectsDuration
-=======
-            property int duration: 200
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
             property int type: Easing.BezierSpline
             property list<real> bezierCurve: animationCurves.expressiveEffects
             property int velocity: 850
@@ -330,20 +290,13 @@ Singleton {
 
     sizes: QtObject {
         property real barHeight: 40
-<<<<<<< HEAD
         property real barCenterSideModuleWidth: Config.options?.bar.verbose ? 360 : 140
-=======
-        property real barCenterSideModuleWidth: ConfigOptions?.bar.verbose ? 360 : 140
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         property real barCenterSideModuleWidthShortened: 280
         property real barCenterSideModuleWidthHellaShortened: 190
         property real barShortenScreenWidthThreshold: 1200 // Shorten if screen width is at most this value
         property real barHellaShortenScreenWidthThreshold: 1000 // Shorten even more...
         property real sidebarWidth: 460
-<<<<<<< HEAD
         property real dashboardWidth: 460
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
         property real sidebarWidthExtended: 750
         property real osdWidth: 200
         property real mediaControlsWidth: 478

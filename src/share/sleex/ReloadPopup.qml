@@ -34,10 +34,7 @@ Scope {
 		PanelWindow {
 			id: popup
 
-<<<<<<< HEAD
 			exclusiveZone: 0
-=======
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 			anchors.top: true
 			margins.top: 0
 
@@ -157,8 +154,4 @@ Scope {
             }
 		}
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fa28d8f (Initial commit of the quickshell migration)

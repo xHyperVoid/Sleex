@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
 import qs.modules.common.functions
 import qs.modules.common.functions
-=======
-import "root:/modules/common"
-import "root:/modules/common/widgets"
-import "root:/services"
-import "root:/modules/common/functions/string_utils.js" as StringUtils
-import "root:/modules/common/functions/file_utils.js" as FileUtils
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Qt5Compat.GraphicalEffects
 import Qt.labs.platform
 import QtQuick
@@ -26,11 +18,7 @@ IconImage {
     property string displayText
 
     property real size: 32
-<<<<<<< HEAD
     property string downloadUserAgent: Config.options?.networking.userAgent ?? ""
-=======
-    property string downloadUserAgent: ConfigOptions?.networking.userAgent ?? ""
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property string faviconDownloadPath: Directories.favicons
     property string domainName: url.includes("vertexaisearch") ? displayText : StringUtils.getDomain(url)
     property string faviconUrl: `https://www.google.com/s2/favicons?domain=${domainName}&sz=32`

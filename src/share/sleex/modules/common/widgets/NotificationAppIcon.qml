@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import qs.modules.common
-=======
-import "root:/modules/common"
->>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import "./notification_utils.js" as NotificationUtils
 import Qt5Compat.GraphicalEffects
 import QtQuick
