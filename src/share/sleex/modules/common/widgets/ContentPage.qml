@@ -14,6 +14,10 @@ Flickable {
     clip: true
     contentHeight: contentColumn.implicitHeight
     implicitWidth: contentColumn.implicitWidth
+
+    anchors {
+        bottomMargin: 50
+    }
     
     ColumnLayout {
         id: contentColumn

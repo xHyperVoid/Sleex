@@ -19,17 +19,17 @@ ContentPage {
             onCheckedChanged: Config.options.appearance.transparency = checked;
         }
 
-        // ConfigSpinBox {
-        //     id: transparencySpinBox
-        //     text: "Opacity"
-        //     value: Config.options.appearance.opacity
-        //     from: 0
-        //     to: 100
-        //     stepSize: 5
-        //     onValueChanged: {
-        //         Config.options.appearance.opacity = value / 100;
-        //     }
-        // }
+        ConfigSpinBox {
+            text: "Opacity"
+            value: Config.options.appearance.opacity
+            from: 0
+            to: 100
+            stepSize: 1
+            onValueChanged: {
+                Config.options.appearance.opacity = value;
+            }
+        }
+
     }
 
     ContentSection {
