@@ -2,7 +2,11 @@
 // License: LGPL-3.0 - A copy can be found in `licenses` folder of repo
 
 import QtQuick
+<<<<<<< HEAD
 import qs.modules.common
+=======
+import "root:/modules/common"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
 /**
  * Material 3 circular progress. See https://m3.material.io/components/progress-indicators/specs
@@ -18,7 +22,10 @@ Item {
     property real gapAngle: Math.PI / 9
     property bool fill: false
     property int fillOverflow: 2
+<<<<<<< HEAD
     property bool enableAnimation: true
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property int animationDuration: 1000
     property var easingType: Easing.OutCubic
 
@@ -84,7 +91,10 @@ Item {
         }
 
         Behavior on degree {
+<<<<<<< HEAD
             enabled: root.enableAnimation
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             NumberAnimation {
                 duration: root.animationDuration
                 easing.type: root.easingType

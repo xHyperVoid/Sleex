@@ -6,16 +6,23 @@ import Quickshell
 import Quickshell.Io
 
 /**
+<<<<<<< HEAD
  * Provides some system info: distro, username etc...
+=======
+ * Provides some system info: distro, username.
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
  */
 Singleton {
     property string distroName: "Unknown"
     property string distroId: "unknown"
     property string distroIcon: "linux-symbolic"
     property string username: "user"
+<<<<<<< HEAD
     property string axosVersion: ""
 
     property string sleexVersion: "Unknown"
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     Timer {
         triggeredOnStart: true
@@ -24,7 +31,10 @@ Singleton {
         repeat: false
         onTriggered: {
             getUsername.running = true
+<<<<<<< HEAD
             getSleexVersion.running = true
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             fileOsRelease.reload()
             const textOsRelease = fileOsRelease.text()
 
@@ -33,8 +43,11 @@ Singleton {
             const nameMatch = textOsRelease.match(/^NAME="(.+?)"/m)
             distroName = prettyNameMatch ? prettyNameMatch[1] : (nameMatch ? nameMatch[1].replace(/Linux/i, "").trim() : "Unknown")
 
+<<<<<<< HEAD
             if (distroName == "AxOS") axosVersion = axosVersionFile.text()
 
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             // Extract the ID (LOGO field, fallback to "unknown")
             const logoMatch = textOsRelease.match(/^LOGO=(.+)$/m)
             distroId = logoMatch ? logoMatch[1].replace(/"/g, "") : "unknown"
@@ -50,13 +63,18 @@ Singleton {
     Process {
         id: getUsername
         command: ["whoami"]
+<<<<<<< HEAD
         stdout: SplitParser {
+=======
+        stdout: {
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             onRead: data => {
                 username = data.trim();
             }
         }
     }
 
+<<<<<<< HEAD
     Process {
         id: getSleexVersion
         command: ["pacman", "-Q", "sleex"]
@@ -68,13 +86,18 @@ Singleton {
         }
     }
 
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     FileView {
         id: fileOsRelease
         path: "/etc/os-release"
     }
+<<<<<<< HEAD
 
     FileView {
         id: axosVersionFile
         path: "/etc/axos-version"
     }
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 }

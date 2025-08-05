@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
+=======
+import "root:/"
+import "root:/services"
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "root:/modules/common/functions/color_utils.js" as ColorUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Controls
@@ -48,7 +56,11 @@ Item {
                 var map = new Map();
 
                 // Pinned apps
+<<<<<<< HEAD
                 const pinnedApps = Config.options?.dock.pinnedApps ?? [];
+=======
+                const pinnedApps = ConfigOptions?.dock.pinnedApps ?? [];
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 for (const appId of pinnedApps) {
                     if (!map.has(appId.toLowerCase())) map.set(appId.toLowerCase(), ({
                         pinned: true,

@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import qs
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
 import qs.modules.common.functions
+=======
+import "root:/"
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "root:/services"
+import "root:/modules/common/functions/color_utils.js" as ColorUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -11,15 +19,22 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import Quickshell.Services.UPower
+<<<<<<< HEAD
 import Quickshell.Bluetooth
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
 Scope {
     id: bar
 
     readonly property int barHeight: Appearance.sizes.barHeight
     readonly property int osdHideMouseMoveThreshold: 20
+<<<<<<< HEAD
 
     property bool barBackground: Config.options.bar.background
+=======
+    property bool showBarBackground: ConfigOptions.bar.showBackground
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     component VerticalBarSeparator: Rectangle {
         Layout.topMargin: barHeight / 3
@@ -32,7 +47,11 @@ Scope {
     Variants { // For each monitor
         model: {
             const screens = Quickshell.screens;
+<<<<<<< HEAD
             const list = Config.options.bar.screenList;
+=======
+            const list = ConfigOptions.bar.screenList;
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             if (!list || list.length === 0)
                 return screens;
             return screens.filter(screen => list.includes(screen.name));
@@ -52,17 +71,27 @@ Scope {
                     Appearance.sizes.barCenterSideModuleWidth
 
             WlrLayershell.namespace: "quickshell:bar"
+<<<<<<< HEAD
             WlrLayershell.layer: WlrLayer.Top
             implicitHeight: barHeight + Appearance.rounding.screenRounding
             exclusiveZone: barHeight
+=======
+            implicitHeight: barHeight + Appearance.rounding.screenRounding
+            exclusiveZone: showBarBackground ? barHeight : (barHeight - 4)
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             mask: Region {
                 item: barContent
             }
             color: "transparent"
 
             anchors {
+<<<<<<< HEAD
                 top: !Config.options.bar.bottom
                 bottom: Config.options.bar.bottom
+=======
+                top: !ConfigOptions.bar.bottom
+                bottom: ConfigOptions.bar.bottom
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 left: true
                 right: true
             }
@@ -72,10 +101,17 @@ Scope {
                 anchors {
                     right: parent.right
                     left: parent.left
+<<<<<<< HEAD
                     top: !Config.options.bar.bottom ? parent.top : undefined
                     bottom: Config.options.bar.bottom ? parent.bottom : undefined
                 }
                 color: barBackground ? Appearance.colors.colLayer2 : "transparent"
+=======
+                    top: !ConfigOptions.bar.bottom ? parent.top : undefined
+                    bottom: ConfigOptions.bar.bottom ? parent.bottom : undefined
+                }
+                color: "transparent"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 height: barHeight
                 
                 MouseArea { // Left side | scroll to change brightness
@@ -102,7 +138,10 @@ Scope {
                             Hyprland.dispatch('global quickshell:sidebarLeftOpen')
                         }
                     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     // Scroll to change brightness
                     WheelHandler {
                         onWheel: (event) => {
@@ -148,11 +187,30 @@ Scope {
                             id: leftSectionRowLayout
                             anchors.fill: parent
                             spacing: 10
+<<<<<<< HEAD
                             visible: Config.options.bar.showTitle
                             
                             ActiveWindow {
                                 visible: barRoot.useShortenedForm === 0
                                 Layout.leftMargin: Appearance.rounding.screenRounding
+=======
+                            
+
+                            RippleButton { // Left sidebar button
+                                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                                Layout.fillWidth: false
+                                property real buttonPadding: 5
+                                implicitHeight: barHeight
+                                
+                                onPressed: {
+                                    Hyprland.dispatch('global quickshell:sidebarLeftToggle')
+                                }
+
+                            }
+
+                            ActiveWindow {
+                                visible: barRoot.useShortenedForm === 0
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                                 Layout.rightMargin: Appearance.rounding.screenRounding
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
@@ -161,6 +219,7 @@ Scope {
                         }
                     }
                 }
+<<<<<<< HEAD
                 
                 // Background Rectangle - completely outside the RowLayout
                 Rectangle {
@@ -200,10 +259,15 @@ Scope {
                 }
 
                 RowLayout { // Middle section - NO Rectangle inside here
+=======
+
+                RowLayout { // Middle section
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     id: middleSection
                     anchors.centerIn: parent
                     spacing: 0
 
+<<<<<<< HEAD
                     Revealer {
                         reveal: Config.options.bar.showRessources
                         Layout.fillHeight: true
@@ -240,12 +304,34 @@ Scope {
                             }
                         }
                     }
+=======
+                    RoundCorner {
+                        Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+                        size: Appearance.rounding.screenRounding
+                        corner: cornerEnum.topRight
+                        color: Appearance.colors.colLayer0
+                    }
+
+                    BarGroupL {
+                        id: leftCenterGroup
+                        Layout.fillHeight: true
+
+                        Resources {
+                            alwaysShowAllResources: barRoot.useShortenedForm === 2
+                            Layout.fillWidth: barRoot.useShortenedForm === 2
+                        }
+                    }
+
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
                     BarGroupCenter {
                         id: middleCenterGroup
                         padding: workspacesWidget.widgetPadding
                         Layout.fillHeight: true
+<<<<<<< HEAD
                         visible: Config.options.bar.showWorkspaces
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     
                         RoundCorner {
                             Layout.alignment: Qt.AlignTop | Qt.AlignRight
@@ -254,11 +340,39 @@ Scope {
                             color: Appearance.colors.colLayer1
                         }
 
+<<<<<<< HEAD
+=======
+                        Canvas {
+                            anchors.fill: parent 
+                            z: 0
+
+                            onPaint: {
+                                var ctx = getContext("2d");
+                                ctx.clearRect(0, 0, width, height);
+                                ctx.fillStyle = ConfigOptions?.bar.borderless ? "transparent" : Appearance.colors.colLayer1;
+                                ctx.beginPath();
+                                ctx.moveTo(0, 0);
+                                ctx.lineTo(width, 0);
+                                ctx.lineTo(width, height - 20);
+                                ctx.quadraticCurveTo(width, height, width - 20, height); // bottom-right
+                                ctx.lineTo(20, height);
+                                ctx.quadraticCurveTo(0, height, 0, height - 20);         // bottom-left
+                                ctx.lineTo(0, 0);
+                                ctx.closePath();
+                                ctx.fill();
+                            }
+
+                        }
+
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                         Workspaces {
                             id: workspacesWidget
                             bar: barRoot
                             Layout.fillHeight: true
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                             MouseArea { // Right-click to toggle overview
                                 anchors.fill: parent
                                 acceptedButtons: Qt.RightButton
@@ -269,6 +383,7 @@ Scope {
                                     }
                                 }
                             }
+<<<<<<< HEAD
 
                             Canvas {
                                 anchors.fill: parent 
@@ -291,6 +406,8 @@ Scope {
                                 }
 
                             }
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                         }
 
                         RoundCorner {
@@ -302,6 +419,7 @@ Scope {
 
                     }
 
+<<<<<<< HEAD
                     MaterialSymbol {
                         text: Config.options.bar.showClock ? "chevron_left" : "chevron_right"
                         iconSize: Appearance.font.pixelSize.larger
@@ -365,6 +483,28 @@ Scope {
                 }
 
 
+=======
+                    BarGroupR {
+                        id: rightCenterGroup
+                        Layout.fillHeight: true
+                        
+                        ClockWidget {
+                            showDate: (ConfigOptions.bar.verbose && barRoot.useShortenedForm < 2)
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.fillWidth: true
+                        }
+                    }
+
+                    RoundCorner {
+                        Layout.alignment: Qt.AlignTop | Qt.AlignRight
+                        size: Appearance.rounding.screenRounding
+                        corner: cornerEnum.topLeft
+                        color: Appearance.colors.colLayer0
+                    }
+
+                }
+
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 MouseArea { // Right side | scroll to change volume
                     id: barRightSideMouseArea
 
@@ -441,7 +581,10 @@ Scope {
                             anchors.fill: parent
                             spacing: 5
                             layoutDirection: Qt.RightToLeft
+<<<<<<< HEAD
                             visible: Config.options.bar.showTrayAndIcons
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                             
                     
                             RippleButton { // Right sidebar button
@@ -473,6 +616,7 @@ Scope {
                                     anchors.centerIn: parent
                                     property real realSpacing: 15
                                     spacing: 0
+<<<<<<< HEAD
 
                                     Revealer {
                                         reveal: Notifications.list.length > 0
@@ -489,6 +633,8 @@ Scope {
                                             width: indicatorsRowLayout.realSpacing * 2
                                         }
                                     }
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                                     
                                     Revealer {
                                         reveal: Audio.sink?.audio?.muted ?? false
@@ -529,6 +675,7 @@ Scope {
                                         text: Network.materialSymbol
                                         iconSize: Appearance.font.pixelSize.larger
                                         color: rightSidebarButton.colText
+<<<<<<< HEAD
 				                    }
                                     BluetoothIndicator {
                                         Layout.rightMargin: indicatorsRowLayout.realSpacing
@@ -536,10 +683,25 @@ Scope {
                                     BatteryIndicator {
                                         visible: (barRoot.useShortenedForm < 2 && UPower.displayDevice.isLaptopBattery)
                                         Layout.alignment: Qt.AlignVCenter
+=======
+                                    }
+                                    MaterialSymbol {
+                                        text: Bluetooth.bluetoothConnected ? "bluetooth_connected" : Bluetooth.bluetoothEnabled ? "bluetooth" : "bluetooth_disabled"
+                                        iconSize: Appearance.font.pixelSize.larger
+                                        color: rightSidebarButton.colText
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                                     }
                                 }
                             }
 
+<<<<<<< HEAD
+=======
+                            BatteryIndicator {
+                                visible: (barRoot.useShortenedForm < 2 && UPower.displayDevice.isLaptopBattery)
+                                Layout.alignment: Qt.AlignVCenter
+                            }
+
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                             SysTray {
                                 bar: barRoot
                                 visible: barRoot.useShortenedForm === 0

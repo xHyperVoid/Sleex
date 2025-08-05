@@ -1,8 +1,17 @@
 // pragma NativeMethodBehavior: AcceptThisObject
+<<<<<<< HEAD
 import qs
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
+=======
+import "root:/"
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "root:/modules/common/functions/color_utils.js" as ColorUtils
+import "root:/modules/common/functions/string_utils.js" as StringUtils
+import "root:/modules/common/functions/fuzzysort.js" as Fuzzy
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -16,12 +25,20 @@ RippleButton {
     property var entry
     property string query
     property bool entryShown: entry?.shown ?? true
+<<<<<<< HEAD
     property string itemType: entry?.type || qsTr("App")
+=======
+    property string itemType: entry?.type
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property string itemName: entry?.name
     property string itemIcon: entry?.icon ?? ""
     property var itemExecute: entry?.execute
     property string fontType: entry?.fontType ?? "main"
+<<<<<<< HEAD
     property string itemClickActionName: entry?.clickActionName ?? qsTr("Click to open")
+=======
+    property string itemClickActionName: entry?.clickActionName
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property string bigText: entry?.bigText ?? ""
     property string materialSymbol: entry?.materialSymbol ?? ""
     property string cliphistRawString: entry?.cliphistRawString ?? ""

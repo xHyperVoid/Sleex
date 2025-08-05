@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import qs.modules.common
+=======
+import "root:/modules/common"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -9,11 +13,17 @@ pragma ComponentBehavior: Bound
  * A nice wrapper for date and time strings.
  */
 Singleton {
+<<<<<<< HEAD
     property string time: Qt.formatDateTime(clock.date, Config.options?.time.format ?? "hh:mm")
     property string date: Qt.formatDateTime(clock.date, Config.options?.time.dateFormat ?? "dddd, dd/MM")
     property string collapsedCalendarFormat: Qt.formatDateTime(clock.date, "dd MMMM yyyy")
     property string longDateFormat: Qt.formatDateTime(clock.date, "dddd dd MMMM yyyy")
     property string year: Qt.formatDateTime(clock.date, "yyyy")
+=======
+    property string time: Qt.formatDateTime(clock.date, ConfigOptions?.time.format ?? "hh:mm")
+    property string date: Qt.formatDateTime(clock.date, ConfigOptions?.time.dateFormat ?? "dddd, dd/MM")
+    property string collapsedCalendarFormat: Qt.formatDateTime(clock.date, "dd MMMM yyyy")
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property string uptime: "0h, 0m"
 
     SystemClock {
@@ -41,7 +51,11 @@ Singleton {
             if (hours > 0) formatted += `${formatted ? ", " : ""}${hours}h`
             if (minutes > 0 || !formatted) formatted += `${formatted ? ", " : ""}${minutes}m`
             uptime = formatted
+<<<<<<< HEAD
             interval = Config.options?.resources?.updateInterval ?? 3000
+=======
+            interval = ConfigOptions?.resources?.updateInterval ?? 3000
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         }
     }
 

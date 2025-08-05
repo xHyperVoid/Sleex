@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
+=======
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -15,8 +20,13 @@ Scope {
         model: Quickshell.screens
 
         PanelWindow {
+<<<<<<< HEAD
             visible: (Config.options.appearance.fakeScreenRounding === 1 
                 || (Config.options.appearance.fakeScreenRounding === 2 
+=======
+            visible: (ConfigOptions.appearance.fakeScreenRounding === 1 
+                || (ConfigOptions.appearance.fakeScreenRounding === 2 
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     && !activeWindow?.fullscreen))
 
             property var modelData

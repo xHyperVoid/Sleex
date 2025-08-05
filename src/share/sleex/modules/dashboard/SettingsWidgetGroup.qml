@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
+=======
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "root:/services"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import "./volumeMixer"
 import Qt5Compat.GraphicalEffects
 import QtQuick
@@ -22,6 +28,7 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+<<<<<<< HEAD
                 
                 Text {
                     anchors.centerIn: parent
@@ -32,6 +39,8 @@ Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
 
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         }
         
         ColumnLayout {
@@ -43,6 +52,7 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+<<<<<<< HEAD
 
                 Text {
                     anchors.centerIn: parent
@@ -52,6 +62,8 @@ Rectangle {
                     font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             }
 
             VolumeMixer {
@@ -70,6 +82,7 @@ Rectangle {
                 radius: Appearance.rounding.normal
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+<<<<<<< HEAD
 
                 Text {
                     anchors.centerIn: parent
@@ -79,6 +92,22 @@ Rectangle {
                     font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
+=======
+            }
+
+            Rectangle {
+                color: Appearance.colors.colLayer1
+                radius: Appearance.rounding.normal
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+
+            Rectangle {
+                color: Appearance.colors.colLayer1
+                radius: Appearance.rounding.normal
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             }
         }
     }

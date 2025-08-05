@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
+=======
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "root:/modules/common/functions/color_utils.js" as ColorUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Controls

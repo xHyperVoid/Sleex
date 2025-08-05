@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import qs.modules.common
 import qs.services
 import qs.modules.common.functions
 import qs.modules.common.functions
+=======
+import "root:/modules/common"
+import "root:/services"
+import "root:/modules/common/functions/string_utils.js" as StringUtils
+import "root:/modules/common/functions/color_utils.js" as ColorUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import "./notification_utils.js" as NotificationUtils
 import Qt5Compat.GraphicalEffects
 import QtQuick
@@ -76,7 +83,11 @@ Item { // Notification item area
             easing.bezierCurve: Appearance.animation.elementMove.bezierCurve
         }
         onFinished: () => {
+<<<<<<< HEAD
             Notifications.discardNotification(notificationObject.notificationId);
+=======
+            Notifications.discardNotification(notificationObject.id);
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         }
     }
 
@@ -94,6 +105,15 @@ Item { // Notification item area
             }
         }
 
+<<<<<<< HEAD
+=======
+        onPressAndHold: (mouse) => {
+            if (mouse.button === Qt.LeftButton) {
+                Hyprland.dispatch(`exec wl-copy '${StringUtils.shellSingleQuoteEscape(notificationObject.body)}'`)
+                notificationSummaryText.text = String.format(qsTr("{0} (copied)"), notificationObject.summary)
+            }
+        }
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         onDraggingChanged: () => {
             if (dragging) {
                 root.qmlParent.dragIndex = root.index ?? root.parent.children.indexOf(root);
@@ -188,7 +208,10 @@ Item { // Notification item area
                     font.pixelSize: root.fontSize
                     color: Appearance.colors.colSubtext
                     elide: Text.ElideRight
+<<<<<<< HEAD
                     maximumLineCount: 1
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                     textFormat: Text.StyledText
                     text: {
                         return processNotificationBody(notificationObject.body, notificationObject.appName || notificationObject.summary).replace(/\n/g, "<br/>")
@@ -219,10 +242,21 @@ Item { // Notification item area
 
                     onLinkActivated: (link) => {
                         Qt.openUrlExternally(link)
+<<<<<<< HEAD
                         Hyprland.dispatch("global quickshell:sidebarRightClose")
                     }
                     
                     PointingHandLinkHover {}
+=======
+                        Hyprland.dispatch("global quickshell:dashboardClose")
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.NoButton // Only for hover
+                        hoverEnabled: true
+                        cursorShape: parent.hoveredLink !== "" ? Qt.PointingHandCursor : Qt.ArrowCursor
+                    }
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 }
 
                 Flickable { // Notification actions
@@ -274,7 +308,11 @@ Item { // Notification item area
                                 buttonText: modelData.text
                                 urgency: notificationObject.urgency
                                 onClicked: {
+<<<<<<< HEAD
                                     Notifications.attemptInvokeAction(notificationObject.notificationId, modelData.identifier);
+=======
+                                    Notifications.attemptInvokeAction(notificationObject.id, modelData.identifier);
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                                 }
                             }
                         }
@@ -286,7 +324,11 @@ Item { // Notification item area
                                 (contentItem.implicitWidth + leftPadding + rightPadding)
 
                             onClicked: {
+<<<<<<< HEAD
                                 Quickshell.clipboardText = notificationObject.body
+=======
+                                Hyprland.dispatch(`exec wl-copy '${StringUtils.shellSingleQuoteEscape(notificationObject.body)}'`)
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                                 copyIcon.text = "inventory"
                                 copyIconTimer.restart()
                             }
@@ -315,4 +357,8 @@ Item { // Notification item area
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)

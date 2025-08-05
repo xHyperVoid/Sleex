@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import qs
 import qs.modules.common
 import qs.modules.common.widgets
+=======
+import "root:/"
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

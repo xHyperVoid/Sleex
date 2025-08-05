@@ -1,7 +1,13 @@
 pragma Singleton
 
+<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.functions
+=======
+import "root:/modules/common"
+import "root:/modules/common/functions/fuzzysort.js" as Fuzzy
+import "root:/modules/common/functions/levendist.js" as Levendist
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Quickshell
 import Quickshell.Io
 
@@ -11,7 +17,11 @@ import Quickshell.Io
  */
 Singleton {
     id: root
+<<<<<<< HEAD
     property bool sloppySearch: Config.options?.search.sloppy ?? false
+=======
+    property bool sloppySearch: ConfigOptions?.search.sloppy ?? false
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property real scoreThreshold: 0.2
     property var substitutions: ({
         "code-url-handler": "visual-studio-code",
@@ -25,7 +35,11 @@ Singleton {
     })
     property var regexSubstitutions: [
         {
+<<<<<<< HEAD
             "regex": /^steam_app_(\d+)$/,
+=======
+            "regex": /^steam_app_(\\d+)$/,
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             "replace": "steam_icon_$1"
         },
         {
@@ -70,7 +84,10 @@ Singleton {
     }
 
     function iconExists(iconName) {
+<<<<<<< HEAD
         if (!iconName || iconName.length == 0) return false;
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         return (Quickshell.iconPath(iconName, true).length > 0) 
             && !iconName.includes("image-missing");
     }

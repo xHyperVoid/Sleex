@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
 import qs.modules.common.functions
 import qs.modules.common.functions
 import qs.modules.common.functions
+=======
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "root:/services"
+import "root:/modules/common/functions/string_utils.js" as StringUtils
+import "root:/modules/common/functions/color_utils.js" as ColorUtils
+import "root:/modules/common/functions/file_utils.js" as FileUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Effects
@@ -26,6 +35,10 @@ Item {
 
     property bool backgroundIsDark: artDominantColor.hslLightness < 0.5
     property QtObject blendedColors: QtObject {
+<<<<<<< HEAD
+=======
+        property color colLayer0: ColorUtils.mix(Appearance.colors.colLayer0, artDominantColor, (backgroundIsDark && Appearance.m3colors.darkmode) ? 0.6 : 0.5)
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         property color colLayer1: ColorUtils.mix(Appearance.colors.colLayer1, artDominantColor, 0.5)
         property color colOnLayer0: ColorUtils.mix(Appearance.colors.colOnLayer0, artDominantColor, 0.5)
         property color colOnLayer1: ColorUtils.mix(Appearance.colors.colOnLayer1, artDominantColor, 0.5)
@@ -60,6 +73,7 @@ Item {
         }
     }
 
+<<<<<<< HEAD
     Rectangle {
         id: background
         anchors.fill: parent
@@ -69,6 +83,38 @@ Item {
 
         // No blurred art or cover image for blank state
 
+=======
+    StyledRectangularShadow {
+        target: background
+    }
+    Rectangle {
+        id: background
+        anchors.fill: parent
+        color: blendedColors.colLayer0
+        radius: Appearance.rounding.normal
+
+        layer.enabled: true
+        layer.effect: OpacityMask {
+            maskSource: Rectangle {
+                width: background.width
+                height: background.height
+                radius: background.radius
+            }
+        }
+
+        // No blurred art or cover image for blank state
+
+        WaveVisualizer {
+            id: visualizerCanvas
+            anchors.fill: parent
+            live: false
+            points: []
+            maxVisualizerValue: 100
+            smoothing: 0
+            color: blendedColors.colPrimary
+        }
+
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         RowLayout {
             anchors.fill: parent
             anchors.margins: 13
@@ -80,6 +126,17 @@ Item {
                 implicitWidth: height
                 radius: Appearance.rounding.verysmall
                 color: ColorUtils.transparentize(blendedColors.colLayer1, 0.5)
+<<<<<<< HEAD
+=======
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    maskSource: Rectangle {
+                        width: artBackground.width
+                        height: artBackground.height
+                        radius: artBackground.radius
+                    }
+                }
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
                 MaterialSymbol {
                     anchors.centerIn: parent
                     iconSize: 40

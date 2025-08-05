@@ -38,7 +38,11 @@ def main():
     xdg_config_home = os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config"))
     xdg_state_home = os.environ.get("XDG_STATE_HOME", os.path.expanduser("~/.local/state"))
 
+<<<<<<< HEAD
     scss_file = os.path.join(xdg_state_home, "sleex", "user", "generated", "material_colors.scss")
+=======
+    scss_file = os.path.join(xdg_state_home, "quickshell", "user", "generated", "material_colors.scss")
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     svg_path = os.path.join(xdg_config_home, "Kvantum", "Colloid", "ColloidDark.svg")
     output_path = os.path.join(xdg_config_home, "Kvantum", "MaterialAdw", "MaterialAdw.svg")
 

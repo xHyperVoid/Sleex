@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
@@ -7,6 +8,15 @@ import qs.modules.common.widgets
 import "../"
 import qs.modules.common.functions
 import qs.modules.common.functions
+=======
+import "root:/"
+import "root:/services"
+import "root:/modules/common/"
+import "root:/modules/common/widgets"
+import "../"
+import "root:/modules/common/functions/string_utils.js" as StringUtils
+import "root:/modules/common/functions/file_utils.js" as FileUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

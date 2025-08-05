@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import qs.modules.common
+=======
+import "root:/modules/common"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick;
 
 /**

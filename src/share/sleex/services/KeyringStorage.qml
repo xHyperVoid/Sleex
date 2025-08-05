@@ -1,8 +1,13 @@
 pragma Singleton
 pragma ComponentBehavior: Bound
 
+<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.functions
+=======
+import "root:/modules/common"
+import "root:/modules/common/functions/string_utils.js" as StringUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Quickshell;
 import Quickshell.Io;
 import Qt.labs.platform
@@ -19,7 +24,11 @@ Singleton {
     property var keyringData: ({})
     
     property var properties: {
+<<<<<<< HEAD
         "application": "Sleex",
+=======
+        "application": "illogical-impulse",
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         "explanation": qsTr("For storing API keys and other sensitive information"),
     }
     property var propertiesAsArgs: Object.keys(root.properties).reduce(
@@ -27,7 +36,11 @@ Singleton {
             return arr.concat([key, root.properties[key]]);
         }, []
     )
+<<<<<<< HEAD
     property string keyringLabel: StringUtils.format(qsTr("{0} Safe Storage"), "Sleex")
+=======
+    property string keyringLabel: StringUtils.format(qsTr("{0} Safe Storage"), "illogical-impulse")
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     function setNestedField(path, value) {
         if (!root.keyringData) root.keyringData = {};
@@ -90,7 +103,11 @@ Singleton {
     Process {
         id: getData
         command: [ // We need to use echo for a newline so splitparser does parse
+<<<<<<< HEAD
             "bash", "-c", `echo $(secret-tool lookup 'application' 'Sleex')`,
+=======
+            "bash", "-c", `echo $(secret-tool lookup 'application' 'illogical-impulse')`,
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         ]
         stdout: SplitParser {
             onRead: data => {

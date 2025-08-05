@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
+=======
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "root:/modules/common/functions/color_utils.js" as ColorUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Controls
@@ -16,8 +22,13 @@ Button {
     id: root
     property bool toggled
     property string buttonText
+<<<<<<< HEAD
     property real buttonRadius: Appearance?.rounding?.small ?? 8
     property real buttonRadiusPressed: Appearance?.rounding?.small ?? 6
+=======
+    property real buttonRadius: Appearance?.rounding?.small ?? 4
+    property real buttonRadiusPressed: buttonRadius
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property var downAction // When left clicking (down)
     property var releaseAction // When left clicking (release)
     property var altAction // When right clicking
@@ -34,6 +45,21 @@ Button {
     Layout.fillHeight: (clickIndex - 1 <= parentGroup.children.indexOf(root) && parentGroup.children.indexOf(root) <= clickIndex + 1)
     implicitWidth: (root.down && bounce) ? clickedWidth : baseWidth
     implicitHeight: (root.down && bounce) ? clickedHeight : baseHeight
+<<<<<<< HEAD
+=======
+    
+    Behavior on implicitWidth {
+        animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)
+    }
+
+    Behavior on implicitHeight {
+        animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)
+    }
+
+    Behavior on radius {
+        animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
+    }
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     property color colBackground: ColorUtils.transparentize(Appearance?.colors.colLayer1Hover, 1) || "transparent"
     property color colBackgroundHover: Appearance?.colors.colLayer1Hover ?? "#E5DFED"
@@ -43,8 +69,11 @@ Button {
     property color colBackgroundToggledActive: Appearance?.colors.colPrimaryActive ?? "#D6CEE2"
 
     property real radius: root.down ? root.buttonRadiusPressed : root.buttonRadius
+<<<<<<< HEAD
     property real leftRadius: root.down ? root.buttonRadiusPressed : root.buttonRadius
     property real rightRadius: root.down ? root.buttonRadiusPressed : root.buttonRadius
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     property color color: root.enabled ? (root.toggled ? 
         (root.down ? colBackgroundToggledActive : 
             root.hovered ? colBackgroundToggledHover : 
@@ -61,6 +90,7 @@ Button {
         }
     }
 
+<<<<<<< HEAD
     Behavior on implicitWidth {
         animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)
     }
@@ -76,6 +106,8 @@ Button {
         animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
     }
 
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     MouseArea {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
@@ -105,10 +137,14 @@ Button {
 
     background: Rectangle {
         id: buttonBackground
+<<<<<<< HEAD
         topLeftRadius: root.leftRadius
         topRightRadius: root.rightRadius
         bottomLeftRadius: root.leftRadius
         bottomRightRadius: root.rightRadius
+=======
+        radius: root.radius
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         implicitHeight: 50
 
         color: root.color

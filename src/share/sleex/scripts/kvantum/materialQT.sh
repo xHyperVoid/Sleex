@@ -3,9 +3,15 @@
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+<<<<<<< HEAD
 CONFIG_DIR="/usr/share/sleex"
 CACHE_DIR="$XDG_CACHE_HOME/sleex"
 STATE_DIR="$XDG_STATE_HOME/sleex"
+=======
+CONFIG_DIR="$XDG_CONFIG_HOME/quickshell"
+CACHE_DIR="$XDG_CACHE_HOME/quickshell"
+STATE_DIR="$XDG_STATE_HOME/quickshell"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
 get_light_dark() {
 	current_mode=$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null | tr -d "'")

@@ -1,6 +1,7 @@
 function toPlainObject(qtObj) {
     if (qtObj === null || typeof qtObj !== "object") return qtObj;
 
+<<<<<<< HEAD
     // Handle true arrays
     if (Array.isArray(qtObj)) {
         return qtObj.map(item => toPlainObject(item));
@@ -19,6 +20,11 @@ function toPlainObject(qtObj) {
             arr.push(toPlainObject(qtObj[i]));
         }
         return arr;
+=======
+    // Handle arrays
+    if (Array.isArray(qtObj)) {
+        return qtObj.map(toPlainObject);
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     }
 
     const result = ({});
@@ -36,11 +42,15 @@ function toPlainObject(qtObj) {
             result[key] = toPlainObject(qtObj[key]);
         }
     }
+<<<<<<< HEAD
     // console.log(JSON.stringify(result))
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     return result;
 }
 
 function applyToQtObject(qtObj, jsonObj) {
+<<<<<<< HEAD
     // console.log("applyToQtObject", JSON.stringify(qtObj, null, 2), "<<", JSON.stringify(jsonObj, null, 2));
     if (!qtObj || typeof jsonObj !== "object" || jsonObj === null) return;
 
@@ -89,3 +99,23 @@ function applyToQtObject(qtObj, jsonObj) {
         }
     }
 }
+=======
+    if (!qtObj || typeof jsonObj !== "object" || jsonObj === null) return;
+
+    for (let key in jsonObj) {
+        if (!qtObj.hasOwnProperty(key)) continue;
+
+        // Check if the property is a QtObject (not a value)
+        const value = qtObj[key];
+        const jsonValue = jsonObj[key];
+
+        // If it's an object and not an array, recurse
+        if (value && typeof value === "object" && !Array.isArray(value)) {
+            applyToQtObject(value, jsonValue);
+        } else {
+            // Otherwise, assign the value
+            qtObj[key] = jsonValue;
+        }
+    }
+}
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)

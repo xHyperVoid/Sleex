@@ -16,13 +16,17 @@ Singleton {
     property var addresses: []
     property var windowByAddress: ({})
     property var monitors: []
+<<<<<<< HEAD
     property var layers: ({})
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     function updateWindowList() {
         getClients.running = true
         getMonitors.running = true
     }
 
+<<<<<<< HEAD
     function updateLayers() {
         getLayers.running = true
     }
@@ -30,6 +34,10 @@ Singleton {
     Component.onCompleted: {
         updateWindowList()
         updateLayers()
+=======
+    Component.onCompleted: {
+        updateWindowList()
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     }
 
     Connections {
@@ -71,6 +79,7 @@ Singleton {
             }
         }
     }
+<<<<<<< HEAD
 
     Process {
         id: getLayers
@@ -81,5 +90,7 @@ Singleton {
             }
         }
     }
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 }
 

@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
+=======
+import "root:/services/"
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -22,7 +28,11 @@ Scope {
 
     Timer {
         id: osdTimeout
+<<<<<<< HEAD
         interval: Config.options.osd.timeout
+=======
+        interval: ConfigOptions.osd.timeout
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
         repeat: false
         running: false
         onTriggered: {
@@ -66,8 +76,13 @@ Scope {
             color: "transparent"
 
             anchors {
+<<<<<<< HEAD
                 top: true
                 left: true
+=======
+                top: !ConfigOptions.bar.bottom
+                bottom: ConfigOptions.bar.bottom
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             }
             mask: Region {
                 item: osdValuesWrapper
@@ -149,4 +164,8 @@ Scope {
         }
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)

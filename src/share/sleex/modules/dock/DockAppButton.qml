@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.modules.common.functions
+=======
+import "root:/"
+import "root:/services"
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "root:/modules/common/functions/color_utils.js" as ColorUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Effects
@@ -72,6 +80,7 @@ DockButton {
         root.desktopEntry?.execute();
     }
 
+<<<<<<< HEAD
     altAction: () => {
         if (Config.options.dock.pinnedApps.indexOf(appToplevel.appId) !== -1) {
             Config.options.dock.pinnedApps = Config.options.dock.pinnedApps.filter(id => id !== appToplevel.appId)
@@ -80,6 +89,8 @@ DockButton {
         }
     }
 
+=======
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     contentItem: Loader {
         active: !isSeparator
         sourceComponent: Item {

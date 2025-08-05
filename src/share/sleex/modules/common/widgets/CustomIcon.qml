@@ -6,7 +6,11 @@ Item {
     id: root
     
     property string source: ""
+<<<<<<< HEAD
     property string iconFolder: Qt.resolvedUrl(Quickshell.shellPath("assets/icons"))  // The folder to check first
+=======
+    property string iconFolder: "root:/assets/icons"  // The folder to check first
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     width: 30
     height: 30
     

@@ -32,7 +32,11 @@ if __name__ == "__main__":
     xdg_state_home = os.environ.get("XDG_STATE_HOME", os.path.expanduser("~/.local/state"))
 
     config_file = os.path.join(xdg_config_home, "Kvantum", "MaterialAdw", "MaterialAdw.kvconfig")
+<<<<<<< HEAD
     scss_file = os.path.join(xdg_state_home, "sleex", "user", "generated", "material_colors.scss")
+=======
+    scss_file = os.path.join(xdg_state_home, "quickshell", "user", "generated", "material_colors.scss")
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
     # Define your mappings here
     mappings = {

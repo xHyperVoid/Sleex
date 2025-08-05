@@ -1,9 +1,20 @@
+<<<<<<< HEAD
 import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
 import "./aiChat/"
 import qs.modules.common.functions
+=======
+import "root:/"
+import "root:/services"
+import "root:/modules/common"
+import "root:/modules/common/widgets"
+import "./aiChat/"
+import "root:/modules/common/functions/fuzzysort.js" as Fuzzy
+import "root:/modules/common/functions/string_utils.js" as StringUtils
+import "root:/modules/common/functions/file_utils.js" as FileUtils
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -92,7 +103,11 @@ Mowe uwu wem ipsum!
 ### Formatting
 
 - *Italic*, \`Monospace\`, **Bold**, [Link](https://example.com)
+<<<<<<< HEAD
 - Arch lincox icon <img src="/usr/share/sleex/assets/icons/arch-symbolic.svg" height="${Appearance.font.pixelSize.small}"/>
+=======
+- Arch lincox icon <img src="/home/end/.config/quickshell/assets/icons/arch-symbolic.svg" height="${Appearance.font.pixelSize.small}"/>
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 
 ### Table
 
@@ -550,4 +565,8 @@ Inline w/ backslash and round brackets \\(e^{i\\pi} + 1 = 0\\)
         
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)

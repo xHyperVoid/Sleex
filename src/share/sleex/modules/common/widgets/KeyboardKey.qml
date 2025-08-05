@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import qs.modules.common
+=======
+import "root:/modules/common"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -15,7 +19,11 @@ Rectangle {
     property real extraBottomBorderWidth: 2
     property color borderColor: Appearance.colors.colOnLayer0
     property real borderRadius: 5
+<<<<<<< HEAD
     property color keyColor: Appearance.m3colors.m3surfaceContainerLow
+=======
+    property color keyColor: Appearance.colors.colSurfaceContainerLow
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
     implicitWidth: keyFace.implicitWidth + borderWidth * 2
     implicitHeight: keyFace.implicitHeight + borderWidth * 2 + extraBottomBorderWidth
     radius: borderRadius

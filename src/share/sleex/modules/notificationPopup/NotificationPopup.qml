@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import qs
 import qs.modules.common
 import qs.modules.common.widgets
 import qs.services
+=======
+import "root:/"
+import "root:/modules/common/"
+import "root:/modules/common/widgets"
+import "root:/services"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -23,6 +30,10 @@ Scope {
 
         anchors {
             top: true
+<<<<<<< HEAD
+=======
+            right: true
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
             bottom: true
         }
 
