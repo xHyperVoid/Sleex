@@ -12,6 +12,7 @@ import qs.modules.common.widgets
 ContentPage {
     forceWidth: true
 
+
     function getDeviceIcon(modelData) {
         const icon = modelData?.icon ?? "";
 
@@ -34,6 +35,7 @@ ContentPage {
 
     ContentSection {
         title: "Bluetooth settings"
+        visible: Bluetooth.adapters.length > 0
 
         RowLayout {
             spacing: 10
@@ -80,6 +82,8 @@ ContentPage {
         RippleButton {
             id: discoverBtn
 
+            visible: Bluetooth.adapters.length > 0
+
             contentItem: Rectangle {
                 id: discoverBtnBody
                 radius: Appearance.rounding.full
@@ -111,6 +115,14 @@ ContentPage {
     }
 
     ContentSection {
+
+
+        Text {
+            text: "No bluetooth adapter found"
+            color: Appearance.colors.colOnLayer1
+            font.pixelSize: 30
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        }
 
         Repeater {
             model: ScriptModel {

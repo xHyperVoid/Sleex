@@ -50,7 +50,7 @@ ApplicationWindow {
         {
             name: "Bluetooth",
             icon: "bluetooth",
-            component: "modules/settings/Bluetooth.qml"
+            component: "modules/settings/Bluetooth.qml",
         },
         // {
         //     name: "Wifi",
