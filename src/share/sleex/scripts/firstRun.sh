@@ -3,14 +3,6 @@
 # This script is run the first time the user logs in after installing Sleex.
 # It sets up the user's environment to use Sleex.
 
-echo 'Setting up Sleex environment...'
-echo 'true' > ~/.local/state/ags/user/show_monitor.txt
-echo 'true' > ~/.local/state/ags/user/show_timedate.txt
-echo 'true' > ~/.local/state/ags/user/show_workspaces.txt
-echo 'true' > ~/.local/state/ags/user/show_wintitle.txt
-
-cp /usr/share/sleex/modules/.configuration/default_config.json ~/.sleex/settings.json
-
 CONFIG_FILE="$HOME/.config/hypr/custom/general.conf"
 KEYBINDS_DIR="$HOME/.config/hypr/hyprland"
 VC_KEYMAP=$(grep -i KEYMAP /etc/vconsole.conf | cut -d= -f2 | tr -d '"')
@@ -35,7 +27,6 @@ elif [[ "$LAYOUT" == "fr" ]]; then
 else
     echo "Unknown layout: $LAYOUT – applying US keybinds."
     mv -f "$KEYBINDS_DIR/keybinds_us.conf" "$KEYBINDS_DIR/keybinds.conf"
-
 fi
 
 hyprctl reload

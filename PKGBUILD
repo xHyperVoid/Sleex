@@ -1,32 +1,36 @@
 pkgname="sleex"
-pkgver="0.30"
-pkgrel="3"
+<<<<<<< HEAD
+pkgver="1.0"
+pkgrel="24"
 pkgdesc="Third desktop environment for AxOS"
 arch=("x86_64")
 depends=(
-	"sleex-ags"
+=======
+pkgver="0.31"
+pkgrel="1"
+pkgdesc="Third desktop environment for AxOS"
+arch=("x86_64")
+depends=(
+	# "sleex-ags"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
 	"sleex-audio"
 	"sleex-backlight"
 	"sleex-basic"
 	"sleex-bibata-modern-classic-bin"
 	"sleex-fonts-themes"
-	"sleex-gnome"
-	"sleex-gtk"
+	"sleex-hyprland"
+	"sleex-kde"
 	"sleex-microtex-git"
-	"sleex-oneui4-icons-git"
 	"sleex-portal"
-	"sleex-pymyc-aur"
 	"sleex-python"
 	"sleex-screencapture"
+	"sleex-toolkit"
 	"sleex-widgets"
-	"axskel-hypr"
-	"axctl"
-	"sleex-control-center"
-	"hyprland"
+	"sleex-user-config"
 )
-optdepends=(
-	"sleex-optional: Optional packages"
-)
+# optdepends=(
+# 	"sleex-optional: Optional packages"
+# )
 
 
 package() {

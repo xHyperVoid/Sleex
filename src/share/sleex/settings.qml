@@ -1,0 +1,253 @@
+//@ pragma UseQApplication
+//@ pragma Env QS_NO_RELOAD_POPUP=1
+//@ pragma Env QT_QUICK_CONTROLS_STYLE=Basic
+
+// Adjust this to make the app smaller or larger
+//@ pragma Env QT_SCALE_FACTOR=1
+
+import Qt5Compat.GraphicalEffects
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Window
+import Quickshell
+import Quickshell.Io
+import Quickshell.Hyprland
+import qs.services
+import qs.modules.common
+import qs.modules.common.widgets
+import qs.modules.common.functions
+import qs.modules.common.functions
+import qs.modules.common.functions
+
+ApplicationWindow {
+    id: root
+    property string firstRunFilePath: FileUtils.trimFileProtocol(`${Directories.state}/user/first_run.txt`)
+    property string firstRunFileContent: "This file is just here to confirm you've been greeted :>"
+    property real contentPadding: 8
+    property bool showNextTime: false
+    property var pages: [
+        {
+            name: "Style",
+            icon: "palette",
+            component: "modules/settings/Style.qml"
+        },
+        {
+            name: "Interface",
+            icon: "space_dashboard",
+            component: "modules/settings/Interface.qml"
+        },
+        {
+            name: "Behavior",
+            icon: "settings",
+            component: "modules/settings/BehaviorConfig.qml"
+        },
+        // {
+        //     name: "Sound",
+        //     icon: "brand_awareness",
+        //     component: "modules/settings/Sound.qml"
+        // },
+        {
+            name: "Bluetooth",
+            icon: "bluetooth",
+            component: "modules/settings/Bluetooth.qml"
+        },
+        // {
+        //     name: "Wifi",
+        //     icon: "wifi",
+        //     component: "modules/settings/Wifi.qml"
+        // },
+        {
+            name: "About",
+            icon: "info",
+            component: "modules/settings/About.qml"
+        }
+    ]
+    property int currentPage: 0
+
+    visible: true
+    onClosing: Qt.quit()
+    title: "Sleex Settings"
+
+    Component.onCompleted: {
+        MaterialThemeLoader.reapplyTheme()
+    }
+
+    minimumWidth: 600
+    minimumHeight: 400
+    width: 900
+    height: 650
+    color: Appearance.colors.colLayer1
+
+    ColumnLayout {
+        anchors {
+            fill: parent
+            margins: contentPadding
+        }
+
+        // Item { // Titlebar
+        //     visible: Config.options?.windows.showTitlebar
+        //     Layout.fillWidth: true
+        //     Layout.fillHeight: false
+        //     implicitHeight: Math.max(titleText.implicitHeight, windowControlsRow.implicitHeight)
+        //     StyledText {
+        //         id: titleText
+        //         anchors {
+        //             left: Config.options.windows.centerTitle ? undefined : parent.left
+        //             horizontalCenter: Config.options.windows.centerTitle ? parent.horizontalCenter : undefined
+        //             verticalCenter: parent.verticalCenter
+        //             leftMargin: 12
+        //         }
+        //         color: Appearance.colors.colOnLayer0
+        //         text: "Settings"
+        //         font.pixelSize: Appearance.font.pixelSize.title
+        //         font.family: Appearance.font.family.title
+        //     }
+        //     RowLayout { // Window controls row
+        //         id: windowControlsRow
+        //         anchors.verticalCenter: parent.verticalCenter
+        //         anchors.right: parent.right
+        //         RippleButton {
+        //             buttonRadius: Appearance.rounding.full
+        //             implicitWidth: 35
+        //             implicitHeight: 35
+        //             onClicked: root.close()
+        //             contentItem: MaterialSymbol {
+        //                 anchors.centerIn: parent
+        //                 horizontalAlignment: Text.AlignHCenter
+        //                 text: "close"
+        //                 iconSize: 20
+        //             }
+        //         }
+        //     }
+        // }
+
+        RowLayout { // Window content with navigation rail and content pane
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            spacing: contentPadding
+            Item {
+                id: navRailWrapper
+                Layout.fillHeight: true
+                Layout.margins: 5
+                implicitWidth: navRail.expanded ? 150 : fab.baseSize
+                Behavior on implicitWidth {
+                    animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
+                }
+                NavigationRail { // Window content with navigation rail and content pane
+                    id: navRail
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
+                    }
+                    spacing: 10
+                    expanded: root.width > 800
+                    
+                    NavigationRailExpandButton {}
+
+                    FloatingActionButton {
+                        id: fab
+                        iconText: "edit"
+                        buttonText: "Edit config"
+                        expanded: navRail.expanded
+                        onClicked: {
+                            Qt.openUrlExternally(`${Directories.config}/illogical-impulse/config.json`);
+                        }
+
+                        StyledToolTip { 
+                            extraVisibleCondition: !navRail.expanded
+                            content: "Edit shell config file"
+                        }
+                    }
+
+                    NavigationRailTabArray {
+                        currentIndex: root.currentPage
+                        expanded: navRail.expanded
+                        Repeater {
+                            model: root.pages
+                            NavigationRailButton {
+                                required property var index
+                                required property var modelData
+                                toggled: root.currentPage === index
+                                onClicked: root.currentPage = index;
+                                expanded: navRail.expanded
+                                buttonIcon: modelData.icon
+                                buttonText: modelData.name
+                                showToggledHighlight: false
+                            }
+                        }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                    }
+                }
+            }
+            Rectangle { // Content container
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                color: Appearance.colors.colLayer0
+                radius: Appearance.rounding.windowRounding - root.contentPadding
+
+                Loader {
+                    id: pageLoader
+                    anchors.fill: parent
+                    opacity: 1.0
+                    source: root.pages[0].component
+                    Connections {
+                        target: root
+                        function onCurrentPageChanged() {
+                            if (pageLoader.sourceComponent !== root.pages[root.currentPage].component) {
+                                switchAnim.restart();
+                            }
+                        }
+                    }
+
+                    SequentialAnimation {
+                        id: switchAnim
+
+                        NumberAnimation {
+                            target: pageLoader
+                            properties: "opacity"
+                            from: 1
+                            to: 0
+                            duration: 150
+                            easing.type: Appearance.animation.elementMoveExit.type
+                            easing.bezierCurve: Appearance.animationCurves.emphasizedFirstHalf
+                        }
+                        PropertyAction {
+                            target: pageLoader
+                            property: "source"
+                            value: root.pages[root.currentPage].component
+                        }
+                        NumberAnimation {
+                            target: pageLoader
+                            properties: "opacity"
+                            from: 0
+                            to: 1
+                            duration: 250
+                            easing.type: Appearance.animation.elementMoveEnter.type
+                            easing.bezierCurve: Appearance.animationCurves.emphasizedLastHalf
+                        }
+                    }
+                }
+            }
+        }
+    }
+    IpcHandler {
+        target: "settings"
+
+        function openBluetoothPage() {
+            root.currentPage = 3
+        }
+    }
+    GlobalShortcut {
+        name: "openBluetoothPage"
+        description: qsTr("Open bluetooth page (obviously)")
+
+        onPressed: {
+            root.currentPage = 3;
+        }
+    }
+}

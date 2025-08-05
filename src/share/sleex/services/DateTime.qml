@@ -1,0 +1,68 @@
+<<<<<<< HEAD
+import qs.modules.common
+=======
+import "root:/modules/common"
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
+import QtQuick
+import Quickshell
+import Quickshell.Io
+pragma Singleton
+pragma ComponentBehavior: Bound
+
+/**
+ * A nice wrapper for date and time strings.
+ */
+Singleton {
+<<<<<<< HEAD
+    property string time: Qt.formatDateTime(clock.date, Config.options?.time.format ?? "hh:mm")
+    property string date: Qt.formatDateTime(clock.date, Config.options?.time.dateFormat ?? "dddd, dd/MM")
+    property string collapsedCalendarFormat: Qt.formatDateTime(clock.date, "dd MMMM yyyy")
+    property string longDateFormat: Qt.formatDateTime(clock.date, "dddd dd MMMM yyyy")
+    property string year: Qt.formatDateTime(clock.date, "yyyy")
+=======
+    property string time: Qt.formatDateTime(clock.date, ConfigOptions?.time.format ?? "hh:mm")
+    property string date: Qt.formatDateTime(clock.date, ConfigOptions?.time.dateFormat ?? "dddd, dd/MM")
+    property string collapsedCalendarFormat: Qt.formatDateTime(clock.date, "dd MMMM yyyy")
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
+    property string uptime: "0h, 0m"
+
+    SystemClock {
+        id: clock
+        precision: SystemClock.Minutes
+    }
+
+    Timer {
+        interval: 10
+        running: true
+        repeat: true
+        onTriggered: {
+            fileUptime.reload()
+            const textUptime = fileUptime.text()
+            const uptimeSeconds = Number(textUptime.split(" ")[0] ?? 0)
+
+            // Convert seconds to days, hours, and minutes
+            const days = Math.floor(uptimeSeconds / 86400)
+            const hours = Math.floor((uptimeSeconds % 86400) / 3600)
+            const minutes = Math.floor((uptimeSeconds % 3600) / 60)
+
+            // Build the formatted uptime string
+            let formatted = ""
+            if (days > 0) formatted += `${days}d`
+            if (hours > 0) formatted += `${formatted ? ", " : ""}${hours}h`
+            if (minutes > 0 || !formatted) formatted += `${formatted ? ", " : ""}${minutes}m`
+            uptime = formatted
+<<<<<<< HEAD
+            interval = Config.options?.resources?.updateInterval ?? 3000
+=======
+            interval = ConfigOptions?.resources?.updateInterval ?? 3000
+>>>>>>> fa28d8f (Initial commit of the quickshell migration)
+        }
+    }
+
+    FileView {
+        id: fileUptime
+
+        path: "/proc/uptime"
+    }
+
+}
