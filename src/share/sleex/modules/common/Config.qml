@@ -64,7 +64,6 @@ Singleton {
 
             property JsonObject appearance: JsonObject {
                 property bool transparency: false
-                property int opacity: 50
                 property JsonObject palette: JsonObject {
                     property string type: "auto" // Allowed: auto, scheme-content, scheme-expressive, scheme-fidelity, scheme-fruit-salad, scheme-monochrome, scheme-neutral, scheme-rainbow, scheme-tonal-spot
                 }
@@ -121,7 +120,7 @@ Singleton {
                 property real clockY: 0
                 property bool fixedClockPosition: true // If true, clock position is not updated when the screen resolution changes
                 property bool showWatermark: true // Whether to show the watermark
-                property string wallpaperPath: "/usr/share/sleex/wallpapers/SleexOne.png"
+                property string wallpaperPath: "/usr/share/sleex/wallpapers/skyline.jpg"
                 property string clockFontFamily: "Rubik"
             }
 
