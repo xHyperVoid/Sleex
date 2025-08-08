@@ -9,16 +9,12 @@ import Quickshell.Services.UPower
 import Quickshell.Widgets
 import Qt5Compat.GraphicalEffects
 
-Item {
+MouseArea {
     id: root
 
     property bool borderless: Config.options.bar.borderless
-    readonly property var chargeState: Battery.chargeState
     readonly property bool isCharging: Battery.isCharging
-    readonly property bool isPluggedIn: Battery.isPluggedIn
     readonly property real percentage: Battery.percentage
-    readonly property string remainingTime: Battery.remainingTime
-    readonly property string timeToEmpty: Battery.timeToEmpty
     readonly property bool isLow: percentage <= Config.options.battery.low / 100
     readonly property color batteryLowBackground: Appearance.m3colors.darkmode ?
         Appearance.m3colors.m3error : Appearance.m3colors.m3errorContainer
@@ -27,6 +23,8 @@ Item {
 
     implicitWidth: 75
     implicitHeight: 23
+
+    hoverEnabled: true
 
     // Pulses the background opacity for a subtle low-battery warning.
     SequentialAnimation {
@@ -154,32 +152,38 @@ Item {
         }
     }
 
-    MouseArea {
-        id: infoMouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        StyledToolTip {
-            // Formats the power time value into Hour Minute format.
-            content: {
-                const totalMinutes = parseInt(root.isCharging ? root.remainingTime : root.timeToEmpty);
-                if (isNaN(totalMinutes) || totalMinutes === null || totalMinutes < 0) {
-                    return `${Math.round(root.percentage * 100)}%`;
-                }
-                const hours = Math.floor(totalMinutes / 60);
-                const minutes = Math.round(totalMinutes % 60);
-                let timeString = "";
-                if (hours > 0) {
-                    timeString += `${hours}h`;
-                    if (minutes > 0) { timeString += ` ${minutes}m`; }
-                } else if (minutes > 0) {
-                    timeString = `${minutes}m`;
-                } else {
-                    timeString = "calculating...";
-                }
-                if (root.isCharging) { return `Charging, full in: ${timeString}`; }
-                else { return `Discharging, until empty: ${timeString}`; }
+    LazyLoader {
+        id: popupLoader
+        active: root.containsMouse
+
+        component: PanelWindow {
+            id: popupWindow
+            visible: true
+            color: "transparent"
+            exclusiveZone: 0
+
+            anchors.top: true
+            anchors.left: true
+
+            implicitWidth: batteryPopup.implicitWidth
+            implicitHeight: batteryPopup.implicitHeight
+
+            margins {
+                left: root.mapToGlobal(Qt.point(
+                    (root.width - batteryPopup.implicitWidth) / 2,
+                    0
+                )).x - 20
+                top: root.mapToGlobal(Qt.point(0, root.height)).y - 30 
             }
-            extraVisibleCondition: infoMouseArea.containsMouse
+
+            mask: Region {
+                item: batteryPopup
+            }
+
+            BatteryPopup {
+                id: batteryPopup
+                anchors.centerIn: parent
+            }
         }
     }
 }

@@ -53,8 +53,7 @@ Item {
         // }
 
         StyledText {
-            // Round the battery percentage to avoid decimal points
-            text: `${Math.round(device?.battery * 100 ?? 0)}%`
+            text: `${device?.battery * 100 ?? 0}%`
             visible: device?.batteryAvailable ?? false
         }
 
