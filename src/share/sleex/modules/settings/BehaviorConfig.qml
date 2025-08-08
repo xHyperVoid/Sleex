@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell.Services.UPower
 import qs.services
 import qs.modules.common
 import qs.modules.common.widgets
@@ -136,6 +137,8 @@ ContentPage {
     
         ContentSection {
             title: "Battery"
+
+            visible: UPower.displayDevice.isLaptopBattery
     
             ConfigSwitch {
                 text: "Enable battery notification sounds"
