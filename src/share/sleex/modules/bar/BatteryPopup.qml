@@ -13,7 +13,7 @@ Rectangle {
     readonly property real margin: 10
     implicitWidth: columnLayout.implicitWidth + margin * 2
     implicitHeight: columnLayout.implicitHeight + margin * 2
-    color: Appearance.colors.colLayer1
+    color: Appearance.m3colors.m3background
     radius: Appearance.rounding.small
     border.width: 1
     border.color: Appearance.colors.colLayer0
