@@ -10,6 +10,7 @@ import Quickshell
 Item {
     id: root
     required property var taskList;
+    required property var editingCallback;
     property string emptyPlaceholderIcon
     property string emptyPlaceholderText
     property int todoListItemSpacing: 5
@@ -56,6 +57,7 @@ Item {
                         property bool pendingDoneToggle: false
                         property bool pendingDelete: false
                         property bool enableHeightAnimation: false
+                        property bool pendingEdit: false
 
                         Layout.fillWidth: true
                         implicitHeight: todoItemRectangle.implicitHeight + todoListItemSpacing
@@ -120,8 +122,11 @@ Item {
                                     todoItem.pendingDoneToggle = false
                                     if (!modelData.done) Todo.markDone(modelData.originalIndex)
                                     else Todo.markUnfinished(modelData.originalIndex)
-                                }
-                                else if (todoItem.pendingDelete) {
+                                } else if (todoItem.pendingEdit) {
+                                    todoItem.pendingEdit = false
+                                    Todo.currentTodoItemData = modelData
+                                    root.editingCallback()
+                                } else if (todoItem.pendingDelete) {
                                     todoItem.pendingDelete = false
                                     Todo.deleteItem(modelData.originalIndex)
                                 }
@@ -229,6 +234,20 @@ Item {
                                             anchors.centerIn: parent
                                             horizontalAlignment: Text.AlignHCenter
                                             text: modelData.done ? "remove_done" : "check"
+                                            iconSize: Appearance.font.pixelSize.larger
+                                            color: Appearance.colors.colOnLayer1
+                                        }
+                                    }
+                                    TodoItemActionButton {
+                                        Layout.fillWidth: false
+                                        onClicked: {
+                                            todoItem.pendingEdit = true
+                                            todoItem.startAction(false)
+                                        }
+                                        contentItem: MaterialSymbol {
+                                            anchors.centerIn: parent
+                                            horizontalAlignment: Text.AlignHCenter
+                                            text: "edit"
                                             iconSize: Appearance.font.pixelSize.larger
                                             color: Appearance.colors.colOnLayer1
                                         }

@@ -9,7 +9,8 @@ import QtQuick.Layouts
 
 Item {
     id: root
-    property bool showAddDialog: false
+    property bool showDialog: false
+    property bool isDialogEdit: false
     property int dialogMargins: 400
     property int fabSize: 48
     property int fabMargins: 14
@@ -17,12 +18,14 @@ Item {
     Keys.onPressed: (event) => {
         // Open add dialog on "N" (any modifiers)
         if (event.key === Qt.Key_N) {
-            root.showAddDialog = true
+            root.showDialog = true
             event.accepted = true;
         }
         // Close dialog on Esc if open
-        else if (event.key === Qt.Key_Escape && root.showAddDialog) {
-            root.showAddDialog = false
+        else if (event.key === Qt.Key_Escape && root.showDialog) {
+            root.showDialog = false
+            root.isDialogEdit = false
+            Todo.currentTodoItemData = undefined
             event.accepted = true;
         }
     }
@@ -33,22 +36,26 @@ Item {
         spacing: 10
 
         TaskList {
+            id: unfinishedTaskList
             Layout.fillWidth: true
             Layout.fillHeight: true
             listBottomPadding: root.fabSize + root.fabMargins * 2
             emptyPlaceholderIcon: "check_circle"
             emptyPlaceholderText: qsTr("Nothing here!")
+            editingCallback: root.editingCallback
             taskList: Todo.list
                 .map(function(item, i) { return Object.assign({}, item, {originalIndex: i}); })
                 .filter(function(item) { return !item.done; })
         }
 
         TaskList {
+            id: doneTaskList
             Layout.fillWidth: true
             Layout.fillHeight: true
             listBottomPadding: root.fabSize + root.fabMargins * 2
             emptyPlaceholderIcon: "checklist_rtl"
             emptyPlaceholderText: qsTr("Finished tasks goes there!")
+            editingCallback: root.editingCallback
             taskList: Todo.list
                 .map(function(item, i) { return Object.assign({}, item, {originalIndex: i}); })
                 .filter(function(item) { return item.done; })
@@ -71,7 +78,7 @@ Item {
         height: root.fabSize
         PointingHandInteraction {}
 
-        onClicked: root.showAddDialog = true
+        onClicked: root.showDialog = true
 
         background: Rectangle {
             id: fabBackground
@@ -97,7 +104,7 @@ Item {
         z: 9999
 
         visible: opacity > 0
-        opacity: root.showAddDialog ? 1 : 0
+        opacity: root.showDialog ? 1 : 0
         Behavior on opacity {
             NumberAnimation { 
                 duration: Appearance.animation.elementMoveFast.duration
@@ -140,7 +147,17 @@ Item {
                 if (todoInput.text.length > 0) {
                     Todo.addTask(todoInput.text)
                     todoInput.text = ""
-                    root.showAddDialog = false
+                    root.showDialog = false
+                }
+            }
+
+            function editTask() {
+                if (todoInput.text.length > 0) {
+                    Todo.editTask(todoInput.text)
+                    todoInput.text = ""
+                    root.showDialog = false
+                    root.isDialogEdit = false
+                    Todo.currentTodoItemData = undefined
                 }
             }
 
@@ -156,7 +173,7 @@ Item {
                     Layout.alignment: Qt.AlignLeft
                     color: Appearance.m3colors.m3onSurface
                     font.pixelSize: Appearance.font.pixelSize.larger
-                    text: qsTr("Add task")
+                    text: root.isDialogEdit ? qsTr("Edit Task") : root.showDialog ? qsTr("Add Task") : ""
                 }
 
                 TextField {
@@ -171,8 +188,8 @@ Item {
                     selectionColor: Appearance.colors.colSecondaryContainer
                     placeholderText: qsTr("Task description")
                     placeholderTextColor: Appearance.m3colors.m3outline
-                    focus: root.showAddDialog
-                    onAccepted: dialog.addTask()
+                    focus: root.showDialog
+                    onAccepted: root.isDialogEdit ? dialog.editTask() : dialog.addTask()
 
                     background: Rectangle {
                         anchors.fill: parent
@@ -198,15 +215,25 @@ Item {
 
                     DialogButton {
                         buttonText: qsTr("Cancel")
-                        onClicked: root.showAddDialog = false
+                        onClicked: {
+                            root.showDialog = false
+                            root.isDialogEdit = false
+                            Todo.currentTodoItemData = undefined
+                        }
                     }
                     DialogButton {
-                        buttonText: qsTr("Add")
-                        enabled: todoInput.text.length > 0
-                        onClicked: dialog.addTask()
+                        buttonText: root.isDialogEdit ? qsTr("Edit") : qsTr("Add")
+                        enabled: todoInput.text.length > 0 && (!root.isDialogEdit || todoInput.text != Todo.currentTodoItemData?.content)
+                        onClicked: root.isDialogEdit ? dialog.editTask() : dialog.addTask()
                     }
                 }
             }
         }
+    }
+
+    function editingCallback() {
+        todoInput.text = Todo.currentTodoItemData.content
+        root.isDialogEdit = true
+        root.showDialog = true
     }
 }
