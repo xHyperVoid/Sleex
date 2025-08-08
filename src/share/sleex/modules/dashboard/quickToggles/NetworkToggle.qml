@@ -9,25 +9,17 @@ import Quickshell.Io
 import Quickshell.Hyprland
 
 QuickToggleButton {
-    toggled: Network.networkName.length > 0 && Network.networkName != "lo"
-    buttonIcon: Network.materialSymbol
+    
+    toggled: Network.wifiEnabled
+    buttonIcon: Network.wifiEnabled ? Network.getNetworkIcon(Network.active.strength ?? 0) : "wifi_off"
     onClicked: {
-        toggleNetwork.running = true
+        Network.toggleWifi()
     }
     altAction: () => {
         Hyprland.dispatch(`exec ${Network.ethernet ? Config.options.apps.networkEthernet : Config.options.apps.network}`)
         Hyprland.dispatch("global quickshell:dashboardClose")
     }
-    Process {
-        id: toggleNetwork
-        command: ["bash", "-c", "nmcli radio wifi | grep -q enabled && nmcli radio wifi off || nmcli radio wifi on"]
-        onRunningChanged: {
-            if(!running) {
-                Network.update()
-            }
-        }
-    }
     StyledToolTip {
-        content: StringUtils.format(qsTr("{0} | Right-click to configure"), Network.networkName)
+        content: StringUtils.format(qsTr("{0} | Right-click to configure"), Network.active.ssid)
     }
 }

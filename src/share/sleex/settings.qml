@@ -52,11 +52,11 @@ ApplicationWindow {
             icon: "bluetooth",
             component: "modules/settings/Bluetooth.qml"
         },
-        // {
-        //     name: "Wifi",
-        //     icon: "wifi",
-        //     component: "modules/settings/Wifi.qml"
-        // },
+        {
+            name: "Wifi",
+            icon: "wifi",
+            component: "modules/settings/Wifi.qml"
+        },
         {
             name: "About",
             icon: "info",
