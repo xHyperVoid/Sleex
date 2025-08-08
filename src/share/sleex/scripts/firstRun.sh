@@ -29,6 +29,14 @@ else
     mv -f "$KEYBINDS_DIR/keybinds_us.conf" "$KEYBINDS_DIR/keybinds.conf"
 fi
 
+if lsmod | grep -q '^nvidia'; then
+  echo "Nvidia GPU found"
+  {
+    echo "env = LIBVA_DRIVER_NAME,nvidia"
+    echo "env = __GLX_VENDOR_LIBRARY_NAME,nvidia"
+  } >> ~/.config/hypr/hyprland/env.conf
+fi
+
 hyprctl reload
 
 echo 'Complete!'
