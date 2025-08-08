@@ -122,6 +122,7 @@ ContentPage {
             color: Appearance.colors.colOnLayer1
             font.pixelSize: 30
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            visible: Bluetooth.adapters.length > 0
         }
 
         Repeater {
