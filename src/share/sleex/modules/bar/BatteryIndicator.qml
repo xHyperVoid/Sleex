@@ -169,10 +169,7 @@ MouseArea {
             implicitHeight: batteryPopup.implicitHeight
 
             margins {
-                left: root.mapToGlobal(Qt.point(
-                    (root.width - batteryPopup.implicitWidth) / 2,
-                    0
-                )).x - 20
+                left: root.mapToGlobal(Qt.point(0, root.width)).y - 30 
                 top: root.mapToGlobal(Qt.point(0, root.height)).y - 30 
             }
 
