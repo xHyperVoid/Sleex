@@ -10,18 +10,23 @@ Singleton {
     readonly property list<AccessPoint> networks: []
     readonly property AccessPoint active: networks.find(n => n.active) ?? null
     property bool wifiEnabled: true
+    property bool ethernet: false
     readonly property bool scanning: rescanProc.running
 
     function getNetworkIcon(strength: int): string {
-        if (strength >= 80)
-            return "signal_wifi_4_bar";
-        if (strength >= 60)
-            return "network_wifi_3_bar";
-        if (strength >= 40)
-            return "network_wifi_2_bar";
-        if (strength >= 20)
-            return "network_wifi_1_bar";
-        return "signal_wifi_0_bar";
+        if (ethernet) {
+            return "lan";
+        } else {
+            if (strength >= 80)
+                return "signal_wifi_4_bar";
+            if (strength >= 60)
+                return "network_wifi_3_bar";
+            if (strength >= 40)
+                return "network_wifi_2_bar";
+            if (strength >= 20)
+                return "network_wifi_1_bar";
+            return "signal_wifi_0_bar";
+        }
     }
 
     reloadableId: "network"
@@ -53,6 +58,22 @@ Singleton {
 
     function getWifiStatus(): void {
         wifiStatusProc.running = true;
+        isEthernet.running = true
+    }
+
+    Process {
+        id:  isEthernet
+
+        running: true
+        command: ["nmcli", "-t", "-f", "TYPE,DEVICE", "con", "show", "--active"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const isEthernet = outputText.split("\n").some(line =>
+                    line.startsWith("ethernet:") || line.startsWith("ethernet:")
+                )
+
+            }
+        }
     }
 
     Process {
