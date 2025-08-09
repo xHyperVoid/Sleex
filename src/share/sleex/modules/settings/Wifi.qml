@@ -17,11 +17,12 @@ ContentPage {
 
     Rectangle {
         Layout.fillWidth: true
-        height: childrenRect.height + 30
+        height: warnChildren.height + 40
         color: "#40FF9800"
         radius: 6
 
         RowLayout {
+            id: warnChildren
             anchors.fill: parent
             anchors.margins: 10
 
@@ -130,61 +131,112 @@ ContentPage {
                 readonly property bool isConnecting: root.connectingToSsid === modelData.ssid
                 readonly property bool loading: networkItem.isConnecting
 
+                property bool expanded: false
+
                 Layout.fillWidth: true
                 spacing: 10
 
-                RippleButton {
-                    id: netCard
-                    Layout.fillWidth: true
-                    implicitHeight: contentItem.implicitHeight + 8 * 2
+                
 
-                    contentItem: RowLayout {
-                        spacing: 10
+                Rectangle {
+                    id: netRect
+                    Layout.fillWidth: true
+                    implicitHeight: netCard.height  + dropDownBox.height
+                    radius: Appearance.rounding.small
+
+                    color: Appearance.colors.colLayer2
+                    
+                    ColumnLayout {
+                        width: parent.width
+                        id: netCard
 
                         RowLayout {
+                            anchors.centerIn: parent
+                            spacing: 10
+                            Layout.margins: 10
+                            
+                            RowLayout {
 
-                            MaterialSymbol {
-                                text: Network.getNetworkIcon(networkItem.modelData.strength)
-                                font.pixelSize: Appearance.font.pixelSize.title
-                                color: Appearance.colors.colOnSecondaryContainer
+                                MaterialSymbol {
+                                    text: Network.getNetworkIcon(networkItem.modelData.strength)
+                                    font.pixelSize: Appearance.font.pixelSize.title
+                                    color: Appearance.colors.colOnSecondaryContainer
+                                }
+
+                                MaterialSymbol {
+                                    visible: networkItem.modelData.isSecure
+                                    text: "lock"
+                                    font.pixelSize: Appearance.font.pixelSize.larger
+                                    color: Appearance.colors.colOnSecondaryContainer
+                                }
+
+                            }
+
+                            ColumnLayout {
+                                id: cardTexts
+
+                                StyledText {
+                                    Layout.fillWidth: true
+                                    text: networkItem.modelData.ssid
+                                    font.pixelSize: Appearance.font.pixelSize.large
+                                    font.weight: networkItem.modelData.active ? 500 : 400
+                                    color: networkItem.modelData.active ? Appearance.m3colors.m3primary : Appearance.colors.colOnLayer1
+                                }
                             }
 
                             MaterialSymbol {
                                 visible: networkItem.modelData.isSecure
-                                text: "lock"
+                                text: networkItem.expanded ? "keyboard_arrow_up" : "keyboard_arrow_down"
                                 font.pixelSize: Appearance.font.pixelSize.larger
                                 color: Appearance.colors.colOnSecondaryContainer
-                            }
 
-                        }
-
-                        ColumnLayout {
-                            id: cardTexts
-
-                            StyledText {
-                                Layout.fillWidth: true
-                                text: networkItem.modelData.ssid
-                                font.pixelSize: Appearance.font.pixelSize.large
-                                font.weight: networkItem.modelData.active ? 500 : 400
-                                color: networkItem.modelData.active ? Appearance.m3colors.m3primary : Appearance.colors.colOnLayer1
-                            }
-                        }
-
-                        StyledSwitch {
-                            scale: 0.80
-                            Layout.fillWidth: false
-                            checked: networkItem.modelData.active
-                            onClicked: {
-                                if (!checked) {
-                                    Network.disconnectFromNetwork();
-                                } else {
-                                    root.connectingToSsid = networkItem.modelData.ssid;
-                                    Network.connectToNetwork(networkItem.modelData.ssid, "");
+                                MouseArea {
+                                    anchors.fill: parent
+                                    cursorShape: Qt.PointingHandCursor
+                                    onPressed: {
+                                        networkItem.expanded = !networkItem.expanded
+                                    }
                                 }
+                            }
+
+                            StyledSwitch {
+                                scale: 0.80
+                                Layout.fillWidth: false
+                                checked: networkItem.modelData.active
+                                onClicked: {
+                                    if (!checked) {
+                                        Network.disconnectFromNetwork();
+                                    } else {
+                                        root.connectingToSsid = networkItem.modelData.ssid;
+                                        Network.connectToNetwork(networkItem.modelData.ssid, "");
+                                    }
+                                }
+                            }
+                        }
+
+                        Rectangle {
+                            id: dropDownBox
+                            Layout.fillWidth: true
+                            height: networkItem.expanded ? 80 : 0
+                            color: "transparent"
+                            opacity: networkItem.expanded ? 1 : 0
+                            visible: height > 0
+
+                            Behavior on height { NumberAnimation { duration: 150; easing.type: Easing.InOutQuad } }
+                            Behavior on opacity { NumberAnimation { duration: 150 } }
+
+                            ColumnLayout {
+                                anchors.fill: parent
+                                anchors.margins: 8
+                                spacing: 4
+                                StyledText { text: "BSSID: " + networkItem.modelData.bssid }
+                                StyledText { text: "Fréquence: " + networkItem.modelData.frequency }
+                                StyledText { text: "Sécurité: " + networkItem.modelData.security }
                             }
                         }
                     }
                 }
+
             }
         }
     }
