@@ -36,3 +36,11 @@ output_path = '~/.local/state/sleex/user/generated/wallpaper/path.txt'
 [templates.discord]
 input_path = '~/.config/matugen/templates/discord.css'
 output_path = '~/.config/vesktop/themes/discord.css'
+
+[templates.vscode]
+input_path = '~/.config/matugen/templates/vscode.json'
+output_path = "~/.vscode/extensions/sleex-theme/themes/sleex.json"
+
+[templates.zed]
+input_path = '~/.config/matugen/templates/zed.json'
+output_path = "~/.config/zed/themes/sleex.json"
