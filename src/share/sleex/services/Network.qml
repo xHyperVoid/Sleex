@@ -8,6 +8,7 @@ Singleton {
     id: root
 
     readonly property list<AccessPoint> networks: []
+    property var knownSsids: [] // store known network names
     readonly property AccessPoint active: networks.find(n => n.active) ?? null
     property bool wifiEnabled: true
     property bool ethernet: false
@@ -46,8 +47,12 @@ Singleton {
     }
 
     function connectToNetwork(ssid: string, password: string): void {
-        // TODO: Implement password
-        connectProc.exec(["nmcli", "conn", "up", ssid]);
+        if (root.knownSsids.includes(ssid.toLowerCase())) {
+            connectProc.exec(["nmcli", "conn", "up", ssid]);
+        } else {
+            connectProc.exec(["nmcli", "dev", "wifi", "connect", ssid, "password", password])
+        }
+        
     }
 
     function disconnectFromNetwork(): void {
@@ -56,10 +61,41 @@ Singleton {
         }
     }
 
+    function forgetNetwork(ssid: string): void {
+        disconnectProc.exec(["nmcli", "connection", "delete", "id", ssid])
+    }
+
     function getWifiStatus(): void {
         wifiStatusProc.running = true;
         isEthernet.running = true
     }
+
+    
+Process {
+    id: isKnown
+
+    running: true
+    command: ["nmcli", "-t", "-f", "NAME,TYPE", "connection", "show"]
+    environment: ({
+        LANG: "C",
+        LC_ALL: "C"
+    })
+    stdout: StdioCollector {
+        onStreamFinished: {
+
+            root.knownSsids = text.trim()
+                .split("\n")
+                .map(line => {
+                    const idx = line.lastIndexOf(":");
+                    if (idx === -1) return null;
+                    const name = line.slice(0, idx);
+                    const type = line.slice(idx + 1);
+                    return type === "802-11-wireless" ? name.toLowerCase() : null;
+                })
+                .filter(s => s && s.length > 0);
+        }
+    }
+}
 
     Process {
         id:  isEthernet
@@ -160,7 +196,8 @@ Singleton {
                         frequency: parseInt(net[2]),
                         ssid: net[3],
                         bssid: net[4]?.replace(rep2, ":") ?? "",
-                        security: net[5] || ""
+                        security: net[5] || "",
+                        isKnown: root.knownSsids.includes(net[3]?.toLowerCase())
                     };
                 }).filter(n => n.ssid && n.ssid.length > 0);
 
@@ -215,6 +252,7 @@ Singleton {
         readonly property bool active: lastIpcObject.active
         readonly property string security: lastIpcObject.security
         readonly property bool isSecure: security.length > 0
+        readonly property bool isKnown: lastIpcObject.isKnown
     }
 
     Component {

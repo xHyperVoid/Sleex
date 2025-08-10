@@ -15,35 +15,35 @@ ContentPage {
 
     property string connectingToSsid: ""
 
-    Rectangle {
-        Layout.fillWidth: true
-        height: warnChildren.height + 40
-        color: "#40FF9800"
-        radius: 6
+    // Rectangle {
+    //     Layout.fillWidth: true
+    //     height: warnChildren.height + 40
+    //     color: "#40FF9800"
+    //     radius: 6
 
-        RowLayout {
-            id: warnChildren
-            anchors.fill: parent
-            anchors.margins: 10
+    //     RowLayout {
+    //         id: warnChildren
+    //         anchors.fill: parent
+    //         anchors.margins: 10
 
-            Label {
-                text: "🚧"
-                font.pixelSize: 16 // Slightly smaller icon
-                Layout.alignment: Qt.AlignVCenter
-                rightPadding: 6
-            }
+    //         Label {
+    //             text: "🚧"
+    //             font.pixelSize: 16 // Slightly smaller icon
+    //             Layout.alignment: Qt.AlignVCenter
+    //             rightPadding: 6
+    //         }
 
-            Label {
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignVCenter
-                text: "<b>WORK IN PROGRESS:</b> This module is incomplete. You can connect and disconnect to known devices, nothing else.</code>"
-                font.pixelSize: 12
-                wrapMode: Text.WordWrap
-                textFormat: Text.RichText
-                color: "white"
-            }
-        }
-    }
+    //         Label {
+    //             Layout.fillWidth: true
+    //             Layout.alignment: Qt.AlignVCenter
+    //             text: "<b>WORK IN PROGRESS:</b> This module is incomplete. You can connect and disconnect to known devices, nothing else.</code>"
+    //             font.pixelSize: 12
+    //             wrapMode: Text.WordWrap
+    //             textFormat: Text.RichText
+    //             color: "white"
+    //         }
+    //     }
+    // }
 
     ContentSection {
         title: "Wifi settings"
@@ -57,6 +57,9 @@ ContentPage {
                 checked: Network.wifiEnabled
                 onCheckedChanged: {
                     Network.enableWifi(checked)
+                }
+                StyledToolTip {
+                    content: "Doesn't works idk why"
                 }
             }
         }
@@ -151,7 +154,6 @@ ContentPage {
                         id: netCard
 
                         RowLayout {
-                            anchors.centerIn: parent
                             spacing: 10
                             Layout.margins: 10
                             
@@ -200,16 +202,24 @@ ContentPage {
                             }
 
                             StyledSwitch {
+                                id: toggleSwitch
                                 scale: 0.80
                                 Layout.fillWidth: false
                                 checked: networkItem.modelData.active
+                                enabled: networkItem.modelData.isKnown
                                 onClicked: {
                                     if (!checked) {
                                         Network.disconnectFromNetwork();
                                     } else {
                                         root.connectingToSsid = networkItem.modelData.ssid;
                                         Network.connectToNetwork(networkItem.modelData.ssid, "");
+                                        networkItem.expanded = false
                                     }
+                                }
+                                StyledToolTip {
+                                    content: "Unlock first. Expand to enter password."
+                                    visible: !networkItem.modelData.isKnown
+                                    extraVisibleCondition: toggleSwitch.containsMouse
                                 }
                             }
                         }
@@ -217,7 +227,7 @@ ContentPage {
                         Rectangle {
                             id: dropDownBox
                             Layout.fillWidth: true
-                            height: networkItem.expanded ? 80 : 0
+                            height: networkItem.expanded ? 140 : 0
                             color: "transparent"
                             opacity: networkItem.expanded ? 1 : 0
                             visible: height > 0
@@ -230,8 +240,163 @@ ContentPage {
                                 anchors.margins: 8
                                 spacing: 4
                                 StyledText { text: "BSSID: " + networkItem.modelData.bssid }
-                                StyledText { text: "Fréquence: " + networkItem.modelData.frequency }
-                                StyledText { text: "Sécurité: " + networkItem.modelData.security }
+                                StyledText { text: "Frequence: " + networkItem.modelData.frequency }
+                                StyledText { text: "Security: " + networkItem.modelData.security }
+
+                                RowLayout {
+                                    id: actions
+                                    visible: networkItem.modelData.isKnown
+
+                                    RippleButton {
+                                        id: forgetBtn
+
+                                        colBackgroundHover: "transparent"
+                                        
+                                        contentItem: Rectangle {
+                                            id: discoverBtnBody
+                                            radius: Appearance.rounding.full
+                                            color: Appearance.colors.colLayer0
+                                            implicitWidth: height
+                                            height: 5
+
+                                            MaterialSymbol {
+                                                id: forgetIcon
+
+                                                anchors.centerIn: parent
+                                                text: "delete"
+                                                color: Appearance.colors.colOnLayer0
+                                            }
+
+                                        }
+
+                                        MouseArea {
+                                            id: discoverArea
+                                            anchors.fill: parent
+                                            hoverEnabled: true
+                                            onClicked: Network.forgetNetwork(networkItem.modelData.ssid);
+
+                                            StyledToolTip {
+                                                extraVisibleCondition: discoverArea.containsMouse
+                                                content: "Forget network"
+                                            }
+                                        }
+                                    }
+                                }
+
+                                StyledText { 
+                                    text: "Password:" 
+                                    visible: !networkItem.modelData.isKnown
+                                }
+                                Rectangle {
+                                    id: inputWrapper
+                                    visible: !networkItem.modelData.isKnown
+                                    Layout.fillWidth: true
+                                    radius: Appearance.rounding.small
+                                    color: Appearance.colors.colLayer1
+                                    height: passwdInput.height
+                                    clip: true
+                                    border.color: Appearance.colors.colOutlineVariant
+                                    border.width: 1
+
+                                    RowLayout { // Input field and show button
+                                        id: inputFieldRowLayout
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.topMargin: 5
+                                        spacing: 0
+
+                                        StyledTextInput {
+                                            id: passwdInput
+                                            Layout.fillWidth: true
+                                            padding: 10
+                                            //placeholderText: "Password"
+                                            color: Appearance.colors.colOnLayer1
+                                            echoMode: showButton.toggled ? TextInput.Normal : TextInput.Password
+                                            passwordCharacter: "●"
+                                            passwordMaskDelay: 0
+                                            verticalAlignment: TextInput.AlignVCenter
+
+                                            Text {
+                                                text: "Enter password..."
+                                                color: Appearance.m3colors.m3outline
+                                                font.pixelSize: Appearance?.font.pixelSize.small
+                                                visible: !passwdInput.text && !passwdInput.activeFocus
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                anchors.left: parent.left
+                                                anchors.leftMargin: 10
+                                            }
+
+                                            Keys.onPressed: function (event) {
+                                                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                                    Network.connectToNetwork(networkItem.modelData.ssid, passwdInput.text);
+                                                    networkItem.expanded = false
+                                                }
+                                            }
+                                        }
+
+                                        RippleButton { // Show button
+                                            id: showButton
+                                            Layout.alignment: Qt.AlignTop
+                                            Layout.leftMargin: 5
+                                            implicitHeight: 40
+                                            buttonRadius: Appearance.rounding.small
+                                            toggled: false
+
+                                            colBackground: "transparent"
+                                            colBackgroundHover: "transparent"
+                                            colBackgroundToggled: "transparent"
+                                            colBackgroundToggledHover: "transparent"
+
+                                            MouseArea {
+                                                anchors.fill: parent
+                                                cursorShape: Qt.PointingHandCursor
+                                                onClicked: {
+                                                    showButton.toggled = !showButton.toggled
+                                                }
+                                            }
+
+                                            contentItem: MaterialSymbol {
+                                                anchors.centerIn: parent
+                                                horizontalAlignment: Text.AlignHCenter
+                                                iconSize: Appearance.font.pixelSize.larger
+                                                color: showButton.toggled ? Appearance.colors.colOnLayer2 : Appearance.colors.colOnLayer2Disabled
+                                                text: showButton.toggled ? "visibility" : "visibility_off"
+                                            }
+                                        }
+
+                                        RippleButton { // Connect button
+                                            id: sendButton
+                                            Layout.alignment: Qt.AlignTop
+                                            Layout.rightMargin: 5
+                                            implicitHeight: 40
+                                            buttonRadius: Appearance.rounding.small
+                                            enabled: passwdInput.text.length != 0
+
+                                            colBackground: "transparent"
+                                            colBackgroundHover: "transparent"
+                                            colBackgroundToggled: "transparent"
+                                            colBackgroundToggledHover: "transparent"
+
+                                            MouseArea {
+                                                anchors.fill: parent
+                                                cursorShape: sendButton.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                                onClicked: {
+                                                    Network.connectToNetwork(networkItem.modelData.ssid, passwdInput.text);
+                                                    networkItem.expanded = false
+                                                }
+                                            }
+
+                                            contentItem: MaterialSymbol {
+                                                anchors.centerIn: parent
+                                                horizontalAlignment: Text.AlignHCenter
+                                                iconSize: Appearance.font.pixelSize.larger
+                                                color: sendButton.enabled ? Appearance.colors.colOnLayer2 : Appearance.colors.colOnLayer2Disabled
+                                                text: "lock_open_right"
+                                            }
+                                        }
+
+                                    }
+                                }
                             }
                         }
                     }
