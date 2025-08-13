@@ -2,6 +2,7 @@ pragma Singleton
 
 import qs
 import qs.modules.common
+import qs.services
 import Quickshell
 import Quickshell.Services.UPower
 import QtQuick
@@ -59,23 +60,44 @@ Singleton {
 
 
     onIsLowAndNotChargingChanged: {
-        if (available && isLowAndNotCharging) Quickshell.execDetached([
-            "notify-send",
-            "Low battery",
-            "Consider plugging in your device",
-            "-u", "critical",
-            "-a", "Shell"
-        ])
+        if (available && isLowAndNotCharging) {
+            if (Config.options.battery.sound) {
+                Audio.playSound("assets/sounds/battery/04_warn.wav");
+            }
+            Quickshell.execDetached([
+                "notify-send",
+                "Low battery",
+                "Consider plugging in your device",
+                "-u", "critical",
+                "-a", "Shell"
+            ]);
+        }
     }
 
     onIsCriticalAndNotChargingChanged: {
-        if (available && isCriticalAndNotCharging) Quickshell.execDetached([
-            "notify-send",
-            "Critically low battery",
-            `Please charge!\nAutomatic suspend triggers at ${Config.options.battery.suspend}%`,
-            "-u", "critical",
-            "-a", "Shell"
-        ]);
+        if (available && isCriticalAndNotCharging) {
+            if (Config.options.battery.sound) {
+                Audio.playSound("assets/sounds/battery/05_critical.wav");
+            }
+            Quickshell.execDetached([
+                "notify-send",
+                "Critically low battery",
+                `Please charge!\nAutomatic suspend triggers at ${Config.options.battery.suspend}%`,
+                "-u", "critical",
+                "-a", "Shell"
+            ]);
+        }
+    }
 
+    onIsPluggedInChanged: {
+        if (!available) return;
+
+        if (Config.options.battery.sound) {
+            if (isPluggedIn) {
+                Audio.playSound("assets/sounds/battery/02_plug.wav");
+            } else {
+                Audio.playSound("assets/sounds/battery/02_unplug.wav");
+            }
+        }
     }
 }
