@@ -300,6 +300,7 @@ MouseArea {
         id: mediaControlsContainer
         implicitHeight: 150
         implicitWidth: 450
+        visible: MprisController.activePlayer
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: passwordBoxContainer.top
