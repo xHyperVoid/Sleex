@@ -51,3 +51,4 @@ Sleex is licensed under the GNU General Public License v3.0
 
 ## Special thanks
 - [@end-4](https://github.com/end-4/): Great inspiration | Sleex is based on his work
+- [@xHyperVoid](https://github.com/xHyperVoid): Designer | Made the logo and the wallpapers
