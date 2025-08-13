@@ -429,6 +429,26 @@ MouseArea {
         }
     }
 
+    // Tooltips text
+    StyledText {
+        id: tooltipText
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: mediaControlsContainer.top
+        anchors.bottomMargin: 20
+        visible: !root.showInputField
+        text: qsTr("Enter password to unlock")
+        color: Appearance.colors.colSubtext
+        font.pixelSize: 14
+        opacity: root.showInputField ? 0 : 1
+        
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.OutCubic
+            }
+        }
+    }
+
     // Password entry
     Rectangle {
         id: passwordBoxContainer
