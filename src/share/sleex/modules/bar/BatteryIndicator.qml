@@ -163,7 +163,7 @@ MouseArea {
             exclusiveZone: 0
 
             anchors.top: true
-            anchors.left: true
+            anchors.right: true
 
             implicitWidth: batteryPopup.implicitWidth
             implicitHeight: batteryPopup.implicitHeight
