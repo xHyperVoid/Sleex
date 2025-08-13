@@ -14,11 +14,12 @@ import "./modules/notificationPopup/"
 import "./modules/onScreenDisplay/"
 import "./modules/overview/"
 import "./modules/screenCorners/"
-import "./modules/session/" 
+import "./modules/session/"
 import "./modules/dashboard/"
 import "./modules/sidebarLeft/"
 import "./modules/wallpaperSelector/"
 import "./modules/background/"
+import "./modules/lockscreen/"
 
 import QtQuick
 import QtQuick.Controls
@@ -71,4 +72,3 @@ ShellRoot {
     LazyLoader { active: enableBackground; component: Background {} }
     LazyLoader { active: GlobalStates.screenLocked; component: Lock {}}
 }
-

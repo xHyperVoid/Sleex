@@ -95,18 +95,13 @@ Item {
         PlayerControlBlank {
             anchors.fill: parent
             artDominantColor: Appearance.m3colors.m3secondaryContainer
+            visible: root.meaningfulPlayers.length === 0
         }
         
-        Repeater {
-            model: ScriptModel {
-                values: root.meaningfulPlayers
-            }
-            delegate: PlayerControl {
-                required property MprisPlayer modelData
-                player: modelData
-                visualizerPoints: root.visualizerPoints
-            }
 
+        PlayerControl {
+            player: root.meaningfulPlayers[0]
+            visualizerPoints: root.visualizerPoints
         }
     }
 }
