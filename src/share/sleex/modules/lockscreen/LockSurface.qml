@@ -14,6 +14,8 @@ MouseArea {
     required property LockContext context
     property bool active: false
     property bool showInputField: active || context.currentText.length > 0
+    property bool unlocking: false
+    property bool lastUnlockInProgress: false
 
     function forceFieldFocus() {
         passwordBox.forceActiveFocus();
@@ -21,14 +23,104 @@ MouseArea {
 
     Component.onCompleted: {
         forceFieldFocus();
+        context.animate.connect(() => unlockAnimationSequence.start())
+
     }
 
+    // Monitor unlock progress to detect when unlock starts/ends
+    onLastUnlockInProgressChanged: {
+        if (lastUnlockInProgress && !context.unlockInProgress) {
+            // Unlock just finished - start animation
+            unlocking = true;
+            unlockAnimationSequence.start();
+        }
+    }
+
+    // Watch for unlock progress changes
     Connections {
         target: context
+        function onUnlockInProgressChanged() {
+            console.log("unlockInProgress changed to:", context.unlockInProgress);
+            root.lastUnlockInProgress = context.unlockInProgress;
+        }
+    }
+
+    // Unlock animation sequence
+    SequentialAnimation {
+        id: unlockAnimationSequence
+        
+        ParallelAnimation {
+            // Fade out background
+            NumberAnimation {
+                target: backgroundImage
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 300
+                easing.type: Easing.InCubic
+            }
+            
+            // Slide clock/weather up and out
+            NumberAnimation {
+                target: clockWeather
+                property: "anchors.topMargin"
+                from: 40
+                to: -200
+                duration: 400
+                easing.type: Easing.InCubic
+            }
+            
+            // Slide media controls down and out
+            NumberAnimation {
+                target: mediaControlsContainer
+                property: "anchors.bottomMargin"
+                from: 20
+                to: -200
+                duration: 400
+                easing.type: Easing.InCubic
+            }
+            
+            // Slide password box down and out
+            NumberAnimation {
+                target: passwordBoxContainer
+                property: "anchors.bottomMargin"
+                from: 20
+                to: -100
+                duration: 400
+                easing.type: Easing.InCubic
+            }
+            
+            // Fade out battery indicator
+            NumberAnimation {
+                target: batteryIndicator
+                property: "opacity"
+                from: 1
+                to: 0
+                duration: 300
+                easing.type: Easing.InCubic
+            }
+            
+            // Fade out system controls
+            NumberAnimation {
+                target: systemControls
+                property: "opacity"
+                from: systemControls.opacity
+                to: 0
+                duration: 200
+                easing.type: Easing.InCubic
+            }
+        }
+        
+        // Call the actual unlock after animations complete
+        ScriptAction {
+            script: {
+                root.context.unlocked();
+                root.unlocking = false; // Reset unlocking state
+            }
+        }
     }
 
     Keys.onPressed: (event) => { // Esc to clear
-        // console.log("KEY!!")
         if (event.key === Qt.Key_Escape) {
             root.context.currentText = ""
         }
@@ -39,30 +131,38 @@ MouseArea {
     acceptedButtons: Qt.LeftButton
     onPressed: (mouse) => {
         forceFieldFocus();
-        // console.log("Pressed")
     }
     onPositionChanged: (mouse) => {
         forceFieldFocus();
-        // console.log(JSON.stringify(mouse))
     }
 
     anchors.fill: parent
 
-    // RippleButton {
-    //     anchors {
-    //         top: parent.top
-    //         left: parent.left
-    //         leftMargin: 10
-    //         topMargin: 10
+    // // Test button - remove this after testing
+    // Rectangle {
+    //     anchors.top: parent.top
+    //     anchors.left: parent.left
+    //     anchors.margins: 20
+    //     width: 120
+    //     height: 40
+    //     color: "red"
+    //     radius: 5
+    //     z: 1000
+        
+    //     MouseArea {
+    //         anchors.fill: parent
+    //         onClicked: {
+    //             root.context.unlocked();
+    //         }
     //     }
-    //     implicitHeight: 40
-    //     colBackground: Appearance.colors.colLayer2
-    //     onClicked: context.unlocked()
-    //     contentItem: StyledText {
-    //         text: "Step bro, I'm stuck!"
+        
+    //     Text {
+    //         anchors.centerIn: parent
+    //         text: "Help, I'm stuck!"
+    //         color: "white"
+    //         font.pixelSize: 12
     //     }
     // }
-    
 
     // Background
     Image {
@@ -70,11 +170,13 @@ MouseArea {
         anchors.fill: parent
         source: Config.options.background.wallpaperPath
         fillMode: Image.PreserveAspectCrop
-        z: -1 // Make sure it's behind everything
-        opacity: 0 // Start fully transparent
+        z: -1
+        opacity: 0
 
         Component.onCompleted: {
-            fadeInAnim.start()
+            if (!unlocking) {
+                fadeInAnim.start()
+            }
         }
 
         NumberAnimation {
@@ -100,11 +202,13 @@ MouseArea {
         visible: true
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: -200 // Start off-screen
+        anchors.topMargin: -200
         spacing: 8
 
         Component.onCompleted: {
-            animIn.running = true
+            if (!unlocking) {
+                animIn.running = true
+            }
         }
 
         NumberAnimation {
@@ -116,6 +220,7 @@ MouseArea {
             duration: 600
             easing.type: Easing.OutCubic
         }
+        
         // Clock
         StyledText {
             id: timeText
@@ -163,22 +268,20 @@ MouseArea {
                 verticalAlignment: Text.AlignVCenter
             }
         }
-
-        Behavior on y {
-            NumberAnimation { duration: 600; easing.type: Easing.OutCubic }
-        }
     }
 
     // Battery indicator
     BatteryIndicator {
+        id: batteryIndicator
         Layout.alignment: Qt.AlignTop | Qt.AlignRight
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.margins: 10
         implicitWidth: 75
         implicitHeight: 23
-        borderless: true // Use borderless style
+        borderless: true
         visible: UPower.displayDevice.isLaptopBattery
+        opacity: 1
     }
 
     // Hover trigger area (bottom right corner)
@@ -197,6 +300,7 @@ MouseArea {
             
             // System control buttons (bottom right)
             ColumnLayout {
+                id: systemControls
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 anchors.margins: 32
@@ -295,6 +399,7 @@ MouseArea {
             }
         }
     }
+    
     // Media controls
     MediaControls {
         id: mediaControlsContainer
@@ -304,11 +409,13 @@ MouseArea {
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: passwordBoxContainer.top
-            bottomMargin: -200 // Start off-screen
+            bottomMargin: -200
         }
 
         Component.onCompleted: {
-            mediaAnimIn.running = true
+            if (!unlocking) {
+                mediaAnimIn.running = true
+            }
         }
 
         NumberAnimation {
@@ -356,13 +463,17 @@ MouseArea {
             }
 
             // Password
-            enabled: !root.context.unlockInProgress
+            enabled: !root.context.unlockInProgress && !unlocking
             echoMode: TextInput.Password
             inputMethodHints: Qt.ImhSensitiveData
 
             // Synchronizing (across monitors) and unlocking
             onTextChanged: root.context.currentText = this.text
-            onAccepted: root.context.tryUnlock()
+            onAccepted: {
+                if (!unlocking) {
+                    root.context.tryUnlock();
+                }
+            }
             Connections {
                 target: root.context
                 function onCurrentTextChanged() {
@@ -371,29 +482,4 @@ MouseArea {
             }
         }
     }
-
-    // RippleButton {
-    //     anchors {
-    //         verticalCenter: passwordBoxContainer.verticalCenter
-    //         left: passwordBoxContainer.right
-    //         leftMargin: 5
-    //     }
-
-    //     visible: opacity > 0
-    //     implicitHeight: passwordBoxContainer.implicitHeight - 12
-    //     implicitWidth: implicitHeight
-    //     toggled: true
-    //     buttonRadius: passwordBoxContainer.radius
-    //     colBackground: Appearance.colors.colLayer2
-    //     onClicked: root.context.tryUnlock()
-
-    //     contentItem: MaterialSymbol {
-    //         anchors.centerIn: parent
-    //         horizontalAlignment: Text.AlignHCenter
-    //         verticalAlignment: Text.AlignVCenter
-    //         iconSize: 24
-    //         text: "arrow_right_alt"
-    //         color: Appearance.colors.colOnPrimary
-    //     }
-    // }
 }

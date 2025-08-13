@@ -8,6 +8,7 @@ Scope {
     signal shouldReFocus()
     signal unlocked()
     signal failed()
+    signal animate()
 
     // These properties are in the context and not individual lock surfaces
     // so all surfaces can share the same state.
@@ -58,7 +59,7 @@ Scope {
         // pam_unix won't send any important messages so all we need is the completion status.
         onCompleted: result => {
             if (result == PamResult.Success) {
-                root.unlocked();
+                root.animate()
             } else {
                 root.showFailure = true;
                 GlobalStates.screenUnlockFailed = true;
