@@ -48,20 +48,20 @@ MouseArea {
 
     anchors.fill: parent
 
-    RippleButton {
-        anchors {
-            top: parent.top
-            left: parent.left
-            leftMargin: 10
-            topMargin: 10
-        }
-        implicitHeight: 40
-        colBackground: Appearance.colors.colLayer2
-        onClicked: context.unlocked()
-        contentItem: StyledText {
-            text: "Step bro, I'm stuck!"
-        }
-    }
+    // RippleButton {
+    //     anchors {
+    //         top: parent.top
+    //         left: parent.left
+    //         leftMargin: 10
+    //         topMargin: 10
+    //     }
+    //     implicitHeight: 40
+    //     colBackground: Appearance.colors.colLayer2
+    //     onClicked: context.unlocked()
+    //     contentItem: StyledText {
+    //         text: "Step bro, I'm stuck!"
+    //     }
+    // }
     
 
     // Background
