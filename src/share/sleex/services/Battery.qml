@@ -60,9 +60,9 @@ Singleton {
 
     onIsLowAndNotChargingChanged: {
         if (available && isLowAndNotCharging) Quickshell.execDetached([
-            "notify-send", 
-            Translation.tr("Low battery"), 
-            Translation.tr("Consider plugging in your device"), 
+            "notify-send",
+            "Low battery",
+            "Consider plugging in your device",
             "-u", "critical",
             "-a", "Shell"
         ])
@@ -70,12 +70,12 @@ Singleton {
 
     onIsCriticalAndNotChargingChanged: {
         if (available && isCriticalAndNotCharging) Quickshell.execDetached([
-            "notify-send", 
-            Translation.tr("Critically low battery"), 
-            Translation.tr("Please charge!\nAutomatic suspend triggers at %1").arg(Config.options.battery.suspend), 
+            "notify-send",
+            "Critically low battery",
+            `Please charge!\nAutomatic suspend triggers at ${Config.options.battery.suspend}%`,
             "-u", "critical",
             "-a", "Shell"
         ]);
-            
+
     }
 }
